@@ -36,4 +36,10 @@ export class GoogleAuthService extends PassportStrategy(Strategy, 'google') {
             user: req.user
         }
     }
+    googleLogout(req) {
+        if (!req.user) {
+            return 'No user logged in'
+        }
+        return req.logout()
+    }
 }

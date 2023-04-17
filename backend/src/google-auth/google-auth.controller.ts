@@ -16,4 +16,10 @@ export class GoogleAuthController {
         return this.googlAuthService.googleLogin(req)
     }
 
+    @Get('auth/google/logout')
+    @UseGuards(AuthGuard('google'))
+    googleLogout(@Req() req) {
+        return this.googlAuthService.googleLogout(req)
+    }
+
 }
