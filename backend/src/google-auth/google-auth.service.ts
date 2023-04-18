@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { VerifyCallback, Strategy } from 'passport-google-oauth20'
+import { PassportSerializer } from '@nestjs/passport';
+
 
 @Injectable()
 export class GoogleAuthService extends PassportStrategy(Strategy, 'google') {
@@ -9,24 +11,24 @@ export class GoogleAuthService extends PassportStrategy(Strategy, 'google') {
             clientID: process.env['CLIENT_ID'],
             clientSecret: process.env['CLIENT_SECRET'],
             callbackURL: 'http://localhost:3000/google-auth/auth/google/callback',
-            scope: ['email', 'profile', 'openid', 'https://www.googleapis.com/auth/contacts']
+            scope: ['email', 'profile'],
+            prompt: 'select_account'
         })
     }
-    async validate(accessToken: string, refereshToken: string, profile: any, done: VerifyCallback, openid: any): Promise<any> {
-        console.log(profile)
-        console.log(openid)
+    async validate(accessToken: string, refereshToken: string, profile: any, done: VerifyCallback): Promise<any> {
+        // console.log(profile)
+        // console.log(openid)
         const { name, emails } = profile
         const user = {
             email: emails[0].value,
             firstName: name.givenName,
             lastName: name.familyName,
             accessToken,
-            refereshToken,
-            openid
         }
+        console.log(user)
         done(null, user)
-    }
 
+    }
     googleLogin(req) {
         if (!req.user) {
             return 'No user with registered email found'
@@ -36,10 +38,8 @@ export class GoogleAuthService extends PassportStrategy(Strategy, 'google') {
             user: req.user
         }
     }
-    googleLogout(req) {
-        if (!req.user) {
-            return 'No user logged in'
-        }
+    async googleLogout(req) {
+        // await this.client.revokeToken(token);
         return req.logout()
     }
 }
