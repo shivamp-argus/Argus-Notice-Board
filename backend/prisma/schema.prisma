@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  emp_id    Int      @id @default(autoincrement())
+  emp_name  String
+  emp_email String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role      Role     @default(Employee)
+
+  Notices Notices[]
+
+  Employee_Group Employee_Group[]
+  // Employee_Notices Employee_Notices[]
+}
+
+model Notices {
+  notice_id   Int      @id @default(autoincrement())
+  notice_body String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  issuer_id Int
+  issuer    Employee @relation(fields: [issuer_id], references: [emp_id])
+
+  category_id Int
+  category    Category @relation(fields: [category_id], references: [category_id])
+
+  // Employee_Notices Employee_Notices[]
+  Notices_Group Notices_Group[]
+
+  @@unique([notice_id, issuer_id])
+}
+
+model Category {
+  category_id Int       @id @default(autoincrement())
+  category    String    @unique
+  notices     Notices[]
+}
+
+model Group {
+  group_id       Int              @id @default(autoincrement())
+  group_name     String           @unique
+  Employee_Group Employee_Group[]
+  Notices_Group  Notices_Group[]
+}
+
+model Employee_Group {
+  // emp_grp_id Int @id @default(autoincrement())
+  emp_id   Int
+  group_id Int
+
+  Employee Employee @relation(fields: [emp_id], references: [emp_id])
+  Group    Group    @relation(fields: [group_id], references: [group_id])
+
+  @@unique([emp_id, group_id])
+}
+
+// model Employee_Notices {
+//   emp_notice_id Int @id @default(autoincrement())
+//   emp_id        Int
+//   notice_id     Int
+
+//   Employee Employee @relation(fields: [emp_id], references: [emp_id])
+//   Notices  Notices  @relation(fields: [notice_id], references: [notice_id])
+// }
+
+model Notices_Group {
+  notice_id Int
+  group_id  Int
+
+  Notices Notices @relation(fields: [notice_id], references: [notice_id])
+  Group   Group   @relation(fields: [group_id], references: [group_id])
+
+  @@unique([notice_id, group_id])
+}
+
+enum Role {
+  Employee
+  HR
+  VP
+  CEO
+}
