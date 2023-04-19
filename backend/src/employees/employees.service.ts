@@ -1,31 +1,48 @@
-import { Injectable } from '@nestjs/common';
-import { CreateEmployeeDto } from './dto/create-employee.dto';
-import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { ConflictException, Injectable } from '@nestjs/common';
+const bcrypt = require('bcrypt')
+import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos/create-employee.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class EmployeesService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) { }
 
-  create(createEmployeeDto: CreateEmployeeDto) {
-    console.log(createEmployeeDto)
-    return this.prisma.employee.create({ data: createEmployeeDto });
+  async create(createEmployeeDto: CreateEmployeeDto) {
+    const { emp_email, password } = createEmployeeDto
+    const user = await this.prisma.employee.findFirst({ where: { emp_email } })
+    if (user) {
+      throw new ConflictException("User already exists")
+    }
+    const hashedPassword = await bcrypt.hash(password, 10)
+    return this.prisma.employee.create({
+      data: { ...createEmployeeDto, password: hashedPassword }
+    });
 
   }
 
-  findAll() {
-    return `This action returns all employees`;
+  async findAll() {
+    const users = await this.prisma.employee.findMany();
+    if (users.length <= 0) {
+      return "No users found"
+    }
+    return users
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} employee`;
+  async findOne(id: string) {
+    const user = await this.prisma.employee.findFirst({ where: { id } });
+    if (!user) {
+      throw new ConflictException("User not found")
+    }
+    return user
   }
 
-  update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
-    return `This action updates a #${id} employee`;
+  async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
+    await this.findOne(id)
+    return this.prisma.employee.update({ where: { id }, data: updateEmployeeDto });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} employee`;
+  async remove(id: string) {
+    await this.findOne(id)
+    return this.prisma.employee.delete({ where: { id } });
   }
-}
+} 

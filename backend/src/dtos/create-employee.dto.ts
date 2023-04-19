@@ -1,8 +1,9 @@
+import { PartialType } from '@nestjs/mapped-types';
 import { IsEmail, IsString, IsStrongPassword } from "class-validator";
 
+import { Role } from "@prisma/client";
+
 export class CreateEmployeeDto {
-    // @IsString()
-    // emp_id: string
 
     @IsString()
     emp_name: string
@@ -15,7 +16,12 @@ export class CreateEmployeeDto {
     password: string
 
     @IsString()
-    role: string
+    role: Role
 
 
 }
+
+
+
+export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) { }
+

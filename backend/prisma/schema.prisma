@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Employee {
-  emp_id    Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   emp_name  String
   emp_email String   @unique
   password  String
@@ -22,35 +22,33 @@ model Employee {
   Notices Notices[]
 
   Employee_Group Employee_Group[]
-  // Employee_Notices Employee_Notices[]
 }
 
 model Notices {
-  notice_id   Int      @id @default(autoincrement())
+  id          String   @id @default(uuid())
   notice_body String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  issuer_id Int
-  issuer    Employee @relation(fields: [issuer_id], references: [emp_id])
+  issuer_id String
+  Employee  Employee @relation(fields: [issuer_id], references: [id], onDelete: Cascade)
 
-  category_id Int
-  category    Category @relation(fields: [category_id], references: [category_id])
+  category_id String
+  category    Category @relation(fields: [category_id], references: [id], onDelete: Cascade)
 
-  // Employee_Notices Employee_Notices[]
   Notices_Group Notices_Group[]
 
-  @@unique([notice_id, issuer_id])
+  @@unique([id, issuer_id])
 }
 
 model Category {
-  category_id Int       @id @default(autoincrement())
-  category    String    @unique
-  notices     Notices[]
+  id       String    @id @default(uuid())
+  category String    @unique
+  notices  Notices[]
 }
 
 model Group {
-  group_id       Int              @id @default(autoincrement())
+  id             String           @id @default(uuid())
   group_name     String           @unique
   Employee_Group Employee_Group[]
   Notices_Group  Notices_Group[]
@@ -58,11 +56,11 @@ model Group {
 
 model Employee_Group {
   // emp_grp_id Int @id @default(autoincrement())
-  emp_id   Int
-  group_id Int
+  emp_id   String
+  group_id String
 
-  Employee Employee @relation(fields: [emp_id], references: [emp_id])
-  Group    Group    @relation(fields: [group_id], references: [group_id])
+  Employee Employee @relation(fields: [emp_id], references: [id], onDelete: Cascade)
+  Group    Group    @relation(fields: [group_id], references: [id], onDelete: Cascade)
 
   @@unique([emp_id, group_id])
 }
@@ -77,11 +75,11 @@ model Employee_Group {
 // }
 
 model Notices_Group {
-  notice_id Int
-  group_id  Int
+  notice_id String
+  group_id  String
 
-  Notices Notices @relation(fields: [notice_id], references: [notice_id])
-  Group   Group   @relation(fields: [group_id], references: [group_id])
+  Notices Notices @relation(fields: [notice_id], references: [id], onDelete: Cascade)
+  Group   Group   @relation(fields: [group_id], references: [id], onDelete: Cascade)
 
   @@unique([notice_id, group_id])
 }

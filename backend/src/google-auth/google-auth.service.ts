@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Req } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { VerifyCallback, Strategy } from 'passport-google-oauth20'
-import { PassportSerializer } from '@nestjs/passport';
+
 
 
 @Injectable()
@@ -30,16 +30,23 @@ export class GoogleAuthService extends PassportStrategy(Strategy, 'google') {
 
     }
     googleLogin(req) {
+
         if (!req.user) {
             return 'No user with registered email found'
         }
+        // const { accessToken } = req.user
+        // console.log(req)
+        // const session = req.session
+        // session.accessToken = accessToken
+
         return {
             message: 'User info from google',
             user: req.user
         }
     }
     async googleLogout(req) {
-        // await this.client.revokeToken(token);
-        return req.logout()
+        console.log(req)
+        await req.logout()
     }
+
 }
