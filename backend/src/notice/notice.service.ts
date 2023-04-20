@@ -6,15 +6,19 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class NoticeService {
   constructor(private readonly prisma: PrismaService) { }
-  create(createNoticeDto: CreateNoticeDto, id: string) {
-    return this.prisma.notices.create({
-      data: {
-        ...createNoticeDto,
-        issuer_id: id,
-        // issuer: { connect: { id: id } },
-        // category:{connect:{}}
-      }
-    });
+  create(createNoticeDto: CreateNoticeDto, issuerId: string, category_id: string) {
+    console.log(createNoticeDto)
+    // return this.prisma.notices.create({
+    //   data: {
+    //     ...createNoticeDto,
+    //     issuer_id: issuerId,
+    //     Employee: { connect: { id: issuerId } },
+    //     category_id: category_id,
+    //     category: { connect: { id: category_id } }
+    //   },
+
+    // });
+    return 'hii'
   }
 
   findAll() {

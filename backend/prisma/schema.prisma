@@ -19,12 +19,12 @@ model Employee {
   updatedAt DateTime @updatedAt
   role      Role     @default(Employee)
 
-  Notices Notices[]
+  Notice Notice[]
 
-  Employee_Group Employee_Group[]
+  Employee_Group Employee_Team[]
 }
 
-model Notices {
+model Notice {
   id          String   @id @default(uuid())
   notice_body String
   createdAt   DateTime @default(now())
@@ -36,31 +36,31 @@ model Notices {
   category_id String
   category    Category @relation(fields: [category_id], references: [id], onDelete: Cascade)
 
-  Notices_Group Notices_Group[]
+  Notice_Team Notice_Team[]
 
   @@unique([id, issuer_id])
 }
 
 model Category {
-  id       String    @id @default(uuid())
-  category String    @unique
-  notices  Notices[]
+  id       String   @id @default(uuid())
+  category String   @unique
+  notice   Notice[]
 }
 
-model Group {
-  id             String           @id @default(uuid())
-  group_name     String           @unique
-  Employee_Group Employee_Group[]
-  Notices_Group  Notices_Group[]
+model Team {
+  id            String          @id @default(uuid())
+  group_name    String          @unique
+  Employee_Team Employee_Team[]
+  Notice_Team   Notice_Team[]
 }
 
-model Employee_Group {
+model Employee_Team {
   // emp_grp_id Int @id @default(autoincrement())
   emp_id   String
   group_id String
 
   Employee Employee @relation(fields: [emp_id], references: [id], onDelete: Cascade)
-  Group    Group    @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  Team     Team     @relation(fields: [group_id], references: [id], onDelete: Cascade)
 
   @@unique([emp_id, group_id])
 }
@@ -74,12 +74,12 @@ model Employee_Group {
 //   Notices  Notices  @relation(fields: [notice_id], references: [notice_id])
 // }
 
-model Notices_Group {
+model Notice_Team {
   notice_id String
   group_id  String
 
-  Notices Notices @relation(fields: [notice_id], references: [id], onDelete: Cascade)
-  Group   Group   @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  Notice Notice @relation(fields: [notice_id], references: [id], onDelete: Cascade)
+  Team   Team   @relation(fields: [group_id], references: [id], onDelete: Cascade)
 
   @@unique([notice_id, group_id])
 }

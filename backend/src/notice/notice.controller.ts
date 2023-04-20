@@ -9,7 +9,8 @@ export class NoticeController {
 
   @Post(':id')
   create(@Body() createNoticeDto: CreateNoticeDto, @Param() id: string) {
-    return this.noticeService.create(createNoticeDto, id);
+    const category_id = "1ccdc197-bd6c-43d7-9926-900c651ce7e8"
+    return this.noticeService.create(createNoticeDto, id, category_id);
   }
 
   @Get()

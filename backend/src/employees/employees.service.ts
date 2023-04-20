@@ -2,6 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 const bcrypt = require('bcrypt')
 import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos/create-employee.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateGroupDto } from 'src/dtos/group.dto';
 
 @Injectable()
 export class EmployeesService {
@@ -13,7 +14,7 @@ export class EmployeesService {
     if (user) {
       throw new ConflictException("User already exists")
     }
-    const hashedPassword = await bcrypt.hash(password, 10)
+    const hashedPassword: string = await bcrypt.hash(password, 10)
     return this.prisma.employee.create({
       data: { ...createEmployeeDto, password: hashedPassword }
     });
@@ -44,5 +45,19 @@ export class EmployeesService {
   async remove(id: string) {
     await this.findOne(id)
     return this.prisma.employee.delete({ where: { id } });
+  }
+
+  createGroup(createGroupDto: CreateGroupDto) {
+    return this.prisma.team.create({ data: createGroupDto })
+  }
+
+  async findAllGroup() {
+    console.log("hii");
+    const groups = await this.prisma.team.findMany()
+    console.log(groups)
+    if (groups.length <= 0) {
+      throw new ConflictException('No groups found')
+    }
+    return groups
   }
 } 

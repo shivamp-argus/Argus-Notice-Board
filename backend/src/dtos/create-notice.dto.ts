@@ -7,15 +7,15 @@ export class CreateNoticeDto {
     @IsString()
     notice_body: string
 
-    @IsString()
-    issuer_id: string
+    // @IsString()
+    // issuer_id: string
 
-    @IsString()
-    category_id: string
+    // @IsString()
+    // category_id: string
 
-    issuer: EmployeeDto
+    // issuer: EmployeeDto
 
-    category: CategoryDto
+    // category: CategoryDto
 }
 export class UpdateNoticeDto extends PartialType(CreateNoticeDto) {
     // @IsString()

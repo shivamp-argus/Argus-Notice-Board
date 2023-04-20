@@ -13,6 +13,7 @@ import { CategoriesController } from './notice/categories/categories.controller'
 import { CategoriesService } from './notice/categories/categories.service';
 
 
+
 @Module({
   imports: [ConfigModule.forRoot(), NoticeModule, EmployeesModule],
   controllers: [AppController, GoogleAuthController, CategoriesController],
