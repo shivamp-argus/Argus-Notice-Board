@@ -47,17 +47,5 @@ export class EmployeesService {
     return this.prisma.employee.delete({ where: { id } });
   }
 
-  createGroup(createGroupDto: CreateGroupDto) {
-    return this.prisma.team.create({ data: createGroupDto })
-  }
 
-  async findAllGroup() {
-    console.log("hii");
-    const groups = await this.prisma.team.findMany()
-    console.log(groups)
-    if (groups.length <= 0) {
-      throw new ConflictException('No groups found')
-    }
-    return groups
-  }
 } 

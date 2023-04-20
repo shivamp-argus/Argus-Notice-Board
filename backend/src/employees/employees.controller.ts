@@ -3,7 +3,8 @@ import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos/create-employee.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { EmployeeDto } from '../dtos/employee.dto';
-import { CreateGroupDto } from 'src/dtos/group.dto';
+
+
 
 
 
@@ -25,7 +26,8 @@ export class EmployeesController {
 
 
 
-  @Get(':id')
+
+  @Get('/:id')
   @Serialize(EmployeeDto)
   findOne(@Param('id') id: string) {
     return this.employeesService.findOne(id);
@@ -43,12 +45,7 @@ export class EmployeesController {
     return this.employeesService.remove(id);
   }
 
-  @Post('group')
-  createGroup(@Body() body: CreateGroupDto) {
-    return this.employeesService.createGroup(body)
-  }
+
 
 
 }
-
-

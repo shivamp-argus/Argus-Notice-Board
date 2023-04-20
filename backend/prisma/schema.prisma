@@ -21,7 +21,7 @@ model Employee {
 
   Notice Notice[]
 
-  Employee_Group Employee_Team[]
+  Employee_Team Employee_Team[]
 }
 
 model Notice {
@@ -75,6 +75,7 @@ model Employee_Team {
 // }
 
 model Notice_Team {
+  id        String @id @default(uuid())
   notice_id String
   group_id  String
 
