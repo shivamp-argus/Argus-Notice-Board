@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { NoticeService } from './notice.service';
-import { CreateNoticeDto, UpdateNoticeDto } from '../dtos/create-notice.dto';
+import { CreateNoticeDto, NoticeResponseDto, UpdateNoticeDto } from '../dtos/notice.dto';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
 
 
 @Controller('notice')
@@ -8,9 +9,9 @@ export class NoticeController {
   constructor(private readonly noticeService: NoticeService) { }
 
   @Post(':id')
-  create(@Body() createNoticeDto: CreateNoticeDto, @Param() id: string) {
-    const category_id = "1ccdc197-bd6c-43d7-9926-900c651ce7e8"
-    return this.noticeService.create(createNoticeDto, id, category_id);
+  @Serialize(NoticeResponseDto)
+  create(@Body() createNoticeDto: CreateNoticeDto, @Param() id: { id: string }) {
+    return this.noticeService.create(createNoticeDto, id);
   }
 
   @Get()

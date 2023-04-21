@@ -29,6 +29,7 @@ model Notice {
   notice_body String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  published   Boolean  @default(false)
 
   issuer_id String
   Employee  Employee @relation(fields: [issuer_id], references: [id], onDelete: Cascade)
@@ -49,20 +50,20 @@ model Category {
 
 model Team {
   id            String          @id @default(uuid())
-  group_name    String          @unique
+  team_name     String          @unique
   Employee_Team Employee_Team[]
   Notice_Team   Notice_Team[]
 }
 
 model Employee_Team {
   // emp_grp_id Int @id @default(autoincrement())
-  emp_id   String
-  group_id String
+  emp_id  String
+  team_id String
 
   Employee Employee @relation(fields: [emp_id], references: [id], onDelete: Cascade)
-  Team     Team     @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  Team     Team     @relation(fields: [team_id], references: [id], onDelete: Cascade)
 
-  @@unique([emp_id, group_id])
+  @@unique([emp_id, team_id])
 }
 
 // model Employee_Notices {
@@ -77,12 +78,12 @@ model Employee_Team {
 model Notice_Team {
   id        String @id @default(uuid())
   notice_id String
-  group_id  String
+  team_id   String
 
   Notice Notice @relation(fields: [notice_id], references: [id], onDelete: Cascade)
-  Team   Team   @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  Team   Team   @relation(fields: [team_id], references: [id], onDelete: Cascade)
 
-  @@unique([notice_id, group_id])
+  @@unique([notice_id, team_id])
 }
 
 enum Role {

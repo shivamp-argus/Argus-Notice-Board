@@ -13,12 +13,11 @@ import { CategoriesController } from './notice/categories/categories.controller'
 import { CategoriesService } from './notice/categories/categories.service';
 import { TeamModule } from './team/team.module';
 import { PrismaModule } from './prisma/prisma.module';
-
-
+import { EmpTeamModule } from './employees/emp-team/emp-team.module';
 
 
 @Module({
-  imports: [ConfigModule.forRoot(), NoticeModule, EmployeesModule, TeamModule, PrismaModule],
+  imports: [ConfigModule.forRoot(), NoticeModule, EmployeesModule, TeamModule, PrismaModule, EmpTeamModule],
   controllers: [AppController, GoogleAuthController, CategoriesController],
   providers: [AppService, GoogleAuthService, CategoriesService],
 })

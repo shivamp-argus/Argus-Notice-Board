@@ -1,30 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { CreateNoticeDto, UpdateNoticeDto } from '../dtos/create-notice.dto';
+import { CreateNoticeDto, UpdateNoticeDto } from '../dtos/notice.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 
 @Injectable()
 export class NoticeService {
   constructor(private readonly prisma: PrismaService) { }
-  create(createNoticeDto: CreateNoticeDto, issuerId: string, category_id: string) {
-    console.log(createNoticeDto)
-    const team_id = "c44ca564-39e2-4d01-aaaa-86595839efcc"
+
+  async create(createNoticeDto: CreateNoticeDto, issuerId: { id: string }) {
+    const { notice_body, category } = createNoticeDto
+    const { id } = await this.prisma.category.findUniqueOrThrow({ where: { category } })
     return this.prisma.notice.create({
       data: {
-        ...createNoticeDto,
-        issuer_id: issuerId,
-        Employee: { connect: { id: issuerId } },
-        category_id: category_id,
-        category: { connect: { id: category_id } },
-        Notice_Team: { connect: { id: team_id } }
+        notice_body,
+        issuer_id: issuerId.id,
+        category_id: id,
       },
 
     });
-    // return 'hii'
   }
 
   findAll() {
-    return `This action returns all notice`;
+    return this.prisma.notice.findMany();
   }
 
   findOne(id: string) {

@@ -1,8 +1,8 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 const bcrypt = require('bcrypt')
-import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos/create-employee.dto';
+import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos/employee.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateGroupDto } from 'src/dtos/group.dto';
+
 
 @Injectable()
 export class EmployeesService {
