@@ -25,15 +25,14 @@ export class EmpTeamService {
         return this.prisma.employee_Team.findMany({ where: { OR: [{ team_id: id }, { emp_id: id }] } })
     }
 
-    async deleteById(id: string, emp_id?: string) {
-        const team = await this.prisma.team.findUnique({ where: { id } })
-        const employee = await this.prisma.employee.findUnique({ where: { id: emp_id } })
+    async deleteById(id: string) {
 
-        // const emp_team = await
-        if (!team && !employee) {
-            throw new NotFoundException("Id not found")
+        const empTeam = await this.prisma.employee_Team.findUnique({ where: { id } })
+        if (!empTeam) {
+            throw new NotFoundException("Employee not found in team")
         }
-        return this.prisma.employee_Team.deleteMany({ where: { OR: [{ team_id: id }, { team_id: id, emp_id }] } })
+        // return this.prisma.employee_Team.deleteMany({ where: { OR: [{ team_id: id }, { team_id: id, emp_id }] } })
+        return this.prisma.employee_Team.delete({ where: { id } })
     }
 
 }

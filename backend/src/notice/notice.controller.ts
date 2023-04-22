@@ -5,11 +5,11 @@ import { Serialize } from 'src/interceptors/serialize.interceptor';
 
 
 @Controller('notice')
+@Serialize(NoticeResponseDto)
 export class NoticeController {
   constructor(private readonly noticeService: NoticeService) { }
 
   @Post(':id')
-  @Serialize(NoticeResponseDto)
   create(@Body() createNoticeDto: CreateNoticeDto, @Param() id: { id: string }) {
     return this.noticeService.create(createNoticeDto, id);
   }

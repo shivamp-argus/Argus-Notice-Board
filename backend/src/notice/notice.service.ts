@@ -25,11 +25,13 @@ export class NoticeService {
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} notice`;
+    return this.prisma.notice.findUnique({ where: { id } });
   }
 
   update(id: string, updateNoticeDto: UpdateNoticeDto) {
-    return `This action updates a #${id} notice`;
+    console.log(id, updateNoticeDto)
+    // return this.prisma.notice.update({where:{id},data:updateNoticeDto});
+    return 'hii'
   }
 
   remove(id: string) {

@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { waitForDebugger } from 'inspector';
 
 import { CreateTeamDto } from 'src/dtos/team.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -16,5 +17,13 @@ export class TeamService {
             throw new NotFoundException("Team not found")
         }
         return teams
+    }
+
+    async deleteTeam(id: string) {
+        const team = await this.prisma.team.findUnique({ where: { id } })
+        if (!team) {
+            throw new NotFoundException('Team not found')
+        }
+        return this.prisma.team.delete({ where: { id } })
     }
 }

@@ -56,7 +56,7 @@ model Team {
 }
 
 model Employee_Team {
-  // emp_grp_id Int @id @default(autoincrement())
+  id      String @id @default(uuid())
   emp_id  String
   team_id String
 

@@ -23,8 +23,9 @@ export class EmpTeamController {
     }
 
     @Delete(':id')
-    deleteById(@Param('id') id: string, @Query('empId') empId: string) {
-        return this.empTeamService.deleteById(id, empId)
+    deleteById(@Param('id') id: string) {
+        return this.empTeamService.deleteById(id)
     }
+
 
 }

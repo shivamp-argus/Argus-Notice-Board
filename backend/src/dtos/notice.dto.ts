@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { Expose } from 'class-transformer';
-import { IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 
 
 
@@ -14,11 +14,15 @@ export class CreateNoticeDto {
     @IsString()
     category: string
 
+
+
     // issuer: EmployeeDto
 
     // category: CategoryDto
 }
 export class UpdateNoticeDto extends PartialType(CreateNoticeDto) {
+    issuer_id?: string
+    category?: string;
 
 }
 

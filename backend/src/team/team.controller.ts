@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CreateTeamDto } from 'src/dtos/team.dto';
 import { TeamService } from './team.service';
 
@@ -7,12 +7,17 @@ export class TeamController {
     constructor(private readonly teamService: TeamService) { }
 
     @Post()
-    createGroup(@Body() body: CreateTeamDto) {
+    createTeam(@Body() body: CreateTeamDto) {
         return this.teamService.createTeam(body)
     }
 
     @Get()
-    findAllGroup() {
+    findAllTeam() {
         return this.teamService.findAllTeam()
+    }
+
+    @Delete(':id')
+    deleteTeam(@Param('id') id: string) {
+        return this.teamService.deleteTeam(id)
     }
 }
