@@ -29,12 +29,11 @@ export class NoticeService {
   }
 
   update(id: string, updateNoticeDto: UpdateNoticeDto) {
-    console.log(id, updateNoticeDto)
-    // return this.prisma.notice.update({where:{id},data:updateNoticeDto});
-    return 'hii'
+    return this.prisma.notice.update({ where: { id }, data: { ...UpdateNoticeDto, published: false } });
+
   }
 
   remove(id: string) {
-    return `This action removes a #${id} notice`;
+    return this.prisma.notice.delete({ where: { id } });
   }
 }

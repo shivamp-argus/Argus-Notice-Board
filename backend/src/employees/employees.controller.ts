@@ -33,8 +33,4 @@ export class EmployeesController {
   remove(@Param('id') id: string) {
     return this.employeesService.remove(id);
   }
-
-
-
-
 }

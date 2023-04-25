@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 const bcrypt = require('bcrypt')
 import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos/employee.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -32,7 +32,7 @@ export class EmployeesService {
   async findOne(id: string) {
     const user = await this.prisma.employee.findFirst({ where: { id } });
     if (!user) {
-      throw new ConflictException("User not found")
+      throw new NotFoundException("User not found")
     }
     return user
   }
