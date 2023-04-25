@@ -38,6 +38,11 @@ export class EmployeeResponseDto {
 
     @Expose()
     role: Role
+
+    constructor(user: EmployeeResponseDto) {
+        Object.assign(this, user);
+    }
+
 }
 
 export class CreateEmpTeamDto {

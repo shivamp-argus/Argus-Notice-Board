@@ -87,6 +87,7 @@ model Notice_Team {
 }
 
 enum Role {
+  SUPERADMIN
   Employee
   HR
   VP

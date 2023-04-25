@@ -5,6 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { EmpTeamController } from './emp-team/emp-team.controller';
 import { EmpTeamService } from './emp-team/emp-team.service';
 import { EmpTeamModule } from './emp-team/emp-team.module';
+import { AuthModule } from './auth/auth.module';
 
 
 
@@ -12,6 +13,6 @@ import { EmpTeamModule } from './emp-team/emp-team.module';
 @Module({
   controllers: [EmployeesController, EmpTeamController],
   providers: [EmployeesService, EmpTeamService],
-  imports: [EmpTeamModule],
+  imports: [EmpTeamModule, AuthModule],
 })
 export class EmployeesModule { }

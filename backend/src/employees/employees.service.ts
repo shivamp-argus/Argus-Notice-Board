@@ -8,18 +8,18 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class EmployeesService {
   constructor(private readonly prisma: PrismaService) { }
 
-  async create(createEmployeeDto: CreateEmployeeDto) {
-    const { emp_email, password } = createEmployeeDto
-    const user = await this.prisma.employee.findFirst({ where: { emp_email } })
-    if (user) {
-      throw new ConflictException("User already exists")
-    }
-    const hashedPassword: string = await bcrypt.hash(password, 10)
-    return this.prisma.employee.create({
-      data: { ...createEmployeeDto, password: hashedPassword }
-    });
+  // async create(createEmployeeDto: CreateEmployeeDto) {
+  //   const { emp_email, password } = createEmployeeDto
+  //   const user = await this.prisma.employee.findFirst({ where: { emp_email } })
+  //   if (user) {
+  //     throw new ConflictException("User already exists")
+  //   }
+  //   const hashedPassword: string = await bcrypt.hash(password, 10)
+  //   return this.prisma.employee.create({
+  //     data: { ...createEmployeeDto, password: hashedPassword }
+  //   });
 
-  }
+  // }
 
   async findAll() {
     const users = await this.prisma.employee.findMany();

@@ -9,10 +9,10 @@ import { Serialize } from 'src/interceptors/serialize.interceptor';
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) { }
 
-  @Post()
-  create(@Body() createEmployeeDto: CreateEmployeeDto) {
-    return this.employeesService.create(createEmployeeDto);
-  }
+  // @Post()
+  // create(@Body() createEmployeeDto: CreateEmployeeDto) {
+  //   return this.employeesService.create(createEmployeeDto);
+  // }
 
   @Get()
   findAll() {
