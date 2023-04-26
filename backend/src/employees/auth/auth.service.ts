@@ -1,8 +1,8 @@
-import { ConflictException, Injectable, NotAcceptableException } from '@nestjs/common';
+import { ConflictException, Injectable, NotAcceptableException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { Role } from '@prisma/client';
-import { AuthResponseDto, JWTPayload, RegisterSuperAdmin } from 'src/dtos/auth.dto';
+import { AuthResponseDto, JWTPayload, LoginRequestDto, RegisterSuperAdmin } from 'src/dtos/auth.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateEmployeeDto, EmployeeResponseDto } from 'src/dtos/employee.dto';
 
@@ -46,6 +46,22 @@ export class AuthService {
       employee: new EmployeeResponseDto(employee),
       token: this.generateAuthToken({ id: employee.id })
     })
+  }
+
+  async login(loginRequestDto: LoginRequestDto) {
+
+    let employee = await this.prisma.employee.findUnique({ where: { emp_email: loginRequestDto.email } })
+    if (!employee) throw new NotFoundException('Employee Not Found')
+
+    let validUser = await bcrypt.compare(loginRequestDto.password, employee.password)
+    if (!validUser) throw new UnauthorizedException('Password is not valid')
+
+    return new AuthResponseDto({
+      employee: new EmployeeResponseDto(employee),
+      token: this.generateAuthToken({ id: employee.id })
+    })
+
+
   }
 
   private generateAuthToken(payload: JWTPayload) {

@@ -17,11 +17,6 @@ export class RegisterSuperAdmin {
     @IsString()
     role: Role
 }
-
-export type JWTPayload = {
-    id: string
-}
-
 export class AuthResponseDto {
     employee: EmployeeResponseDto
     token: string
@@ -30,3 +25,13 @@ export class AuthResponseDto {
         Object.assign(this, obj);
     }
 }
+
+export type JWTPayload = {
+    id: string
+}
+
+export type LoginRequestDto = {
+    email: string,
+    password: string
+}
+

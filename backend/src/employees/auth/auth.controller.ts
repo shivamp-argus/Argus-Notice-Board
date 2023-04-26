@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, ParseEnumPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { RegisterSuperAdmin } from 'src/dtos/auth.dto';
+import { LoginRequestDto, RegisterSuperAdmin } from 'src/dtos/auth.dto';
 import { Role } from '@prisma/client';
 import { CreateEmployeeDto } from 'src/dtos/employee.dto';
 import { auth } from 'google-auth-library';
@@ -24,6 +24,10 @@ export class AuthController {
     return this.authService.signup(createEmployeeDto)
   }
 
+  @Post('login')
+  async login(@Body() loginRequestDto: LoginRequestDto) {
+    return this.authService.login(loginRequestDto)
+  }
 
 
 }
