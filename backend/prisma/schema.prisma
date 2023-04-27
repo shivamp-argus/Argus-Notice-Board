@@ -17,6 +17,7 @@ model Employee {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isActive  Boolean  @default(false)
   role      Role     @default(Employee)
 
   Notice Notice[]

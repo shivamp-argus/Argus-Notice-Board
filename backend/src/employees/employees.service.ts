@@ -8,25 +8,16 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class EmployeesService {
   constructor(private readonly prisma: PrismaService) { }
 
-  // async create(createEmployeeDto: CreateEmployeeDto) {
-  //   const { emp_email, password } = createEmployeeDto
-  //   const user = await this.prisma.employee.findFirst({ where: { emp_email } })
-  //   if (user) {
-  //     throw new ConflictException("User already exists")
-  //   }
-  //   const hashedPassword: string = await bcrypt.hash(password, 10)
-  //   return this.prisma.employee.create({
-  //     data: { ...createEmployeeDto, password: hashedPassword }
-  //   });
 
-  // }
 
-  async findAll() {
-    const users = await this.prisma.employee.findMany();
+  async findAll(status: string) {
+    const isActive = status === 'active' ? true : false
+    const users = await this.prisma.employee.findMany({ where: { isActive } });
     if (users.length <= 0) {
       return "No users found"
     }
-    return users
+    const newUsers = users.filter(user => user.role !== 'SUPERADMIN')
+    return newUsers
   }
 
   async findOne(id: string) {
@@ -47,5 +38,9 @@ export class EmployeesService {
     return this.prisma.employee.delete({ where: { id } });
   }
 
+  async activateEmployee(id: string) {
+    this.findOne(id)
+    return this.prisma.employee.update({ where: { id }, data: { isActive: true } })
 
+  }
 } 
