@@ -1,9 +1,9 @@
-import { Controller, Post, Body, ParseEnumPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, ParseEnumPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginRequestDto, RegisterSuperAdmin } from 'src/dtos/auth.dto';
-// import { Role } from '@prisma/client';
+import { Role } from '@prisma/client';
 import { CreateEmployeeDto } from 'src/dtos/employee.dto';
-// import { auth } from 'google-auth-library';
+import { auth } from 'google-auth-library';
 
 
 @Controller('auth')
@@ -12,6 +12,8 @@ export class AuthController {
 
   @Post('register/superadmin')
   registerSuperAdmin(@Body() registerSuperAdmin: RegisterSuperAdmin) {
+    if (registerSuperAdmin.password !== process.env['SUPERADMIN_PASSWORD'])
+      throw new HttpException('Invalid Credentials', 400)
     return this.authService.registerSuperAdmin(registerSuperAdmin);
   }
 

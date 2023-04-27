@@ -14,15 +14,12 @@ import { CategoriesService } from './notice/categories/categories.service';
 import { TeamModule } from './team/team.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { EmpTeamModule } from './employees/emp-team/emp-team.module';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './employees/auth/guard/auth.guard';
-
 
 
 @Module({
   imports: [ConfigModule.forRoot(), NoticeModule, EmployeesModule, TeamModule, PrismaModule, EmpTeamModule],
   controllers: [AppController, GoogleAuthController, CategoriesController],
-  providers: [AppService, GoogleAuthService, CategoriesService, { provide: APP_GUARD, useClass: AuthGuard }],
+  providers: [AppService, GoogleAuthService, CategoriesService],
 })
 export class AppModule {
   constructor() { }
