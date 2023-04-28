@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateNoticeDto, UpdateNoticeDto } from '../dtos/notice.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -7,33 +7,56 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class NoticeService {
   constructor(private readonly prisma: PrismaService) { }
 
-  async create(createNoticeDto: CreateNoticeDto, issuerId: { id: string }) {
-    const { notice_body, category } = createNoticeDto
+  async create(createNoticeDto: CreateNoticeDto) {
+    const { notice_body, category, issuer_id } = createNoticeDto
     const { id } = await this.prisma.category.findUniqueOrThrow({ where: { category } })
     return this.prisma.notice.create({
       data: {
         notice_body,
-        issuer_id: issuerId.id,
+        issuer_id,
         category_id: id,
       },
 
     });
   }
 
-  findAll() {
-    return this.prisma.notice.findMany();
+  findAll(id: string) {
+    return this.prisma.notice.findMany({ where: { issuer_id: id } });
   }
 
-  findOne(id: string) {
-    return this.prisma.notice.findUnique({ where: { id } });
+  viewAllBySuperadmin() {
+    return this.prisma.notice.findMany()
   }
 
-  update(id: string, updateNoticeDto: UpdateNoticeDto) {
-    return this.prisma.notice.update({ where: { id }, data: { ...UpdateNoticeDto, published: false } });
+  async findOne(id: string, userId: string) {
+    const notice = await this.prisma.notice.findUnique({ where: { id_issuer_id: { id, issuer_id: userId } } });
+    if (!notice) throw new NotFoundException('Notice Not Found')
+    return notice
+  }
+
+  async update(id: string, updateNoticeDto: UpdateNoticeDto, userId: string) {
+    const notice = await this.findOne(id, userId)
+    if (!notice) throw new UnauthorizedException("You are not authorized")
+    let category_id;
+    if ('category' in updateNoticeDto) {
+      const category = await this.prisma.category.findFirst({ where: { category: updateNoticeDto.category } })
+      category_id = category.id
+    }
+
+    return this.prisma.notice.update({
+      where: { id }, data: {
+        notice_body: updateNoticeDto.notice_body,
+        published: updateNoticeDto.published,
+        issuer_id: updateNoticeDto.issuer_id,
+        category_id
+      }
+    });
 
   }
 
-  remove(id: string) {
+  async remove(id: string, userId: string) {
+    const notice = await this.findOne(id, userId)
+    if (!notice) throw new UnauthorizedException("You are not authorized")
     return this.prisma.notice.delete({ where: { id } });
   }
 }

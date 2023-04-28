@@ -52,6 +52,7 @@ model Category {
 model Team {
   id            String          @id @default(uuid())
   team_name     String          @unique
+  createdBy     String
   Employee_Team Employee_Team[]
   Notice_Team   Notice_Team[]
 }

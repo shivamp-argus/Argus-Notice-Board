@@ -1,6 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
-import { resourceUsage } from 'process';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEmpTeamDto } from 'src/dtos/employee.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -13,7 +11,7 @@ export class EmpTeamService {
     }
 
     getAllEmpTeam() {
-        return this.prisma.employee_Team.findMany()
+        return this.prisma.employee_Team.findMany({ include: { Employee: true, Team: true } })
     }
 
     async getAllById(id: string) {
@@ -28,9 +26,8 @@ export class EmpTeamService {
     async deleteById(id: string) {
 
         const empTeam = await this.prisma.employee_Team.findUnique({ where: { id } })
-        if (!empTeam) {
-            throw new NotFoundException("Employee not found in team")
-        }
+        if (!empTeam) throw new NotFoundException("Employee not found in team")
+
         // return this.prisma.employee_Team.deleteMany({ where: { OR: [{ team_id: id }, { team_id: id, emp_id }] } })
         return this.prisma.employee_Team.delete({ where: { id } })
     }

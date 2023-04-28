@@ -32,19 +32,22 @@ export class EmployeesController {
 
 
   @Roles(Role.Employee, Role.HR, Role.SUPERADMIN)
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
-    return this.employeesService.update(id, updateEmployeeDto);
+  @Patch('update')
+  update(@Body() updateEmployeeDto: UpdateEmployeeDto, @User() user: JWTPayload) {
+    if (!user) throw new UnauthorizedException('You are not authorised')
+    return this.employeesService.update(user, updateEmployeeDto);
   }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.employeesService.remove(id);
-  }
+  // @Roles(Role.HR)
+  // @Patch('/activate/:id')
+  // remove(@Param('id') id: string) {
+  //   return this.employeesService.remove(id);
+  // }
 
   @Roles(Role.HR, Role.SUPERADMIN)
-  @Patch('/activate/:id')
-  activateEmployee(@Param('id') id: string) {
-    return this.employeesService.activateEmployee(id)
+  @Patch('/:action/:id')
+  activateEmployee(@Param('id') id: string, @Param('action') action: string) {
+    const statusPattern = /^(activate|deactivate)$/
+    if (!statusPattern.test(action)) throw new HttpException('URL not valid', 400)
+    return this.employeesService.activateEmployee(id, action)
   }
 }

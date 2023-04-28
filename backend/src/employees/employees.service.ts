@@ -2,6 +2,8 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 const bcrypt = require('bcrypt')
 import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos/employee.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { JWTPayload } from 'src/dtos/auth.dto';
+import { UnauthorizedException } from '@nestjs/common';
 
 
 @Injectable()
@@ -28,19 +30,23 @@ export class EmployeesService {
     return user
   }
 
-  async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
-    await this.findOne(id)
-    return this.prisma.employee.update({ where: { id }, data: updateEmployeeDto });
+  async update(user: JWTPayload, updateEmployeeDto: UpdateEmployeeDto) {
+    const fetchedUser = await this.findOne(user.id)
+    if (fetchedUser.id !== user.id) throw new UnauthorizedException('You are not authorised')
+    return this.prisma.employee.update({ where: { id: user.id }, data: updateEmployeeDto });
   }
 
-  async remove(id: string) {
+  async activateEmployee(id: string, action: string) {
     await this.findOne(id)
-    return this.prisma.employee.delete({ where: { id } });
-  }
+    if (action === 'activate') {
+      await this.prisma.employee.update({ where: { id }, data: { isActive: true } })
+      return 'Employee Activated'
+    }
+    else {
 
-  async activateEmployee(id: string) {
-    this.findOne(id)
-    return this.prisma.employee.update({ where: { id }, data: { isActive: true } })
+      await this.prisma.employee.update({ where: { id }, data: { isActive: false } })
+      return 'Employee Deactivated'
+    }
 
   }
 } 

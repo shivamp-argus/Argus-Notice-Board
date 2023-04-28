@@ -22,8 +22,8 @@ export class NoticeTeamService {
 
     }
 
-    getAllNoticeTeam() {
-        return this.prisma.notice_Team.findMany()
+    async getAllNoticeTeam(id: string) {
+        // return this.prisma.notice_Team.findMany({where:{}})
     }
 
     async getNoticeTeamById(id: string) {

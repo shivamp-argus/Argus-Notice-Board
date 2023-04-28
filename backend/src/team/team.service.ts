@@ -8,8 +8,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class TeamService {
     constructor(private readonly prisma: PrismaService) { }
 
-    createTeam(createGroupDto: CreateTeamDto) {
-        return this.prisma.team.create({ data: createGroupDto })
+    createTeam(createTeamDto: CreateTeamDto) {
+        return this.prisma.team.create({ data: createTeamDto })
     }
     async findAllTeam() {
         const teams = await this.prisma.team.findMany()

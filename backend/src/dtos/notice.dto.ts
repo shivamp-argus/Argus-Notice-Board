@@ -17,14 +17,23 @@ export class CreateNoticeDto {
     @IsNotEmpty()
     category: string
 
+    published?: boolean
+
 }
 export class UpdateNoticeDto extends PartialType(CreateNoticeDto) {
-    issuer_id: string
-    // category?: string;
-
-
+    // id?: string
+    // createdAt?: string | Date
+    // updatedAt?: string | Date
+    // published?: boolean
+    // issuer_id?: string
+    // category_id?: string
 }
 
+
+export type NoticeRequestDto = {
+    notice_body: string
+    category: string
+}
 export class NoticeResponseDto {
     @Expose()
     id: string
