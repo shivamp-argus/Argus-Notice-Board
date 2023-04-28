@@ -1,10 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, UnauthorizedException } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete, HttpException, UnauthorizedException } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { UpdateEmployeeDto, EmployeeResponseDto } from '../dtos/employee.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { Roles } from './auth/decorators/auth.decorator';
 import { Role } from '@prisma/client';
-import User from './employees/employees.decorator';
+import User from './decorators/employees.decorator';
 import { JWTPayload } from 'src/dtos/auth.dto';
 
 
