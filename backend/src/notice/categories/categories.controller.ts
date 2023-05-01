@@ -1,8 +1,10 @@
-import { Body, Controller, Post, Get, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, Delete, Patch, HttpException } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
-import { CreateCategoryDto } from 'src/dtos/category.dto';
+import { CategoryRequestDto, CreateCategoryDto } from 'src/dtos/category.dto';
 import { Roles } from 'src/employees/auth/decorators/auth.decorator';
 import { Role } from '@prisma/client';
+import User from 'src/employees/decorators/employees.decorator';
+import { JWTPayload } from 'src/dtos/auth.dto';
 
 @Controller('categories')
 export class CategoriesController {
@@ -10,8 +12,17 @@ export class CategoriesController {
 
     @Roles(Role.HR, Role.SUPERADMIN)
     @Post()
-    create(@Body() body: CreateCategoryDto) {
-        return this.categoriesService.create(body)
+    create(@Body() body: CategoryRequestDto, @User() user: JWTPayload) {
+        const category: CreateCategoryDto = { ...body, createdBy: user.id }
+        return this.categoriesService.create(category)
+    }
+
+    @Roles(Role.HR, Role.SUPERADMIN)
+    @Patch('/:action/:id')
+    activateCategory(@Param('id') id: string, @Param('action') action: string) {
+        const statusPattern = /^(activate|deactivate)$/
+        if (!statusPattern.test(action)) throw new HttpException('URL not valid', 400)
+        return this.categoriesService.activateCategory(id, action)
     }
 
     @Roles(Role.HR, Role.SUPERADMIN)

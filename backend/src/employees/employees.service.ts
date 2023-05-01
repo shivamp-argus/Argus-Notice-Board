@@ -23,7 +23,7 @@ export class EmployeesService {
   }
 
   async findOne(id: string) {
-    const user = await this.prisma.employee.findFirst({ where: { id } });
+    const user = await this.prisma.employee.findFirst({ where: { id }, include: { Employee_Team: true } });
     if (!user) {
       throw new NotFoundException("User not found")
     }

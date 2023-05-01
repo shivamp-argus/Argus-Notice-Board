@@ -22,8 +22,6 @@ export class CreateEmployeeDto {
 
 }
 
-
-
 export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) { }
 
 export class EmployeeResponseDto {
@@ -52,5 +50,10 @@ export class CreateEmpTeamDto {
     @IsString()
     team_id: string
 
+    addedBy: string
 
+}
+export type EmpTeamRequestDto = {
+    emp_id: string
+    team_id: string
 }

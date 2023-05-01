@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateNoticeDto, UpdateNoticeDto } from '../dtos/notice.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { JWTPayload } from 'src/dtos/auth.dto';
 
 
 @Injectable()
@@ -20,8 +21,9 @@ export class NoticeService {
     });
   }
 
-  findAll(id: string) {
-    return this.prisma.notice.findMany({ where: { issuer_id: id } });
+  findAll(id: string, status: string) {
+    const published: boolean = status === 'active' ? true : false
+    return this.prisma.notice.findMany({ where: { issuer_id: id, published } });
   }
 
   viewAllBySuperadmin() {
@@ -58,5 +60,9 @@ export class NoticeService {
     const notice = await this.findOne(id, userId)
     if (!notice) throw new UnauthorizedException("You are not authorized")
     return this.prisma.notice.delete({ where: { id } });
+  }
+
+  async publishNotice(id: string) {
+    return this.prisma.notice.update({ where: { id }, data: { published: true } })
   }
 }

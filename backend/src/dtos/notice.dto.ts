@@ -60,4 +60,12 @@ export class CreateNoticeTeamDto {
     @IsNotEmpty()
     team_id: string
 
+    @IsString()
+    @IsNotEmpty()
+    addedBy: string
+
+}
+export type NoticeTeamRequestDto = {
+    notice_id: string
+    team_id: string
 }

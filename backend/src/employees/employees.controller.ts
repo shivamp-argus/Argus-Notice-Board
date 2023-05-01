@@ -17,7 +17,6 @@ export class EmployeesController {
   @Roles(Role.SUPERADMIN, Role.HR, Role.Employee)
   @Get('/me')
   findOne(@User() user: JWTPayload) {
-    console.log(user)
     if (!user) throw new UnauthorizedException('Not Authorized')
     return this.employeesService.findOne(user.id);
   }

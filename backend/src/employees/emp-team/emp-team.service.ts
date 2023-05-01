@@ -6,7 +6,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class EmpTeamService {
     constructor(private readonly prisma: PrismaService) { }
 
-    createEmpTeam(createEmpTeam: CreateEmpTeamDto | CreateEmpTeamDto[]) {
+    createEmpTeam(createEmpTeam: CreateEmpTeamDto[]) {
+
         return this.prisma.employee_Team.createMany({ data: createEmpTeam })
     }
 

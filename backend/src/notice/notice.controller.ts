@@ -22,10 +22,12 @@ export class NoticeController {
   }
 
   @Roles(Role.HR, Role.SUPERADMIN)
-  @Get()
-  findAll(@User() user: JWTPayload) {
+  @Get('/:status')
+  findAll(@Param('status') status: string, @User() user: JWTPayload) {
     if (!user) throw new HttpException('You are not authenticated', 400)
-    return this.noticeService.findAll(user.id);
+    const statusPattern = /^(active|inactive)$/
+    if (!statusPattern.test(status)) throw new HttpException('URL not valid', 400)
+    return this.noticeService.findAll(user.id, status);
   }
 
   @Roles(Role.SUPERADMIN)
@@ -53,5 +55,12 @@ export class NoticeController {
   remove(@Param('id') id: string, @User() user: JWTPayload) {
     if (!user) throw new HttpException('You are not authenticated', 400)
     return this.noticeService.remove(id, user.id);
+  }
+
+  @Roles(Role.SUPERADMIN)
+  @Patch('publish/:id')
+  publishNotice(@Param('id') id: string, @User() user: JWTPayload) {
+    if (!user) throw new HttpException('You are not authorized', 400)
+    return this.noticeService.publishNotice(id)
   }
 }

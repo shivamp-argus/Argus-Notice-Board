@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpException, Param, Post } from '@nestjs/common';
-import { CreateNoticeTeamDto } from 'src/dtos/notice.dto';
+import { CreateNoticeTeamDto, NoticeTeamRequestDto } from 'src/dtos/notice.dto';
 import { NoticeTeamService } from './notice_team.service';
 import { Roles } from 'src/employees/auth/decorators/auth.decorator';
 import { Role } from '@prisma/client';
@@ -12,8 +12,11 @@ export class NoticeTeamController {
 
     @Roles(Role.HR, Role.SUPERADMIN)
     @Post()
-    createNoticeTeam(@Body() createNoticeTeam: CreateNoticeTeamDto | CreateNoticeTeamDto[]) {
-        return this.noticeTeamService.createNoticeTeam(createNoticeTeam)
+    createNoticeTeam(@Body() createNoticeTeam: NoticeTeamRequestDto[], @User() user: JWTPayload) {
+        const requestData: CreateNoticeTeamDto[] = createNoticeTeam.map(data => {
+            return { ...data, addedBy: user.id }
+        })
+        return this.noticeTeamService.createNoticeTeam(requestData)
     }
 
     @Roles(Role.HR, Role.SUPERADMIN)

@@ -23,6 +23,7 @@ model Employee {
   Notice Notice[]
 
   Employee_Team Employee_Team[]
+  Category      Category[]
 }
 
 model Notice {
@@ -44,9 +45,12 @@ model Notice {
 }
 
 model Category {
-  id       String   @id @default(uuid())
-  category String   @unique
-  notice   Notice[]
+  id        String   @id @default(uuid())
+  category  String   @unique
+  isActive  Boolean  @default(false)
+  createdBy String
+  Employee  Employee @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  notice    Notice[]
 }
 
 model Team {
@@ -61,7 +65,9 @@ model Employee_Team {
   id      String @id @default(uuid())
   emp_id  String
   team_id String
+  addedBy String
 
+  // Creator Employee @relation((fields: [createdBy],references: [id],onDelete: Cascade))
   Employee Employee @relation(fields: [emp_id], references: [id], onDelete: Cascade)
   Team     Team     @relation(fields: [team_id], references: [id], onDelete: Cascade)
 
@@ -81,6 +87,7 @@ model Notice_Team {
   id        String @id @default(uuid())
   notice_id String
   team_id   String
+  addedBy   String
 
   Notice Notice @relation(fields: [notice_id], references: [id], onDelete: Cascade)
   Team   Team   @relation(fields: [team_id], references: [id], onDelete: Cascade)

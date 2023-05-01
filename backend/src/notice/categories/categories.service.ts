@@ -26,4 +26,17 @@ export class CategoriesService {
         }
         return 'There are some notice under this category'
     }
+
+    async activateCategory(id: string, action: string) {
+        await this.getById(id)
+        if (action === 'activate') {
+            await this.prisma.category.update({ where: { id }, data: { isActive: true } })
+            return 'Employee Activated'
+        }
+        else {
+            await this.prisma.category.update({ where: { id }, data: { isActive: false } })
+            return 'Employee Deactivated'
+        }
+
+    }
 }

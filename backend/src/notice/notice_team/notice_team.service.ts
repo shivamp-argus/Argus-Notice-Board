@@ -7,9 +7,11 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class NoticeTeamService {
     constructor(private readonly prisma: PrismaService) { }
 
-    async createNoticeTeam(createNoticeTeam: CreateNoticeTeamDto | CreateNoticeTeamDto[]) {
+    async createNoticeTeam(createNoticeTeam: CreateNoticeTeamDto[]) {
         try {
+            console.log('noticeTeams');
             const noticeTeams = await this.prisma.notice_Team.createMany({ data: createNoticeTeam })
+
             if (!noticeTeams) {
                 throw new ConflictException("Already a member")
             }
