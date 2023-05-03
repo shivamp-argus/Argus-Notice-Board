@@ -11,6 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { EmployeesListComponent } from './employees-list/employees-list.component';
+import { NoticesComponent } from './notices/notices.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { EmployeesListComponent } from './employees-list/employees-list.componen
     DashboardComponent,
     SidebarComponent,
     EmployeesListComponent,
+    NoticesComponent,
+    ProfileComponent,
 
   ],
   imports: [
