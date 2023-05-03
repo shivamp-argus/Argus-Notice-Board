@@ -6,11 +6,23 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { EmployeesListComponent } from './employees-list/employees-list.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent
+    AuthComponent,
+    HomeComponent,
+    HeaderComponent,
+    DashboardComponent,
+    SidebarComponent,
+    EmployeesListComponent,
+
   ],
   imports: [
     BrowserModule,

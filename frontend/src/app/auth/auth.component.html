@@ -1,7 +1,24 @@
 <div class="containerOne">
   <div class="screen">
     <div class="screen__content">
-      <form class="login" [formGroup]="loginForm" (ngSubmit)="login()">
+      <form
+        class="login"
+        [formGroup]="mode === 'login' ? loginForm : signupForm"
+        (ngSubmit)="mode === 'login' ? login() : signup()"
+        [ngClass]="{ signup: mode === 'signup' }"
+      >
+        <div class="login__field" *ngIf="mode === 'signup'">
+          <div class="login__adjust">
+            <i class="bi bi-person-fill login__icon"></i>
+            <input
+              type="text"
+              class="login__input"
+              placeholder=" Username"
+              formControlName="name"
+            />
+            <!-- <p *ngIf="">Enter Valid Username</p> -->
+          </div>
+        </div>
         <div class="login__field">
           <div class="login__adjust">
             <i class="bi bi-person-fill login__icon"></i>
@@ -11,6 +28,7 @@
               placeholder=" Email"
               formControlName="email"
             />
+            <!-- <p>Enter Valid Email</p> -->
           </div>
         </div>
         <div class="login__field">
@@ -22,22 +40,20 @@
               placeholder="Password"
               formControlName="password"
             />
+            <!-- <p>Enter Valid Email</p> -->
           </div>
         </div>
         <button class="button login__submit" type="submit">
-          <span class="button__text">Log In</span>
+          <span class="button__text">{{ switchButtonText() }}</span>
           <i class="button__icon fas fa-chevron-right"></i>
         </button>
       </form>
-      <!-- <div class="social-login">
-        <h3>log in via</h3>
-        <div class="social-icons">
-          <a href="#" class="social-login__icon fab fa-instagram"></a>
-          <a href="#" class="social-login__icon fab fa-facebook"></a>
-          <a href="#" class="social-login__icon fab fa-twitter"></a>
-        </div>
-      </div> -->
+      <p class="footerText">
+        Do not have account?
+        <a routerLink="/{{ switchLink() }}">{{ switchLinkText() }}</a>
+      </p>
     </div>
+
     <div class="screen__background">
       <span class="screen__background__shape screen__background__shape4"></span>
       <span class="screen__background__shape screen__background__shape3"></span>

@@ -17,6 +17,20 @@ export interface LoginInterface {
   password: string
 
 }
+export interface SignupInterface {
+  emp_name: string,
+  emp_email: string,
+  password: string,
+  role?: string
+
+}
+export interface SignupResponse {
+  id: string,
+  emp_name: string,
+  emp_email: string,
+  isActive: boolean,
+  role: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +40,10 @@ export class AuthService {
   constructor(private readonly http: HttpClient) { }
 
   login(data: LoginInterface) {
-    return this.http.post<LoginResponse>('localhost:3000/auth/login', data)
+    return this.http.post<LoginResponse>('http://localhost:3000/auth/login', data)
+  }
+  signup(data: SignupInterface) {
+    return this.http.post<SignupResponse>('http://localhost:3000/auth/signup', data)
   }
 
 }

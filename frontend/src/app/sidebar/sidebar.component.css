@@ -1,0 +1,26 @@
+.main-menu{
+  background-color: rgba(211, 207, 207, 0.2);
+  height: 89vh;
+}
+
+.listGroup{
+  padding: 10px;
+  padding-left: 30px;
+  list-style: none;
+}
+
+.listItem{
+padding: 25px;
+}
+.listLink{
+  text-decoration: none;
+  font-size: 1.25rem;
+  color: rgb(78, 75, 75);
+}
+.listItem:hover .listLink{
+  color: #802f59;
+}
+.listItem:hover {
+  border-bottom: 1px solid rgb(197, 190, 190);
+}
+

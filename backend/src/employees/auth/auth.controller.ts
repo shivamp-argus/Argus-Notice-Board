@@ -18,7 +18,6 @@ export class AuthController {
   @Post('signup')
   // @Param('role', new ParseEnumPipe(Role)) role: Role,
   async signup(@Body() createEmployeeDto: CreateEmployeeDto) {
-
     return this.authService.signup(createEmployeeDto)
   }
 

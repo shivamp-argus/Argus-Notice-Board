@@ -94,6 +94,10 @@ body {
 	width: 320px;
 	padding: 30px;
 	padding-top: 156px;
+  padding-bottom: 100px;
+}
+.signup{
+  padding-top: 90px;
 }
 
 .login__field {
@@ -161,3 +165,10 @@ body {
 	color: #7875B5;
 }
 
+.footerText{
+  color: white;
+  padding-left: 15%;
+}
+.footerText a{
+  color: white;
+}
