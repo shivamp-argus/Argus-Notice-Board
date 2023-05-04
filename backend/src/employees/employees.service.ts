@@ -19,6 +19,8 @@ export class EmployeesService {
       return "No users found"
     }
     const newUsers = users.filter(user => user.role !== 'SUPERADMIN')
+    console.log(newUsers);
+
     return newUsers
   }
 

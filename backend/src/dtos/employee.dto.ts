@@ -37,6 +37,9 @@ export class EmployeeResponseDto {
     @Expose()
     role: Role
 
+    @Expose()
+    isActive: boolean
+
     constructor(user: EmployeeResponseDto) {
         Object.assign(this, user);
     }

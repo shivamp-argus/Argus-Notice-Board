@@ -1,1 +1,116 @@
-<p>employees-list works!</p>
+<div class="container">
+  <!-- Button trigger modal -->
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Change Status</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to make this employee {{ changeModalText() }}?
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="toggleEmployeeStatus(selectedEmployeeId)"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contDropdown">
+    <div class="dropdown">
+      <button
+        class="btn dropdown-toggle statusBtn"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        {{ changeStatusText() }}
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <button
+            class="dropdown-item cursor-pointer"
+            (click)="changeStatus('active')"
+          >
+            Active
+          </button>
+        </li>
+        <li>
+          <button
+            class="dropdown-item cursor-pointer"
+            (click)="changeStatus('inactive')"
+          >
+            Inactive
+          </button>
+        </li>
+      </ul>
+    </div>
+    <!-- <label for="pet-select">Choose a pet:</label> -->
+
+    <!-- <select name="status" id="status" class="dropdown">
+      <option class="dropdown-item">Active</option>
+      <option class="dropdown-item">Inactive</option>
+    </select> -->
+  </div>
+  <div class="card mt-3">
+    <div class="card-body">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Change Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ employee.emp_name }}</td>
+            <td>{{ employee.emp_email }}</td>
+            <td>{{ employee.role }}</td>
+            <td>{{ employee.isActive === true ? "Active" : "Inactive" }}</td>
+            <td>
+              <button
+                class="btn"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                (click)="selectedEmployee(employee.id)"
+              >
+                <i class="bi bi-pencil-square"></i> <span> Change Status</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

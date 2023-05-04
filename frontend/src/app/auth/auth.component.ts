@@ -69,7 +69,7 @@ export class AuthComponent implements OnInit {
       this.authService.login(employee).subscribe(data => {
         this.setUser(data)
         localStorage.setItem('token', this.user.token)
-        this.router.navigate(['/home'])
+        this.router.navigate(['/admin'])
       },
         (error) => {
           this.error = error.error.message

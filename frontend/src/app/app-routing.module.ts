@@ -8,7 +8,7 @@ import { NoticesComponent } from './notices/notices.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   {
     path: 'admin', component: HomeComponent,
     children: [
