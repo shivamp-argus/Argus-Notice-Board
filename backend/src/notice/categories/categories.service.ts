@@ -31,11 +31,11 @@ export class CategoriesService {
         await this.getById(id)
         if (action === 'activate') {
             await this.prisma.category.update({ where: { id }, data: { isActive: true } })
-            return 'Employee Activated'
+            return 'Category Activated'
         }
         else {
             await this.prisma.category.update({ where: { id }, data: { isActive: false } })
-            return 'Employee Deactivated'
+            return 'Category Deactivated'
         }
 
     }

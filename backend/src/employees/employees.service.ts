@@ -19,7 +19,7 @@ export class EmployeesService {
       return "No users found"
     }
     const newUsers = users.filter(user => user.role !== 'SUPERADMIN')
-    console.log(newUsers);
+    // console.log(newUsers);
 
     return newUsers
   }
@@ -45,7 +45,6 @@ export class EmployeesService {
       return 'Employee Activated'
     }
     else {
-
       await this.prisma.employee.update({ where: { id }, data: { isActive: false } })
       return 'Employee Deactivated'
     }

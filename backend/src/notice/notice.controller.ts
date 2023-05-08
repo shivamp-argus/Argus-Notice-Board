@@ -21,7 +21,13 @@ export class NoticeController {
     return this.noticeService.create(requestData);
   }
 
-  @Roles(Role.HR, Role.SUPERADMIN)
+  @Roles(Role.SUPERADMIN)
+  @Get('/superadmin')
+  viewAllBySuperadmin() {
+    return this.noticeService.viewAllBySuperadmin()
+  }
+
+  @Roles(Role.HR)
   @Get('/:status')
   findAll(@Param('status') status: string, @User() user: JWTPayload) {
     if (!user) throw new HttpException('You are not authenticated', 400)
@@ -30,11 +36,7 @@ export class NoticeController {
     return this.noticeService.findAll(user.id, status);
   }
 
-  @Roles(Role.SUPERADMIN)
-  @Get('/superadmin')
-  viewAllBySuperadmin() {
-    return this.noticeService.viewAllBySuperadmin()
-  }
+
 
   @Roles(Role.HR, Role.SUPERADMIN)
   @Get(':id')

@@ -1,7 +1,6 @@
 .contDropdown{
   display: flex;
   justify-content: end;
-  /* float: right; */
   margin-top: 20px;
 }
 .statusBtn{

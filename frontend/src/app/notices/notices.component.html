@@ -1,1 +1,111 @@
-<p>notices works!</p>
+<div class="container">
+  <!-- Button trigger modal -->
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Change Status</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to publish this notice?
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="toggleNoticeStatus(selectedNoticeId)"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contDropdown">
+    <div class="dropdown">
+      <button
+        class="btn dropdown-toggle statusBtn"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        {{ changeStatusText() }}
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <button
+            class="dropdown-item cursor-pointer"
+            (click)="changeStatus('published')"
+          >
+            Published
+          </button>
+        </li>
+        <li>
+          <button
+            class="dropdown-item cursor-pointer"
+            (click)="changeStatus('pending')"
+          >
+            Pending
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-body">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Notice Id</th>
+            <th>Issuer</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th *ngIf="status === 'pending'">Change Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let notice of filteredNotices; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ notice.notice_title }}</td>
+            <td>{{ notice.Employee.emp_name }}</td>
+            <td>{{ notice.category.category }}</td>
+            <td>{{ notice.published === true ? "Published" : "Pending" }}</td>
+            <td *ngIf="!notice.published">
+              <button
+                class="btn"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                (click)="selectedNotice(notice.id)"
+              >
+                <i class="bi bi-pencil-square"></i> <span> Change Status</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -11,25 +11,20 @@ export class EmployeesService {
   token = localStorage.getItem('token')
   httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Accept': 'application/json , text/html, text/plain',
-    'Authorization': `Bearer ${this.token}`
-  })
-  // httpHeaders2 = new HttpHeaders({
-  //   'Content-Type': 'text/plain',
+    'Authorization': `Bearer ${this.token}`,
 
-  //   'Authorization': `Bearer ${this.token}`
-  // })
+  })
+
   getAllEmployees(status: string) {
     return this.http.get<Employees[]>(`http://localhost:3000/employees/${status}`, {
       headers: this.httpHeaders
     })
   }
-  toggleEmployeeStatus(id: string, toggleStatus: string) {
-    console.log(id);
-    console.log(this.token);
 
+  toggleEmployeeStatus(id: string, toggleStatus: string) {
     return this.http.patch(`http://localhost:3000/employees/${toggleStatus}/${id}`, null, {
-      headers: this.httpHeaders
+      headers: this.httpHeaders,
+      responseType: 'text'
     })
   }
 }

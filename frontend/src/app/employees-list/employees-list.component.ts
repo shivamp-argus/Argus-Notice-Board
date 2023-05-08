@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeesService } from './employees.service';
 import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 
 
 export type Employees = {
@@ -19,20 +20,16 @@ export class EmployeesListComponent implements OnInit {
   constructor(private readonly employeesService: EmployeesService, private route: ActivatedRoute) { }
   employees: Employees[] = []
   status: string = 'active'
-  toggleStatus: string = ''
+  toggleStatus: string = 'deactivate'
   selectedEmployeeId: string = ''
-  // selectedStatus: string = 'active'
-  ngOnInit(): void {
-    // this.route.params.subscribe(params => this.status = params['status'])
-    this.getAllEmployees()
-    // console.log('hiii');
 
+  ngOnInit(): void {
+
+    this.getAllEmployees()
   }
 
   getAllEmployees() {
     this.employeesService.getAllEmployees(this.status).subscribe(data => {
-      // console.log(data);
-
       this.employees = data
     }
     )
@@ -60,6 +57,7 @@ export class EmployeesListComponent implements OnInit {
     this.employeesService.toggleEmployeeStatus(id, this.toggleStatus).subscribe(data => {
       // this.employees.filter(employee=>)
       console.log(data);
+      this.getAllEmployees()
 
     })
   }

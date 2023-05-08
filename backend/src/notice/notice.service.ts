@@ -9,10 +9,11 @@ export class NoticeService {
   constructor(private readonly prisma: PrismaService) { }
 
   async create(createNoticeDto: CreateNoticeDto) {
-    const { notice_body, category, issuer_id } = createNoticeDto
+    const { notice_title, notice_body, category, issuer_id } = createNoticeDto
     const { id } = await this.prisma.category.findUniqueOrThrow({ where: { category } })
     return this.prisma.notice.create({
       data: {
+        notice_title,
         notice_body,
         issuer_id,
         category_id: id,
@@ -27,7 +28,20 @@ export class NoticeService {
   }
 
   viewAllBySuperadmin() {
-    return this.prisma.notice.findMany()
+    return this.prisma.notice.findMany({
+      include: {
+        Employee: {
+          select: {
+            emp_name: true
+          }
+        },
+        category: {
+          select: {
+            category: true
+          }
+        }
+      }
+    })
   }
 
   async findOne(id: string, userId: string) {

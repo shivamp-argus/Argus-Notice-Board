@@ -1,10 +1,16 @@
 import { PartialType } from '@nestjs/mapped-types';
+import { Category, Employee } from '@prisma/client';
 import { Expose } from 'class-transformer';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 
 
 export class CreateNoticeDto {
+
+    @IsNotEmpty()
+    @IsString()
+    notice_title: string
+
     @IsString()
     @IsNotEmpty()
     notice_body: string
@@ -16,6 +22,7 @@ export class CreateNoticeDto {
     @IsString()
     @IsNotEmpty()
     category: string
+
 
     published?: boolean
 
@@ -31,12 +38,16 @@ export class UpdateNoticeDto extends PartialType(CreateNoticeDto) {
 
 
 export type NoticeRequestDto = {
+    notice_title: string
     notice_body: string
     category: string
 }
 export class NoticeResponseDto {
     @Expose()
     id: string
+
+    @Expose()
+    notice_title: string
 
     @Expose()
     notice_body: string
@@ -49,6 +60,12 @@ export class NoticeResponseDto {
 
     @Expose()
     published: boolean
+
+    @Expose()
+    Employee?: Employee
+
+    @Expose()
+    category?: Category
 }
 
 export class CreateNoticeTeamDto {

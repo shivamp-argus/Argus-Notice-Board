@@ -27,11 +27,12 @@ model Employee {
 }
 
 model Notice {
-  id          String   @id @default(uuid())
-  notice_body String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  published   Boolean  @default(false)
+  id           String   @id @default(uuid())
+  notice_title String
+  notice_body  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  published    Boolean  @default(false)
 
   issuer_id String
   Employee  Employee @relation(fields: [issuer_id], references: [id], onDelete: Cascade)
