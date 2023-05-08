@@ -2,6 +2,7 @@ import { Component, DoCheck, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from '../app.service';
 
 export type User = {
   email: string,
@@ -18,7 +19,12 @@ export type User = {
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
-  constructor(private readonly authService: AuthService, private readonly router: Router, private readonly route: ActivatedRoute) { }
+  constructor(
+    private readonly authService: AuthService,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
+    private readonly app: AppService
+  ) { }
 
   mode: string = '';
   error: string = '';
@@ -29,10 +35,7 @@ export class AuthComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.mode = params["mode"]
     })
-    // this.switchLink()
-    // console.log(this.currentPath);
   }
-
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -57,7 +60,6 @@ export class AuthComponent implements OnInit {
       id: payload.employee.id,
       role: payload.employee.role,
       token: payload.token
-
     }
   }
   login() {
@@ -69,7 +71,11 @@ export class AuthComponent implements OnInit {
       this.authService.login(employee).subscribe(data => {
         this.setUser(data)
         localStorage.setItem('token', this.user.token)
-        this.router.navigate(['/admin'])
+        if (data.employee.role === 'SUPERADMIN') {
+          this.router.navigate(['/admin'])
+        } else {
+          this.router.navigate(['/employees'])
+        }
       },
         (error) => {
           this.error = error.error.message

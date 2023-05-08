@@ -14,6 +14,8 @@ import { EmployeesListComponent } from './employees-list/employees-list.componen
 import { NoticesComponent } from './notices/notices.component';
 import { ProfileComponent } from './profile/profile.component';
 
+import { EmpTeamComponent } from './emp-team/emp-team.component';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { ProfileComponent } from './profile/profile.component';
     EmployeesListComponent,
     NoticesComponent,
     ProfileComponent,
+
+    EmpTeamComponent,
 
   ],
   imports: [

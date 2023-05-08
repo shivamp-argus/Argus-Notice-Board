@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 
 
 export interface LoginResponse {
@@ -39,11 +39,21 @@ export class AuthService {
 
   constructor(private readonly http: HttpClient) { }
 
+
+
   login(data: LoginInterface) {
     return this.http.post<LoginResponse>('http://localhost:3000/auth/login', data)
   }
   signup(data: SignupInterface) {
     return this.http.post<SignupResponse>('http://localhost:3000/auth/signup', data)
   }
-
+  me() {
+    const token = localStorage.getItem('token')
+    return this.http.get<SignupResponse>('http://localhost:3000/employees/me', {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      })
+    })
+  }
 }
