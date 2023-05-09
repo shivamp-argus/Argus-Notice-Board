@@ -5,8 +5,14 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
 export type Categories = {
-  id: string
   category: string
+  createdBy: string
+}
+export type CategoriesResponse = {
+  category: string
+  Employee: {
+    emp_name: string
+  }
 }
 export type CreateNoticeRequest = {
   notice_title: string
@@ -55,7 +61,7 @@ export class CreateNoticeComponent implements OnInit {
         category: this.createNoticeForm.value.category as string,
       }
       this.noticesService.createNotice(this.createNoticeRequest).subscribe(data => {
-        console.log(data);
+        // console.log(data);
         if (this.role === 'SUPERADMIN') {
           this.router.navigate(['/admin/superadmin/notices'])
         } else {
@@ -72,7 +78,7 @@ export class CreateNoticeComponent implements OnInit {
   getAllCategory() {
     this.noticesService.getAllCategories().subscribe(data => {
       data.map(category => {
-        this.categories.push({ category: category.category, id: category.id })
+        this.categories.push({ category: category.category, createdBy: category.Employee.emp_name })
       })
     }
     )

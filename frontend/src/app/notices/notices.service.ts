@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Notices } from './notices.component';
-import { Categories, CreateNoticeRequest } from '../create-notice/create-notice.component';
+import { CategoriesResponse, CreateNoticeRequest } from '../create-notice/create-notice.component';
+import { createCategoryRequest } from '../create-category/create-category.component';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +33,12 @@ export class NoticesService {
   }
 
   getAllCategories() {
-    return this.http.get<Categories[]>('http://localhost:3000/categories', { headers: this.httpHeaders })
+    return this.http.get<CategoriesResponse[]>('http://localhost:3000/categories', { headers: this.httpHeaders })
   }
   createNotice(createNoticeRequest: CreateNoticeRequest) {
     return this.http.post('http://localhost:3000/notice', createNoticeRequest, { headers: this.httpHeaders, responseType: 'text' })
+  }
+  createCategory(createCategoryRequest: createCategoryRequest) {
+    return this.http.post('http://localhost:3000/categories', createCategoryRequest, { headers: this.httpHeaders, responseType: 'text' })
   }
 }

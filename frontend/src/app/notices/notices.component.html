@@ -44,16 +44,30 @@
     </div>
   </div>
   <div class="contDropdown">
-    <a
-      routerLink="/admin/create"
-      class="btn statusBtn cursor-pointer"
-      *ngIf="role === 'SUPERADMIN'; else others"
-      >Create Notice</a
-    >
-    <ng-template #others>
-      <a routerLink="/employees/create" class="btn statusBtn cursor-pointer"
+    <div *ngIf="role === 'SUPERADMIN'; else others">
+      <a routerLink="/admin/create-notice" class="btn statusBtn cursor-pointer"
         >Create Notice</a
       >
+      <a
+        routerLink="/admin/create-category"
+        class="btn statusBtn cursor-pointer ms-4"
+        >Create Category</a
+      >
+    </div>
+
+    <ng-template #others>
+      <div>
+        <a
+          routerLink="/employees/create-notice"
+          class="btn statusBtn cursor-pointer"
+          >Create Notice</a
+        >
+        <a
+          routerLink="/employees/create-category"
+          class="btn statusBtn cursor-pointer ms-4"
+          >Create Category</a
+        >
+      </div>
     </ng-template>
 
     <div class="dropdown">

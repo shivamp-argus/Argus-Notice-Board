@@ -9,6 +9,11 @@ import { AppService } from '../app.service';
 })
 export class AuthGuard implements CanActivate {
   constructor(private readonly authService: AuthService, private readonly router: Router) { }
+  // expectedRoles = {
+  //   'employees': ['HR', 'Emp']
+
+  // };
+
   role: string = ''
   expectedRole: string[] = []
   canActivate(

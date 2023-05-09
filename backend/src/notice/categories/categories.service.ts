@@ -7,10 +7,10 @@ export class CategoriesService {
     constructor(private readonly prisma: PrismaService) { }
 
     async create(createCategoryDto: CreateCategoryDto) {
-        return this.prisma.category.create({ data: createCategoryDto })
+        return this.prisma.category.create({ data: { ...createCategoryDto, isActive: true } })
     }
     async findAll() {
-        return this.prisma.category.findMany({ where: { isActive: true } })
+        return this.prisma.category.findMany({ where: { isActive: true }, include: { Employee: { select: { emp_name: true } } } })
     }
     async getById(id: string) {
         return this.prisma.category.findUnique({ where: { id } })

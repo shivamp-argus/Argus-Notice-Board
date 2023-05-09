@@ -46,10 +46,10 @@ export class NoticesComponent implements OnInit {
 
   getAllNotices() {
     // if (this.expectedRole.length === 0) {
-    //   this.route.data.subscribe((data) => {
+    //   this.route.data.subscribe((data: {expectedRole:string[]}) => {
     //     console.log('expectedRole', data['expectedRole']);
     //     this.role = data['expectedRole']
-    //     console.log('role', this.role);
+    //     console.log('role', typeof this.role);
 
     //     // data['expectedRole'].map((el: string) => this.expectedRole.push(el))
     //   })

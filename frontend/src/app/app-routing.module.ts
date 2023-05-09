@@ -9,6 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './auth/auth.guard';
 import { EmpTeamComponent } from './emp-team/emp-team.component';
 import { CreateNoticeComponent } from './create-notice/create-notice.component';
+import { CreateCategoryComponent } from './create-category/create-category.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
       { path: 'superadmin/employees', component: EmployeesListComponent },
       { path: 'superadmin/notices', component: NoticesComponent },
       { path: 'profile', component: ProfileComponent },
-      { path: 'create', component: CreateNoticeComponent }
+      { path: 'create-notice', component: CreateNoticeComponent },
+      { path: 'create-category', component: CreateCategoryComponent }
 
     ]
   },
@@ -34,7 +36,8 @@ const routes: Routes = [
       { path: 'list', component: EmployeesListComponent, data: { expectedRole: ['HR', 'EMPLOYEES'] } },
       { path: 'teams', component: EmpTeamComponent, data: { expectedRole: ['HR', 'EMPLOYEES'] } },
       { path: 'notice', component: NoticesComponent, data: { expectedRole: ['HR', 'EMPLOYEES'] } },
-      { path: 'create', component: CreateNoticeComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } }
+      { path: 'create-notice', component: CreateNoticeComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } },
+      { path: 'create-category', component: CreateCategoryComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } }
     ]
   }
 

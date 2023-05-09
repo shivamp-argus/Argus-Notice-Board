@@ -17,13 +17,13 @@ export class CategoriesController {
         return this.categoriesService.create(category)
     }
 
-    @Roles(Role.HR, Role.SUPERADMIN)
-    @Patch('/:action/:id')
-    activateCategory(@Param('id') id: string, @Param('action') action: string) {
-        const statusPattern = /^(activate|deactivate)$/
-        if (!statusPattern.test(action)) throw new HttpException('URL not valid', 400)
-        return this.categoriesService.activateCategory(id, action)
-    }
+    // @Roles(Role.HR, Role.SUPERADMIN)
+    // @Patch('/:action/:id')
+    // activateCategory(@Param('id') id: string, @Param('action') action: string) {
+    //     const statusPattern = /^(activate|deactivate)$/
+    //     if (!statusPattern.test(action)) throw new HttpException('URL not valid', 400)
+    //     return this.categoriesService.activateCategory(id, action)
+    // }
 
     @Roles(Role.HR, Role.SUPERADMIN)
     @Get()

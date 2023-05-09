@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <form [formGroup]="createCategoryForm" (ngSubmit)="createCategory()">
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Category Name</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="exampleFormControlInput1"
+        placeholder="Enter category name here"
+        formControlName="category"
+      />
+    </div>
+
+    <button type="submit" class="btn statusBtn cursor-pointer">
+      Create Category
+    </button>
+  </form>
+  <div class="card mt-3">
+    <div class="card-body">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Category</th>
+            <th>Created By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of categories; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ category.category }}</td>
+            <td>{{ category.createdBy }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
