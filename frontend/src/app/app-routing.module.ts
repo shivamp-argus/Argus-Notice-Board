@@ -13,6 +13,7 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
 import { TeamComponent } from './team/team.component';
 import { EmpNoticeComponent } from './team/emp-notice/emp-notice.component';
 import { TeamsListComponent } from './teams-list/teams-list.component';
+import { CreateTeamComponent } from './team/create-team/create-team.component';
 
 
 const routes: Routes = [
@@ -42,7 +43,8 @@ const routes: Routes = [
         children: [
           { path: '', component: TeamsListComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } },
           { path: 'create-emp-team', component: EmpTeamComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } },
-          { path: 'create-notice-team', component: EmpNoticeComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } }
+          { path: 'create-notice-team', component: EmpNoticeComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } },
+          { path: 'create-team', component: CreateTeamComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } }
         ]
       },
       { path: 'notice', component: NoticesComponent, data: { expectedRole: ['HR'] } },

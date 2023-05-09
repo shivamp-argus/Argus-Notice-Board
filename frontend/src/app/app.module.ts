@@ -20,6 +20,7 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
 import { TeamComponent } from './team/team.component';
 import { EmpNoticeComponent } from './team/emp-notice/emp-notice.component';
 import { TeamsListComponent } from './teams-list/teams-list.component';
+import { CreateTeamComponent } from './team/create-team/create-team.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { TeamsListComponent } from './teams-list/teams-list.component';
     TeamComponent,
     EmpNoticeComponent,
     TeamsListComponent,
+    CreateTeamComponent,
 
   ],
   imports: [

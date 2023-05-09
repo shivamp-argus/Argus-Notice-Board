@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <form [formGroup]="createTeamForm" (ngSubmit)="createTeam()">
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Team Name</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="exampleFormControlInput1"
+        placeholder="Enter team name here"
+        formControlName="name"
+      />
+    </div>
+
+    <button type="submit" class="btn statusBtn cursor-pointer">
+      Create Team
+    </button>
+  </form>
+  <div class="card mt-3">
+    <div class="card-body">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Category</th>
+            <th>Created By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let team of teams; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ team.team_name }}</td>
+            <td>{{ team.createdBy }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
