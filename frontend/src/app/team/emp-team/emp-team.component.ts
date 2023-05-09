@@ -1,5 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Employees } from 'src/app/employees-list/employees-list.component';
 import { EmployeesService } from 'src/app/employees-list/employees.service';
 
@@ -19,9 +20,11 @@ export type EmpTeamRequest = {
   templateUrl: './emp-team.component.html',
   styleUrls: ['./emp-team.component.css']
 })
-export class EmpTeamComponent implements OnInit, OnChanges {
-
-  constructor(private readonly employeesService: EmployeesService) { }
+export class EmpTeamComponent implements OnInit {
+  constructor(
+    private readonly employeesService: EmployeesService,
+    private readonly router: Router
+  ) { }
 
   employees: Employees[] = []
   teams: Team[] = []
@@ -37,23 +40,20 @@ export class EmpTeamComponent implements OnInit, OnChanges {
     })
     this.employeesService.getAllTeams().subscribe(teams => {
       this.teams = teams
-      console.log(this.teams);
     })
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes);
-    console.log('hiii');
 
-
-  }
 
   createEmpTeam() {
     const empTeam: EmpTeamRequest = {
       emp_id: this.createEmpTeamForm.value.employee as string,
       team_id: this.createEmpTeamForm.value.team as string
     }
-    this.employeesService.createEmpTeam(empTeam).subscribe(data => console.log(data)
+    this.employeesService.createEmpTeam(empTeam).subscribe(data => {
+      console.log(data);
+      this.router.navigate(['/employees/teams'])
+    }
     )
 
   }

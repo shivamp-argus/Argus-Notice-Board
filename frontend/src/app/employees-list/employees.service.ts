@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employees } from './employees-list.component';
 import { EmpTeamRequest, Team } from '../team/emp-team/emp-team.component';
+import { AllTeamResponse } from '../teams-list/teams-list.component';
+
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,10 @@ export class EmployeesService {
     return this.http.get<Team[]>('http://localhost:3000/team', { headers: this.httpHeaders })
   }
   createEmpTeam(empTeamRequest: EmpTeamRequest) {
-    return this.http.post('http://localhost:3000/emp-team', [empTeamRequest], { headers: this.httpHeaders })
+    return this.http.post('http://localhost:3000/emp-team', [empTeamRequest], { headers: this.httpHeaders, responseType: 'text' })
+  }
+
+  getTeamAllData() {
+    return this.http.get<AllTeamResponse[]>('http://localhost:3000/team', { headers: this.httpHeaders })
   }
 }

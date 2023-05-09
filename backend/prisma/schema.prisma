@@ -24,6 +24,7 @@ model Employee {
 
   Employee_Team Employee_Team[]
   Category      Category[]
+  Team          Team[]
 }
 
 model Notice {
@@ -58,6 +59,7 @@ model Team {
   id            String          @id @default(uuid())
   team_name     String          @unique
   createdBy     String
+  Employee      Employee        @relation(fields: [createdBy], references: [id], onDelete: Cascade)
   Employee_Team Employee_Team[]
   Notice_Team   Notice_Team[]
 }

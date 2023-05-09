@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { EmployeesService } from '../employees-list/employees.service';
+
+
 
 @Component({
   selector: 'app-team',

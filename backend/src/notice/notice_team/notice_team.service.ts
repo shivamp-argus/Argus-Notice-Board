@@ -15,7 +15,7 @@ export class NoticeTeamService {
             if (!noticeTeams) {
                 throw new ConflictException("Already a member")
             }
-            return noticeTeams
+            return 'Notice added to Team'
         } catch (error) {
             error.message = "Unique constraint failed"
             return error.message

@@ -1,0 +1,32 @@
+<div class="card mt-3">
+  <div class="card-body">
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Sr. No.</th>
+          <th>Team Name</th>
+          <th>Created By</th>
+          <th>Employees</th>
+          <th>Notices</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of teams; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ team.team_name }}</td>
+          <td>{{ team.Employee.emp_name }}</td>
+          <td>
+            <li *ngFor="let employee of team.Employee_Team">
+              {{ employee.Employee.emp_name }}
+            </li>
+          </td>
+          <td>
+            <li *ngFor="let notice of team.Notice_Team">
+              {{ notice.Notice.notice_title }}
+            </li>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

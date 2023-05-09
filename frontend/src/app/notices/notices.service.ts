@@ -44,6 +44,6 @@ export class NoticesService {
   }
 
   createNoticeTeam(createNoticeTeamRequest: NoticeTeamRequest) {
-    return this.http.post('http://localhost:3000/notice-team', [createNoticeTeamRequest], { headers: this.httpHeaders })
+    return this.http.post('http://localhost:3000/notice-team', [createNoticeTeamRequest], { headers: this.httpHeaders, responseType: 'text' })
   }
 }

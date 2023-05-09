@@ -12,7 +12,34 @@ export class TeamService {
         return this.prisma.team.create({ data: createTeamDto })
     }
     async findAllTeam() {
-        const teams = await this.prisma.team.findMany()
+        const teams = await this.prisma.team.findMany({
+            include:
+            {
+                Employee: {
+                    select: {
+                        emp_name: true
+                    }
+                },
+                Employee_Team: {
+                    select: {
+                        Employee: {
+                            select: {
+                                emp_name: true
+                            }
+                        }
+                    }
+                },
+                Notice_Team: {
+                    select: {
+                        Notice: {
+                            select: {
+                                notice_title: true
+                            }
+                        }
+                    }
+                }
+            }
+        })
         if (teams.length <= 0) {
             throw new NotFoundException("Team not found")
         }
