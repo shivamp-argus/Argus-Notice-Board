@@ -28,12 +28,12 @@ export class NoticeController {
   }
 
   @Roles(Role.HR)
-  @Get('/:status')
-  findAll(@Param('status') status: string, @User() user: JWTPayload) {
+  @Get('/hr')
+  findAll(@User() user: JWTPayload) {
     if (!user) throw new HttpException('You are not authenticated', 400)
-    const statusPattern = /^(active|inactive)$/
-    if (!statusPattern.test(status)) throw new HttpException('URL not valid', 400)
-    return this.noticeService.findAll(user.id, status);
+    // const statusPattern = /^(active|inactive)$/
+    // if (!statusPattern.test(status)) throw new HttpException('URL not valid', 400)
+    return this.noticeService.findAll(user.id);
   }
 
 

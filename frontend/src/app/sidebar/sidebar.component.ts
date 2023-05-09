@@ -18,12 +18,12 @@ export class SidebarComponent implements OnInit {
       this.authService.me().subscribe(employee => {
         this.role = employee.role.toUpperCase()
 
-        if (data['expectedRole']?.includes(this.role)) {
-          this.isValidRole = true
-        }
-        console.log(this.role);
-        console.log(data['expectedRole']);
-        console.log(this.isValidRole);
+        // if (data['expectedRole']?.includes(this.role)) {
+        //   this.isValidRole = true
+        // }
+        // console.log(this.role);
+        // console.log(data['expectedRole']);
+        // console.log(this.isValidRole);
       })
 
 

@@ -8,6 +8,7 @@ import { NoticesComponent } from './notices/notices.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './auth/auth.guard';
 import { EmpTeamComponent } from './emp-team/emp-team.component';
+import { CreateNoticeComponent } from './create-notice/create-notice.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'superadmin/employees', component: EmployeesListComponent },
       { path: 'superadmin/notices', component: NoticesComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'profile', component: ProfileComponent },
+      { path: 'create', component: CreateNoticeComponent }
 
     ]
   },
@@ -29,9 +31,10 @@ const routes: Routes = [
     path: 'employees', component: HomeComponent, data: { expectedRole: ['HR', 'EMPLOYEES'] }, canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'list', component: EmployeesListComponent },
-      { path: 'teams', component: EmpTeamComponent },
-      { path: 'notice', component: NoticesComponent }
+      { path: 'list', component: EmployeesListComponent, data: { expectedRole: ['HR', 'EMPLOYEES'] } },
+      { path: 'teams', component: EmpTeamComponent, data: { expectedRole: ['HR', 'EMPLOYEES'] } },
+      { path: 'notice', component: NoticesComponent, data: { expectedRole: ['HR', 'EMPLOYEES'] } },
+      { path: 'create', component: CreateNoticeComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } }
     ]
   }
 

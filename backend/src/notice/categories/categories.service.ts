@@ -10,7 +10,7 @@ export class CategoriesService {
         return this.prisma.category.create({ data: createCategoryDto })
     }
     async findAll() {
-        return this.prisma.category.findMany()
+        return this.prisma.category.findMany({ where: { isActive: true } })
     }
     async getById(id: string) {
         return this.prisma.category.findUnique({ where: { id } })

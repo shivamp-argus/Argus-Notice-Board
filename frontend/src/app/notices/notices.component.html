@@ -44,6 +44,18 @@
     </div>
   </div>
   <div class="contDropdown">
+    <a
+      routerLink="/admin/create"
+      class="btn statusBtn cursor-pointer"
+      *ngIf="role === 'SUPERADMIN'; else others"
+      >Create Notice</a
+    >
+    <ng-template #others>
+      <a routerLink="/employees/create" class="btn statusBtn cursor-pointer"
+        >Create Notice</a
+      >
+    </ng-template>
+
     <div class="dropdown">
       <button
         class="btn dropdown-toggle statusBtn"
@@ -80,20 +92,24 @@
           <tr>
             <th>Sr. No.</th>
             <th>Notice Id</th>
-            <th>Issuer</th>
+            <th *ngIf="role === 'SUPERADMIN'">Issuer</th>
             <th>Category</th>
             <th>Status</th>
-            <th *ngIf="status === 'pending'">Change Status</th>
+            <th *ngIf="status === 'pending' && role === 'SUPERADMIN'">
+              Change Status
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let notice of filteredNotices; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ notice.notice_title }}</td>
-            <td>{{ notice.Employee.emp_name }}</td>
+            <td *ngIf="role === 'SUPERADMIN'">
+              {{ notice.Employee.emp_name }}
+            </td>
             <td>{{ notice.category.category }}</td>
             <td>{{ notice.published === true ? "Published" : "Pending" }}</td>
-            <td *ngIf="!notice.published">
+            <td *ngIf="!notice.published && role === 'SUPERADMIN'">
               <button
                 class="btn"
                 data-bs-toggle="modal"

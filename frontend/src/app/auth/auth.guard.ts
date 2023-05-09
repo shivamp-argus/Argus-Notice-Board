@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     this.authService.me().subscribe(data => {
       this.role = data.role
       this.expectedRole = route.data['expectedRole']
-      console.log(this.expectedRole.includes(this.role));
+      // console.log(this.expectedRole.includes(this.role));
 
       if (!this.expectedRole.includes(this.role)) {
         this.router.navigate([''])

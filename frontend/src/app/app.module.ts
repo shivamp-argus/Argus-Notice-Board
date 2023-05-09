@@ -15,6 +15,7 @@ import { NoticesComponent } from './notices/notices.component';
 import { ProfileComponent } from './profile/profile.component';
 
 import { EmpTeamComponent } from './emp-team/emp-team.component';
+import { CreateNoticeComponent } from './create-notice/create-notice.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { EmpTeamComponent } from './emp-team/emp-team.component';
     ProfileComponent,
 
     EmpTeamComponent,
+     CreateNoticeComponent,
 
   ],
   imports: [

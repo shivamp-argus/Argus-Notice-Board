@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateNoticeDto, UpdateNoticeDto } from '../dtos/notice.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { JWTPayload } from 'src/dtos/auth.dto';
+import { ServiceUnavailableException } from '@nestjs/common';
+
 
 
 @Injectable()
@@ -11,20 +12,32 @@ export class NoticeService {
   async create(createNoticeDto: CreateNoticeDto) {
     const { notice_title, notice_body, category, issuer_id } = createNoticeDto
     const { id } = await this.prisma.category.findUniqueOrThrow({ where: { category } })
-    return this.prisma.notice.create({
+    const notice = await this.prisma.notice.create({
       data: {
         notice_title,
         notice_body,
         issuer_id,
         category_id: id,
       },
-
     });
+    if (!notice) throw new ServiceUnavailableException('Service unavaliable')
+    return 'Notice Created'
   }
 
-  findAll(id: string, status: string) {
-    const published: boolean = status === 'active' ? true : false
-    return this.prisma.notice.findMany({ where: { issuer_id: id, published } });
+  findAll(id: string) {
+    // const published: boolean = status === 'active' ? true : false
+    return this.prisma.notice.findMany({
+      where: {
+        issuer_id: id
+      },
+      include: {
+        category: {
+          select: {
+            category: true
+          }
+        }
+      }
+    });
   }
 
   viewAllBySuperadmin() {

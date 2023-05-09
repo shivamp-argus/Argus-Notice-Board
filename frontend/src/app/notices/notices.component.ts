@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NoticesService } from './notices.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 export type Notices = {
   id: string
@@ -23,7 +24,11 @@ export type Notices = {
 })
 export class NoticesComponent implements OnInit {
 
-  constructor(private readonly noticesService: NoticesService, private readonly route: ActivatedRoute) { }
+  constructor(
+    private readonly noticesService: NoticesService,
+    private readonly route: ActivatedRoute,
+    private readonly authService: AuthService
+  ) { }
 
   status: string = ''
   toggleStatus: boolean = true
@@ -31,17 +36,46 @@ export class NoticesComponent implements OnInit {
   filteredNotices: Notices[] = []
   selectedNoticeId: string = ''
   role: string = ''
+  expectedRole: string[] = []
+
 
   ngOnInit(): void {
     this.getAllNotices()
+
   }
 
   getAllNotices() {
-    this.route.data.subscribe(data => this.role = data['expectedRole'])
-    this.noticesService.getAllNoticesBySuperadmin().subscribe((data) => {
-      this.notices = data
-      this.changeStatus('published')
+    // if (this.expectedRole.length === 0) {
+    //   this.route.data.subscribe((data) => {
+    //     console.log('expectedRole', data['expectedRole']);
+    //     this.role = data['expectedRole']
+    //     console.log('role', this.role);
+
+    //     // data['expectedRole'].map((el: string) => this.expectedRole.push(el))
+    //   })
+    // }
+    // console.log(this.expectedRole);
+    this.authService.me().subscribe(employee => {
+      // console.log(employee);
+
+      this.role = employee.role.toUpperCase()
+      if (this.role === 'SUPERADMIN') {
+        this.noticesService.getAllNoticesBySuperadmin().subscribe((data) => {
+          this.notices = data
+          this.changeStatus('published')
+        })
+      } else {
+        this.noticesService.getAllNoticesByHR().subscribe(data => {
+          this.notices = data
+          this.changeStatus('published')
+        })
+      }
     })
+
+
+
+
+
   }
 
   changeStatus(selectedStatus: string) {

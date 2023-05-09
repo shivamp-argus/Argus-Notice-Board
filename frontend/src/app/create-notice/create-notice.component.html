@@ -1,0 +1,46 @@
+<div class="container">
+  <form [formGroup]="createNoticeForm" (ngSubmit)="createNotice()">
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Notice Title</label
+      >
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        formControlName="notice_title"
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Categories</label>
+
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        formControlName="category"
+      >
+        <option
+          value="{{ category.category }}"
+          *ngFor="let category of categories"
+        >
+          {{ category.category }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Notice Body</label
+      >
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        formControlName="notice_body"
+      ></textarea>
+    </div>
+    <button type="submit" class="btn statusBtn cursor-pointer">
+      Create Notice
+    </button>
+  </form>
+</div>

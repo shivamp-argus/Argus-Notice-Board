@@ -1,6 +1,6 @@
 .contDropdown{
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   /* float: right; */
   margin-top: 20px;
 }
