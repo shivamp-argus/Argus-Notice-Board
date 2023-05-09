@@ -14,9 +14,11 @@ import { EmployeesListComponent } from './employees-list/employees-list.componen
 import { NoticesComponent } from './notices/notices.component';
 import { ProfileComponent } from './profile/profile.component';
 
-import { EmpTeamComponent } from './emp-team/emp-team.component';
+import { EmpTeamComponent } from './team/emp-team/emp-team.component';
 import { CreateNoticeComponent } from './create-notice/create-notice.component';
 import { CreateCategoryComponent } from './create-category/create-category.component';
+import { TeamComponent } from './team/team.component';
+import { EmpNoticeComponent } from './team/emp-notice/emp-notice.component';
 
 
 @NgModule({
@@ -32,8 +34,10 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
     ProfileComponent,
 
     EmpTeamComponent,
-     CreateNoticeComponent,
-     CreateCategoryComponent,
+    CreateNoticeComponent,
+    CreateCategoryComponent,
+    TeamComponent,
+    EmpNoticeComponent,
 
   ],
   imports: [

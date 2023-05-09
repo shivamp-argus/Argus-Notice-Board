@@ -1,0 +1,33 @@
+<div class="container">
+  <form [formGroup]="createNoticeTeamForm" (ngSubmit)="createNoticeTeam()">
+    <div class="mb-3">
+      <label for="team" class="form-label">Team</label>
+
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        formControlName="team"
+      >
+        <option value="{{ team.id }}" *ngFor="let team of teams">
+          {{ team.team_name }}
+        </option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="notice" class="form-label">Notice</label>
+
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        formControlName="notice"
+      >
+        <option value="{{ notice.id }}" *ngFor="let notice of notices">
+          {{ notice.notice_title }}
+        </option>
+      </select>
+    </div>
+    <button type="submit" class="btn statusBtn cursor-pointer">
+      Add Notice
+    </button>
+  </form>
+</div>

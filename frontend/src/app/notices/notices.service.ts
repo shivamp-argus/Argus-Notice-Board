@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Notices } from './notices.component';
 import { CategoriesResponse, CreateNoticeRequest } from '../create-notice/create-notice.component';
 import { createCategoryRequest } from '../create-category/create-category.component';
+import { NoticeTeamRequest } from '../team/emp-notice/emp-notice.component';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,9 @@ export class NoticesService {
   }
   createCategory(createCategoryRequest: createCategoryRequest) {
     return this.http.post('http://localhost:3000/categories', createCategoryRequest, { headers: this.httpHeaders, responseType: 'text' })
+  }
+
+  createNoticeTeam(createNoticeTeamRequest: NoticeTeamRequest) {
+    return this.http.post('http://localhost:3000/notice-team', [createNoticeTeamRequest], { headers: this.httpHeaders })
   }
 }

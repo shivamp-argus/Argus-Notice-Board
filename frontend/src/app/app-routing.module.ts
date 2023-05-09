@@ -7,9 +7,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NoticesComponent } from './notices/notices.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './auth/auth.guard';
-import { EmpTeamComponent } from './emp-team/emp-team.component';
+import { EmpTeamComponent } from './team/emp-team/emp-team.component';
 import { CreateNoticeComponent } from './create-notice/create-notice.component';
 import { CreateCategoryComponent } from './create-category/create-category.component';
+import { TeamComponent } from './team/team.component';
+import { EmpNoticeComponent } from './team/emp-notice/emp-notice.component';
 
 
 const routes: Routes = [
@@ -33,11 +35,18 @@ const routes: Routes = [
     path: 'employees', component: HomeComponent, data: { expectedRole: ['HR', 'EMPLOYEES'] }, canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'list', component: EmployeesListComponent, data: { expectedRole: ['HR', 'EMPLOYEES'] } },
-      { path: 'teams', component: EmpTeamComponent, data: { expectedRole: ['HR', 'EMPLOYEES'] } },
-      { path: 'notice', component: NoticesComponent, data: { expectedRole: ['HR', 'EMPLOYEES'] } },
+      { path: 'list', component: EmployeesListComponent, data: { expectedRole: ['HR'] } },
+      {
+        path: 'teams', component: TeamComponent, data: { expectedRole: ['HR'] },
+        children: [
+          { path: 'create-emp-team', component: EmpTeamComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } },
+          { path: 'create-notice-team', component: EmpNoticeComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } }
+        ]
+      },
+      { path: 'notice', component: NoticesComponent, data: { expectedRole: ['HR'] } },
       { path: 'create-notice', component: CreateNoticeComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } },
-      { path: 'create-category', component: CreateCategoryComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } }
+      { path: 'create-category', component: CreateCategoryComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } },
+
     ]
   }
 

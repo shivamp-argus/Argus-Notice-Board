@@ -1,0 +1,33 @@
+<div class="container">
+  <form [formGroup]="createEmpTeamForm" (ngSubmit)="createEmpTeam()">
+    <div class="mb-3">
+      <label for="category" class="form-label">Team</label>
+
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        formControlName="team"
+      >
+        <option value="{{ team.id }}" *ngFor="let team of teams">
+          {{ team.team_name }}
+        </option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Employees</label>
+
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        formControlName="employee"
+      >
+        <option value="{{ employee.id }}" *ngFor="let employee of employees">
+          {{ employee.emp_name }}
+        </option>
+      </select>
+    </div>
+    <button type="submit" class="btn statusBtn cursor-pointer">
+      Add Employee
+    </button>
+  </form>
+</div>
