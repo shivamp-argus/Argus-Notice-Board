@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from '../app.service';
+import { ToastrService } from 'ngx-toastr';
 
 export type User = {
   email: string,
@@ -23,7 +24,7 @@ export class AuthComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
-    private readonly app: AppService
+    private readonly toast: ToastrService
   ) { }
 
   mode: string = '';
@@ -71,20 +72,20 @@ export class AuthComponent implements OnInit {
       this.authService.login(employee).subscribe(data => {
         this.setUser(data)
         localStorage.setItem('token', this.user.token)
-        // if (data.employee.role === 'SUPERADMIN') {
-        //   this.router.navigate(['/admin'])
-        // } else {
-        //   this.router.navigate(['/employees'])
-        // }
-        console.log(data.employee.role);
 
-        if (data.employee.role.toUpperCase() === 'EMPLOYEE') this.router.navigate(['/employees'])
-        else this.router.navigate(['/admin'])
+        if (data.employee.role.toUpperCase() === 'EMPLOYEE') {
+          this.router.navigate(['/employees'])
+          this.toast.success('Logged in successfully', '', { timeOut: 1500 })
+        }
+        else {
+          this.router.navigate(['/admin'])
+          this.toast.success('Logged in successfully', '', { timeOut: 1500 })
+        }
 
       },
         (error) => {
           this.error = error.error.message
-          console.log(this.error);
+          this.toast.error(this.error, '', { timeOut: 1500 })
         })
     } catch (e) {
       throw new Error("Not authorised")

@@ -13,7 +13,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { EmployeesListComponent } from './employees-list/employees-list.component';
 import { NoticesComponent } from './notices/notices.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { EmpTeamComponent } from './team/emp-team/emp-team.component';
 import { CreateNoticeComponent } from './create-notice/create-notice.component';
 import { CreateCategoryComponent } from './create-category/create-category.component';
@@ -24,6 +24,7 @@ import { CreateTeamComponent } from './team/create-team/create-team.component';
 import { EmployeesNoticeComponent } from './employees-notice/employees-notice.component';
 import { EmployeesTeamComponent } from './employees-team/employees-team.component';
 import { ToastrModule } from 'ngx-toastr';
+import { NoopAnimationPlayer } from '@angular/animations';
 
 
 @NgModule({
@@ -47,13 +48,16 @@ import { ToastrModule } from 'ngx-toastr';
     EmployeesNoticeComponent,
     EmployeesTeamComponent,
 
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -37,7 +37,7 @@ export class EmployeesNoticeComponent implements OnInit {
   getAllNoticeByEmployee() {
     this.noticesService.getAllNoticesByEmployee().subscribe(data => {
       this.empNotice = data
-      console.log(this.empNotice);
+
     }
     )
   }
