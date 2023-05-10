@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employees } from './employees-list.component';
 import { EmpTeamRequest, Team } from '../team/emp-team/emp-team.component';
-import { AllTeamResponse } from '../teams-list/teams-list.component';
+import { AllTeamResponse } from '../team/teams-list/teams-list.component';
 
 
 @Injectable({

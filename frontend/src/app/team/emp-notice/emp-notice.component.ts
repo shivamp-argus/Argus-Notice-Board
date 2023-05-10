@@ -5,6 +5,7 @@ import { Notices } from 'src/app/notices/notices.component';
 import { EmployeesService } from 'src/app/employees-list/employees.service';
 import { NoticesService } from 'src/app/notices/notices.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 export type NoticeTeamRequest = {
   team_id: string
@@ -21,10 +22,12 @@ export class EmpNoticeComponent implements OnInit {
   constructor(
     private readonly employeesService: EmployeesService,
     private readonly noticesService: NoticesService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly authService: AuthService
   ) { }
   teams: Team[] = []
   notices: Notices[] = []
+  role: string = ''
 
   createNoticeTeamForm = new FormGroup({
     team: new FormControl('', Validators.required),
@@ -34,6 +37,7 @@ export class EmpNoticeComponent implements OnInit {
   ngOnInit(): void {
     this.employeesService.getAllTeams().subscribe(teams => this.teams = teams)
     this.noticesService.getAllNoticesByHR().subscribe(notices => this.notices = notices)
+    this.authService.me().subscribe(employee => this.role = employee.role)
   }
 
   createNoticeTeam() {
@@ -44,7 +48,11 @@ export class EmpNoticeComponent implements OnInit {
     }
     this.noticesService.createNoticeTeam(noticeTeam).subscribe(data => {
       console.log(data);
-      this.router.navigate(['/employees/teams'])
+      if (this.role === 'SUPERADMIN') {
+        this.router.navigate(['/admin/teams'])
+      } else {
+        this.router.navigate(['/employees/teams'])
+      }
     })
   }
 }

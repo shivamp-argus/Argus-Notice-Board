@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeesService } from '../employees-list/employees.service';
+import { AuthService } from '../auth/auth.service';
 
 
 
@@ -9,5 +10,8 @@ import { EmployeesService } from '../employees-list/employees.service';
   styleUrls: ['./team.component.css']
 })
 export class TeamComponent {
+
+
+
 
 }

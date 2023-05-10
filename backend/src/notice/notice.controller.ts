@@ -27,7 +27,7 @@ export class NoticeController {
     return this.noticeService.viewAllBySuperadmin()
   }
 
-  @Roles(Role.HR)
+  @Roles(Role.HR, Role.SUPERADMIN)
   @Get('/hr')
   findAll(@User() user: JWTPayload) {
     if (!user) throw new HttpException('You are not authenticated', 400)

@@ -19,11 +19,12 @@
   </form>
   <div class="card mt-3">
     <div class="card-body">
+      <p class="fw-bolder">Teams List</p>
       <table class="table table-bordered table-striped table-hover">
         <thead>
           <tr>
             <th>Sr. No.</th>
-            <th>Category</th>
+            <th>Team Name</th>
             <th>Created By</th>
           </tr>
         </thead>
@@ -31,7 +32,7 @@
           <tr *ngFor="let team of teams; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ team.team_name }}</td>
-            <td>{{ team.createdBy }}</td>
+            <td>{{ team.Employee.emp_name }}</td>
           </tr>
         </tbody>
       </table>

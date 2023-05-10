@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeesService } from './employees.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 
 export type Employees = {
@@ -17,14 +18,18 @@ export type Employees = {
   styleUrls: ['./employees-list.component.css']
 })
 export class EmployeesListComponent implements OnInit {
-  constructor(private readonly employeesService: EmployeesService, private route: ActivatedRoute) { }
+  constructor(
+    private readonly employeesService: EmployeesService,
+    private readonly authService: AuthService
+  ) { }
   employees: Employees[] = []
   status: string = 'active'
   toggleStatus: string = 'deactivate'
   selectedEmployeeId: string = ''
+  role: string = ''
 
   ngOnInit(): void {
-
+    this.authService.me().subscribe(employee => this.role = employee.role)
     this.getAllEmployees()
   }
 

@@ -68,7 +68,8 @@ export class AuthService {
   }
 
   private generateAuthToken(payload: JWTPayload) {
-    return jwt.sign(payload, process.env['JWT_SECRET'], { expiresIn: 3600 })
+    return jwt.sign(payload, process.env['JWT_SECRET'])
+    // , { expiresIn: 3600 }
   }
 
 

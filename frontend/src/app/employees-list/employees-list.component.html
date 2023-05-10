@@ -89,7 +89,7 @@
             <th>Email</th>
             <th>Role</th>
             <th>Status</th>
-            <th>Change Status</th>
+            <th *ngIf="role === 'SUPERADMIN'">Change Status</th>
           </tr>
         </thead>
         <tbody>
@@ -99,7 +99,7 @@
             <td>{{ employee.emp_email }}</td>
             <td>{{ employee.role }}</td>
             <td>{{ employee.isActive === true ? "Active" : "Inactive" }}</td>
-            <td>
+            <td *ngIf="role === 'SUPERADMIN'">
               <button
                 class="btn"
                 data-bs-toggle="modal"

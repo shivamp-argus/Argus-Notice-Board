@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { EmployeesService } from '../employees-list/employees.service';
+import { EmployeesService } from '../../employees-list/employees.service';
 
 export type Employee = {
   Employee: { emp_name: string }
