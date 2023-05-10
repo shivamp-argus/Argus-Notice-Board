@@ -14,6 +14,8 @@ import { TeamComponent } from './team/team.component';
 import { EmpNoticeComponent } from './team/emp-notice/emp-notice.component';
 import { TeamsListComponent } from './team/teams-list/teams-list.component';
 import { CreateTeamComponent } from './team/create-team/create-team.component';
+import { EmployeesTeamComponent } from './employees-team/employees-team.component';
+import { EmployeesNoticeComponent } from './employees-notice/employees-notice.component';
 
 
 const routes: Routes = [
@@ -45,12 +47,16 @@ const routes: Routes = [
   {
     path: 'employees', component: HomeComponent, canActivate: [AuthGuard], data: {
       expectedRole: ['EMPLOYEE'],
-      children: [
-        { path: '', component: DashboardComponent },
-        // {path:'teams',component:}
-      ]
-    }
-  }
+    },
+    children: [
+      { path: '', component: DashboardComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'teams', component: EmployeesTeamComponent },
+      { path: 'notices', component: EmployeesNoticeComponent }
+
+    ]
+  },
+
 
 
 

@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <p class="display-4 fw-bold">Notices List</p>
+  <div class="card mt-3" *ngFor="let data of empNotice; let i = index">
+    <div class="card-body">
+      <h5 class="card-title">{{ i + 1 }}. Team Name - {{ data.team_name }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">
+        Created By - {{ data.Employee.emp_name }}
+      </h6>
+      <p class="card-text mt-2 fw-bold">List of notices</p>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let notice of data.Notice_Team">
+          {{ notice.Notice.notice_title }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -21,6 +21,9 @@ import { TeamComponent } from './team/team.component';
 import { EmpNoticeComponent } from './team/emp-notice/emp-notice.component';
 import { TeamsListComponent } from './team/teams-list/teams-list.component';
 import { CreateTeamComponent } from './team/create-team/create-team.component';
+import { EmployeesNoticeComponent } from './employees-notice/employees-notice.component';
+import { EmployeesTeamComponent } from './employees-team/employees-team.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -34,7 +37,6 @@ import { CreateTeamComponent } from './team/create-team/create-team.component';
     EmployeesListComponent,
     NoticesComponent,
     ProfileComponent,
-
     EmpTeamComponent,
     CreateNoticeComponent,
     CreateCategoryComponent,
@@ -42,13 +44,16 @@ import { CreateTeamComponent } from './team/create-team/create-team.component';
     EmpNoticeComponent,
     TeamsListComponent,
     CreateTeamComponent,
+    EmployeesNoticeComponent,
+    EmployeesTeamComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

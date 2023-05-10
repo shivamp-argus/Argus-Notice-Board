@@ -33,4 +33,23 @@ export class EmpTeamService {
         return this.prisma.employee_Team.delete({ where: { id } })
     }
 
+    async getAllByCurrentUser(id: string) {
+        return this.prisma.employee_Team.findMany({
+            where: {
+                emp_id: id
+            },
+            include: {
+                Employee: {
+                    select: {
+                        emp_name: true
+                    }
+                },
+                Team: {
+                    select: {
+                        team_name: true
+                    }
+                }
+            }
+        })
+    }
 }

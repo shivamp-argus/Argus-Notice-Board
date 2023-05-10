@@ -19,11 +19,11 @@ export class NoticeTeamController {
         return this.noticeTeamService.createNoticeTeam(requestData)
     }
 
-    @Roles(Role.HR, Role.SUPERADMIN)
-    @Get()
-    getAllNoticeTeam(@User() user: JWTPayload) {
+    @Roles(Role.Employee)
+    @Get('my-notice')
+    getAllByCurrentUser(@User() user: JWTPayload) {
         if (!user) throw new HttpException("You are not authorised", 400)
-        return this.noticeTeamService.getAllNoticeTeam(user.id)
+        return this.noticeTeamService.getAllByCurrentUser(user.id)
     }
 
     @Get(':id')

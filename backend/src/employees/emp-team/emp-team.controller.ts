@@ -26,6 +26,12 @@ export class EmpTeamController {
     getAllEmpTeam() {
         return this.empTeamService.getAllEmpTeam()
     }
+    @Roles(Role.Employee)
+    @Get('my-teams')
+    getAllByCurrentUser(@User() user: JWTPayload) {
+        if (!user) throw new HttpException('You are not authorised', 400)
+        return this.empTeamService.getAllByCurrentUser(user.id)
+    }
 
     @Roles(Role.HR, Role.SUPERADMIN)
     @Get(':id')
@@ -39,6 +45,7 @@ export class EmpTeamController {
     deleteById(@Param('id') id: string) {
         return this.empTeamService.deleteById(id)
     }
+
 
 
 }

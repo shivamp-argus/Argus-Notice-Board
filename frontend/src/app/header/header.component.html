@@ -14,20 +14,36 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div
-      class="collapse navbar-collapse justify-content-between"
-      id="navbarSupportedContent"
-    >
-      <div class="navbar-nav mb-2 mb-lg-0 ms-lg-5">
-        <div class="nav-item">
-          <a class="nav-link" routerLink="/admin">Home</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div
+        *ngIf="role === 'EMPLOYEE'; else admin"
+        class="d-flex flex-grow-1 justify-content-between"
+      >
+        <div class="navbar-nav">
+          <div class="nav-item">
+            <a class="nav-link" routerLink="/employees">Home</a>
+          </div>
+        </div>
+        <div class="navbar-nav">
+          <div class="nav-item float-end">
+            <a class="nav-link" routerLink="/employees/profile">Profile</a>
+          </div>
         </div>
       </div>
-      <div class="navbar-nav mb-2 mb-lg-0 me-lg-5">
-        <div class="nav-item float-end">
-          <a class="nav-link" routerLink="/admin/profile">Profile</a>
+      <ng-template #admin>
+        <div class="d-flex flex-grow-1 justify-content-between">
+          <div class="navbar-nav mb-2 mb-lg-0 ms-lg-5">
+            <div class="nav-item">
+              <a class="nav-link" routerLink="/admin">Home</a>
+            </div>
+          </div>
+          <div class="navbar-nav mb-2 mb-lg-0 me-lg-5">
+            <div class="nav-item float-end">
+              <a class="nav-link" routerLink="/admin/profile">Profile</a>
+            </div>
+          </div>
         </div>
-      </div>
+      </ng-template>
     </div>
   </div>
 </nav>

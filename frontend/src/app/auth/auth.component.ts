@@ -78,14 +78,9 @@ export class AuthComponent implements OnInit {
         // }
         console.log(data.employee.role);
 
-        if (data.employee.role.toUpperCase() === 'EMPLOYEE') {
-          console.log('hiii');
+        if (data.employee.role.toUpperCase() === 'EMPLOYEE') this.router.navigate(['/employees'])
+        else this.router.navigate(['/admin'])
 
-          this.router.navigate(['/employees'])
-        } else {
-          console.log('hello');
-          this.router.navigate(['/admin'])
-        }
       },
         (error) => {
           this.error = error.error.message

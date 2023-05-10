@@ -24,8 +24,29 @@ export class NoticeTeamService {
 
     }
 
-    async getAllNoticeTeam(id: string) {
-        // return this.prisma.notice_Team.findMany({where:{}})
+    async getAllByCurrentUser(id: string) {
+        return this.prisma.team.findMany({
+            where: {
+                Employee_Team: { some: { emp_id: id } }
+            },
+            include: {
+                Employee: {
+                    select: {
+                        emp_name: true
+                    }
+                },
+                Notice_Team: {
+                    include: {
+                        Notice: {
+                            select: {
+                                notice_title: true
+                            }
+                        }
+                    }
+                }
+            }
+
+        })
     }
 
     async getNoticeTeamById(id: string) {

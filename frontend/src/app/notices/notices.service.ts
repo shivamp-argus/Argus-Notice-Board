@@ -4,6 +4,7 @@ import { Notices } from './notices.component';
 import { CategoriesResponse, CreateNoticeRequest } from '../create-notice/create-notice.component';
 import { createCategoryRequest } from '../create-category/create-category.component';
 import { NoticeTeamRequest } from '../team/emp-notice/emp-notice.component';
+import { EmpNotice } from '../employees-notice/employees-notice.component';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,6 @@ export class NoticesService {
       headers: this.httpHeaders
     })
   }
-  getAllNoticesByEmployee() {
-
-  }
   getAllNoticesByHR() {
     return this.http.get<Notices[]>('http://localhost:3000/notice/hr', { headers: this.httpHeaders })
   }
@@ -45,5 +43,9 @@ export class NoticesService {
 
   createNoticeTeam(createNoticeTeamRequest: NoticeTeamRequest) {
     return this.http.post('http://localhost:3000/notice-team', [createNoticeTeamRequest], { headers: this.httpHeaders, responseType: 'text' })
+  }
+
+  getAllNoticesByEmployee() {
+    return this.http.get<EmpNotice[]>('http://localhost:3000/notice-team/my-notice', { headers: this.httpHeaders })
   }
 }
