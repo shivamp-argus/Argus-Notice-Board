@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'auth/:mode', component: AuthComponent },
   {
     path: 'admin', component: HomeComponent, canActivate: [AuthGuard], data: {
-      expectedRole: ['SUPERADMIN']
+      expectedRole: ['SUPERADMIN', 'HR']
     },
     children: [
       { path: '', component: DashboardComponent },
@@ -43,25 +43,15 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'employees', component: HomeComponent, data: { expectedRole: ['HR', 'EMPLOYEES'] }, canActivate: [AuthGuard],
-    children: [
-      { path: '', component: DashboardComponent },
-      { path: 'list', component: EmployeesListComponent, data: { expectedRole: ['HR'] } },
-      {
-        path: 'teams', component: TeamComponent, data: { expectedRole: ['HR'] },
-        children: [
-          { path: '', component: TeamsListComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } },
-          { path: 'create-emp-team', component: EmpTeamComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } },
-          { path: 'create-notice-team', component: EmpNoticeComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } },
-          { path: 'create-team', component: CreateTeamComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } }
-        ]
-      },
-      { path: 'notice', component: NoticesComponent, data: { expectedRole: ['HR'] } },
-      { path: 'create-notice', component: CreateNoticeComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } },
-      { path: 'create-category', component: CreateCategoryComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } },
-
-    ]
+    path: 'employees', component: HomeComponent, canActivate: [AuthGuard], data: {
+      expectedRole: ['EMPLOYEE'],
+      children: [
+        { path: '', component: DashboardComponent },
+        // {path:'teams',component:}
+      ]
+    }
   }
+
 
 
 ];

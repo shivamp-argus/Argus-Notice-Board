@@ -1,11 +1,5 @@
 <nav class="main-menu">
-  <ul class="listGroup" *ngIf="role === 'SUPERADMIN'; else employeesSidebar">
-    <li class="listItem">
-      <a routerLink="employees" class="listLink">
-        <i class="bi bi-person-lines-fill"></i>
-        <span> Employees</span>
-      </a>
-    </li>
+  <ul class="listGroup" *ngIf="role === 'EMPLOYEE'; else admin">
     <li class="listItem">
       <a routerLink="notices" class="listLink">
         <i class="bi bi-chat-square-fill"></i>
@@ -19,16 +13,16 @@
       </a>
     </li>
   </ul>
-  <ng-template #employeesSidebar>
+  <ng-template #admin>
     <ul class="listGroup">
       <li class="listItem">
-        <a routerLink="list" class="listLink">
+        <a routerLink="employees" class="listLink">
           <i class="bi bi-person-lines-fill"></i>
           <span> Employees</span>
         </a>
       </li>
       <li class="listItem">
-        <a routerLink="notice" class="listLink">
+        <a routerLink="notices" class="listLink">
           <i class="bi bi-chat-square-fill"></i>
           <span> Notices</span>
         </a>

@@ -71,10 +71,20 @@ export class AuthComponent implements OnInit {
       this.authService.login(employee).subscribe(data => {
         this.setUser(data)
         localStorage.setItem('token', this.user.token)
-        if (data.employee.role === 'SUPERADMIN') {
-          this.router.navigate(['/admin'])
-        } else {
+        // if (data.employee.role === 'SUPERADMIN') {
+        //   this.router.navigate(['/admin'])
+        // } else {
+        //   this.router.navigate(['/employees'])
+        // }
+        console.log(data.employee.role);
+
+        if (data.employee.role.toUpperCase() === 'EMPLOYEE') {
+          console.log('hiii');
+
           this.router.navigate(['/employees'])
+        } else {
+          console.log('hello');
+          this.router.navigate(['/admin'])
         }
       },
         (error) => {
