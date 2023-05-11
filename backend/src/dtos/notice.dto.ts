@@ -26,6 +26,10 @@ export class CreateNoticeDto {
 
     published?: boolean
 
+    constructor(obj: CreateNoticeDto) {
+        Object.assign(this, obj);
+    }
+
 }
 export class UpdateNoticeDto extends PartialType(CreateNoticeDto) {
     // id?: string

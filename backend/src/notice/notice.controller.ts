@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, } from '@nestjs/common';
 import { NoticeService } from './notice.service';
 import { CreateNoticeDto, NoticeRequestDto, NoticeResponseDto, UpdateNoticeDto } from '../dtos/notice.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
@@ -8,6 +8,7 @@ import User from 'src/employees/decorators/employees.decorator';
 import { JWTPayload } from 'src/dtos/auth.dto';
 
 
+
 @Controller('notice')
 @Serialize(NoticeResponseDto)
 export class NoticeController {
@@ -15,9 +16,9 @@ export class NoticeController {
 
   @Roles(Role.HR, Role.SUPERADMIN)
   @Post()
-  create(@Body() createNoticeDto: NoticeRequestDto, @User() user: JWTPayload) {
+  async create(@Body() createNoticeDto: NoticeRequestDto, @User() user: JWTPayload) {
     if (!user) throw new HttpException('You are not authenticated', 400)
-    const requestData: CreateNoticeDto = { ...createNoticeDto, issuer_id: user.id }
+    const requestData: CreateNoticeDto = new CreateNoticeDto({ ...createNoticeDto, issuer_id: user.id })
     return this.noticeService.create(requestData);
   }
 

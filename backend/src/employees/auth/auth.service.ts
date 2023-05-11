@@ -1,4 +1,4 @@
-import { ConflictException, HttpException, Injectable, NotAcceptableException, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ConflictException, HttpException, Injectable, NotAcceptableException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { Role } from '@prisma/client';
@@ -6,6 +6,7 @@ import { AuthResponseDto, JWTPayload, LoginRequestDto, RegisterSuperAdmin } from
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateEmployeeDto, EmployeeResponseDto } from 'src/dtos/employee.dto';
 import { ForbiddenException } from '@nestjs/common';
+import { validate } from 'class-validator';
 
 
 @Injectable()
@@ -33,6 +34,9 @@ export class AuthService {
   }
 
   async signup(createEmployeeDto: CreateEmployeeDto): Promise<EmployeeResponseDto> {
+    // const error = await validate(createEmployeeDto)
+    // console.log(error.length > 0);
+    // if (error.length > 0) throw new BadRequestException('Enter required data')
     const { emp_email, password } = createEmployeeDto
     if (createEmployeeDto?.role === "SUPERADMIN") throw new NotAcceptableException()
     if (emp_email.match(/^(superadmin@)(.)*$/)) throw new NotAcceptableException();

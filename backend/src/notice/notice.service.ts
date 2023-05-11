@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateNoticeDto, UpdateNoticeDto } from '../dtos/notice.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ServiceUnavailableException } from '@nestjs/common';
+import { validate } from 'class-validator';
 
 
 
@@ -10,6 +11,8 @@ export class NoticeService {
   constructor(private readonly prisma: PrismaService) { }
 
   async create(createNoticeDto: CreateNoticeDto) {
+    const error = await validate(createNoticeDto)
+    if (error.length > 0) throw new BadRequestException('Enter required data')
     const { notice_title, notice_body, category, issuer_id } = createNoticeDto
     const { id } = await this.prisma.category.findUniqueOrThrow({ where: { category } })
     const notice = await this.prisma.notice.create({
@@ -64,9 +67,11 @@ export class NoticeService {
   }
 
   async update(id: string, updateNoticeDto: UpdateNoticeDto, userId: string) {
+    const errors = await validate(updateNoticeDto)
+    if (errors.length > 0) throw new BadRequestException('Enter required data')
     const notice = await this.findOne(id, userId)
     if (!notice) throw new UnauthorizedException("You are not authorized")
-    let category_id;
+    let category_id: string;
     if ('category' in updateNoticeDto) {
       const category = await this.prisma.category.findFirst({ where: { category: updateNoticeDto.category } })
       category_id = category.id

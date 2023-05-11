@@ -1,8 +1,9 @@
-import { Controller, Post, Body, ParseEnumPipe } from '@nestjs/common';
+import { Controller, Post, Body, ParseEnumPipe, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginRequestDto, RegisterSuperAdmin } from 'src/dtos/auth.dto';
 // import { Role } from '@prisma/client';
 import { CreateEmployeeDto } from 'src/dtos/employee.dto';
+import { validate } from 'class-validator';
 // import { auth } from 'google-auth-library';
 
 
@@ -18,6 +19,9 @@ export class AuthController {
   @Post('signup')
   // @Param('role', new ParseEnumPipe(Role)) role: Role,
   async signup(@Body() createEmployeeDto: CreateEmployeeDto) {
+    const error = await validate(createEmployeeDto)
+    console.log(error);
+
     return this.authService.signup(createEmployeeDto)
   }
 
