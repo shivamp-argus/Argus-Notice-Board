@@ -1,12 +1,23 @@
+import { IsNotEmpty, IsString } from "class-validator"
+
 export class CreateTeamDto {
-    id: string
+
+
+
+    @IsString()
+    @IsNotEmpty()
     team_name: string
+
+    @IsString()
     createdBy: string
 
+    constructor(team: CreateTeamDto) {
+        Object.assign(this, team)
+    }
 }
 
 export type TeamRequestDto = {
-    id: string
+
     team_name: string
 
 }

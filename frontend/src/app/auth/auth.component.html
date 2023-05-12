@@ -43,6 +43,23 @@
             <!-- <p>Enter Valid Email</p> -->
           </div>
         </div>
+        <div class="login__field" *ngIf="mode === 'signup'">
+          <div class="login__adjust">
+            <i class="bi bi-person-fill login__icon"></i>
+            <select
+              type="text"
+              class="login__input"
+              placeholder=" Roles"
+              formControlName="role"
+            >
+              <option value="">Select Role</option>
+              <option [value]="role" *ngFor="let role of Role">
+                {{ role }}
+              </option>
+            </select>
+            <!-- <p *ngIf="">Enter Valid Username</p> -->
+          </div>
+        </div>
         <button class="button login__submit" type="submit">
           <span class="button__text">{{ switchButtonText() }}</span>
           <i class="button__icon fas fa-chevron-right"></i>

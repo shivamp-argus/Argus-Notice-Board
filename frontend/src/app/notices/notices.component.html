@@ -44,7 +44,7 @@
     </div>
   </div>
   <div class="contDropdown">
-    <div *ngIf="role === 'SUPERADMIN'; else others">
+    <div>
       <a routerLink="/admin/create-notice" class="btn statusBtn cursor-pointer"
         >Create Notice</a
       >
@@ -55,7 +55,7 @@
       >
     </div>
 
-    <ng-template #others>
+    <!-- <ng-template #others>
       <div>
         <a
           routerLink="/employees/create-notice"
@@ -68,7 +68,7 @@
           >Create Category</a
         >
       </div>
-    </ng-template>
+    </ng-template> -->
 
     <div class="dropdown">
       <button

@@ -91,13 +91,14 @@ body {
 }
 
 .login {
-	width: 320px;
+	width: 340px;
 	padding: 30px;
 	padding-top: 156px;
   padding-bottom: 100px;
 }
 .signup{
-  padding-top: 90px;
+  padding-top: 76px;
+  padding-bottom: 25px;
 }
 
 .login__field {

@@ -10,6 +10,9 @@ export class CreateCategoryDto {
     @IsNotEmpty()
     createdBy: string
 
+    constructor(category: CreateCategoryDto) {
+        Object.assign(this, category)
+    }
     // @IsBoolean()
     // isActive: boolean
 

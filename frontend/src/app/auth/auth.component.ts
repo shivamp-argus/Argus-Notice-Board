@@ -1,5 +1,5 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from '../app.service';
@@ -43,10 +43,12 @@ export class AuthComponent implements OnInit {
     password: new FormControl('', [Validators.required])
   })
   signupForm = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl('')
+    name: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.email, Validators.required]),
+    password: new FormControl('', Validators.required),
+    role: new FormControl('', [Validators.required, Validators.minLength(1)])
   })
+  Role: string[] = ['HR', 'EMPLOYEE']
   user: User = {
     email: '',
     name: '',
@@ -69,24 +71,28 @@ export class AuthComponent implements OnInit {
         email: this.loginForm.value.email as string,
         password: this.loginForm.value.password as string
       }
-      this.authService.login(employee).subscribe(data => {
-        this.setUser(data)
-        localStorage.setItem('token', this.user.token)
+      if (!this.loginForm.valid) this.toast.error('Enter valid data', 'Invalid Data', { timeOut: 1500 })
+      else {
+        this.authService.login(employee).subscribe(data => {
+          this.setUser(data)
+          localStorage.setItem('token', this.user.token)
 
-        if (data.employee.role.toUpperCase() === 'EMPLOYEE') {
-          this.router.navigate(['/employees'])
-          this.toast.success('Logged in successfully', '', { timeOut: 1500 })
-        }
-        else {
-          this.router.navigate(['/admin'])
-          this.toast.success('Logged in successfully', '', { timeOut: 1500 })
-        }
+          if (data.employee.role.toUpperCase() === 'EMPLOYEE') {
+            this.router.navigate(['/employees'])
+            this.toast.success('Logged in successfully', 'Login Successfull', { timeOut: 1500 })
+          }
+          else {
+            this.router.navigate(['/admin'])
+            this.toast.success('Logged in successfully', 'Login Successfull', { timeOut: 1500 })
+          }
 
-      },
-        (error) => {
-          this.error = error.error.message
-          this.toast.error(this.error, '', { timeOut: 1500 })
-        })
+        },
+          (error) => {
+            this.error = error.error.message
+            this.toast.error(this.error, error.error.error, { timeOut: 1500 })
+          })
+      }
+
     } catch (e) {
       throw new Error("Not authorised")
     }
@@ -96,18 +102,28 @@ export class AuthComponent implements OnInit {
       const employee = {
         emp_name: this.signupForm.value.name as string,
         emp_email: this.signupForm.value.email as string,
-        password: this.signupForm.value.password as string
+        password: this.signupForm.value.password as string,
+        role: this.signupForm.value.role?.toUpperCase() as string
       }
-      this.authService.signup(employee).subscribe(data => {
-        console.log('User created');
 
-        this.router.navigate(['/auth/login'])
+      if (!this.signupForm.valid) {
+        this.toast.error('Form is invalid', 'Invalid Form', { timeOut: 1500 })
+      } else {
+        this.authService.signup(employee).subscribe(data => {
+          this.router.navigate(['/auth/login'])
+          this.toast.success('Signed-up successfully', 'Signup Successfull', { timeOut: 1500 })
+          this.signupForm.reset()
+        },
+          (error) => {
+            if (error.status !== 0) {
+              console.log(error);
 
-      },
-        (error) => {
-          this.error = error.error.message
-          console.log(this.error);
-        })
+              this.error = error.error.message
+              this.toast.error(this.error, '', { timeOut: 1500 })
+            }
+          })
+      }
+
     } catch (e) {
       throw new Error('Cannot Signup')
     }

@@ -4,6 +4,7 @@ import { NoticesService } from '../notices/notices.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { Categories } from '../create-notice/create-notice.component';
+import { ToastrService } from 'ngx-toastr';
 
 export type createCategoryRequest = {
   category: string
@@ -19,9 +20,10 @@ export class CreateCategoryComponent implements OnInit {
   constructor(
     private readonly noticesService: NoticesService,
     private readonly router: Router,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly toastr: ToastrService
   ) { }
-
+  error: string = ''
   categories: Categories[] = []
   createCategoryRequest: createCategoryRequest = {
     category: ''
@@ -48,18 +50,22 @@ export class CreateCategoryComponent implements OnInit {
       this.createCategoryRequest = {
         category: this.createCategoryForm.value.category as string
       }
-      this.noticesService.createCategory(this.createCategoryRequest).subscribe(data => {
-        console.log(data);
-        if (this.role === 'SUPERADMIN') {
-          this.router.navigate(['/admin/superadmin/notices'])
-        } else {
-          this.router.navigate(['/employees/notice'])
-        }
-
-      })
-    } catch (error) {
-      console.log(error);
-
+      if (!this.createCategoryForm.valid) {
+        this.toastr.error('Please enter valid category', 'Category Required', { timeOut: 1500 })
+      } else {
+        this.noticesService.createCategory(this.createCategoryRequest).subscribe(data => {
+          this.router.navigate(['/admin/notices'])
+          this.toastr.success('Category created successfully', 'Category created', { timeOut: 1500 })
+        },
+          (error) => {
+            if (error.status !== 0) {
+              this.error = JSON.parse(error.error).message
+              this.toastr.error(this.error, JSON.parse(error.error).error, { timeOut: 1500 })
+            }
+          })
+      }
+    } catch (e: any) {
+      this.toastr.error(e)
     }
 
   }

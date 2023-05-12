@@ -9,7 +9,7 @@
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
   >
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-align">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Change Status</h1>
@@ -33,7 +33,7 @@
           </button>
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn statusBtn"
             data-bs-dismiss="modal"
             (click)="toggleEmployeeStatus(selectedEmployeeId)"
           >

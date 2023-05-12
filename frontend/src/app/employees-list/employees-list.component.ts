@@ -3,6 +3,7 @@ import { EmployeesService } from './employees.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 export type Employees = {
@@ -20,13 +21,15 @@ export type Employees = {
 export class EmployeesListComponent implements OnInit {
   constructor(
     private readonly employeesService: EmployeesService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly toastr: ToastrService
   ) { }
   employees: Employees[] = []
   status: string = 'active'
   toggleStatus: string = 'deactivate'
   selectedEmployeeId: string = ''
   role: string = ''
+
 
   ngOnInit(): void {
     this.authService.me().subscribe(employee => this.role = employee.role)
@@ -60,10 +63,10 @@ export class EmployeesListComponent implements OnInit {
   }
   toggleEmployeeStatus(id: string) {
     this.employeesService.toggleEmployeeStatus(id, this.toggleStatus).subscribe(data => {
-      // this.employees.filter(employee=>)
-      console.log(data);
       this.getAllEmployees()
-
+      this.toastr.success(`Employee marked as ${this.toggleStatus}`, 'Status Changed', { timeOut: 1500 })
+    }, (error) => {
+      this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
     })
   }
   selectedEmployee(id: string) {

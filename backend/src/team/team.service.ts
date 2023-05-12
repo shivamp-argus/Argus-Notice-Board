@@ -1,14 +1,24 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { validate } from 'class-validator';
 import { waitForDebugger } from 'inspector';
 
-import { CreateTeamDto } from 'src/dtos/team.dto';
+import { CreateTeamDto, TeamRequestDto } from 'src/dtos/team.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class TeamService {
     constructor(private readonly prisma: PrismaService) { }
 
-    createTeam(createTeamDto: CreateTeamDto) {
+    async createTeam(data: TeamRequestDto, userId: string) {
+
+        const team = await this.prisma.team.findFirst({ where: { team_name: data.team_name } })
+        if (team) throw new ConflictException('Team already exists')
+
+        const createTeamDto: CreateTeamDto = new CreateTeamDto({ ...data, createdBy: userId })
+
+        const error = await validate(createTeamDto)
+        if (error.length > 0) throw new BadRequestException('Enter valid details')
+
         return this.prisma.team.create({ data: createTeamDto })
     }
     async findAllTeam() {

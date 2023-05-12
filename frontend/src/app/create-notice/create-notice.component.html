@@ -4,12 +4,13 @@
       <label for="exampleFormControlTextarea1" class="form-label"
         >Notice Title</label
       >
-      <textarea
+      <input
+        type="text"
         class="form-control"
         id="exampleFormControlTextarea1"
-        rows="3"
+        placeholder="Notice Title"
         formControlName="notice_title"
-      ></textarea>
+      />
     </div>
     <div class="mb-3">
       <label for="category" class="form-label">Categories</label>
@@ -19,6 +20,7 @@
         aria-label="Default select example"
         formControlName="category"
       >
+        <option value="">Select Category</option>
         <option
           value="{{ category.category }}"
           *ngFor="let category of categories"
@@ -29,13 +31,12 @@
     </div>
 
     <div class="mb-3">
-      <label for="exampleFormControlTextarea1" class="form-label"
-        >Notice Body</label
-      >
+      <label for="body" class="form-label">Notice Body</label>
       <textarea
         class="form-control"
-        id="exampleFormControlTextarea1"
-        rows="3"
+        id="body"
+        rows="8"
+        placeholder="Start writing your notice from here..."
         formControlName="notice_body"
       ></textarea>
     </div>

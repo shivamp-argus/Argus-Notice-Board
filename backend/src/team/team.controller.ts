@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, HttpException, Param, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpException, Param, Post } from '@nestjs/common';
 import { CreateTeamDto, TeamRequestDto } from 'src/dtos/team.dto';
 import { TeamService } from './team.service';
 import { Roles } from 'src/employees/auth/decorators/auth.decorator';
 import { Role } from '@prisma/client';
 import User from 'src/employees/decorators/employees.decorator';
 import { JWTPayload } from 'src/dtos/auth.dto';
+import { validate } from 'class-validator';
 
 @Controller('team')
 export class TeamController {
@@ -12,10 +13,13 @@ export class TeamController {
 
     @Roles(Role.HR, Role.SUPERADMIN)
     @Post()
-    createTeam(@Body() body: TeamRequestDto, @User() user: JWTPayload) {
+    async createTeam(@Body() body: TeamRequestDto, @User() user: JWTPayload) {
         if (!user) throw new HttpException('You are not allowed', 400)
-        const requestData: CreateTeamDto = { ...body, createdBy: user.id }
-        return this.teamService.createTeam(requestData)
+
+        const error = await validate(body)
+        if (error.length > 0) throw new BadRequestException('Enter valid data')
+
+        return this.teamService.createTeam(body, user.id)
     }
 
     @Roles(Role.HR, Role.SUPERADMIN)

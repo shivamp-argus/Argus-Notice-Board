@@ -1,6 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Employees } from 'src/app/employees-list/employees-list.component';
 import { EmployeesService } from 'src/app/employees-list/employees.service';
@@ -25,7 +26,8 @@ export class EmpTeamComponent implements OnInit {
   constructor(
     private readonly employeesService: EmployeesService,
     private readonly router: Router,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly toastr: ToastrService
   ) { }
 
   employees: Employees[] = []
@@ -54,15 +56,19 @@ export class EmpTeamComponent implements OnInit {
       emp_id: this.createEmpTeamForm.value.employee as string,
       team_id: this.createEmpTeamForm.value.team as string
     }
-    this.employeesService.createEmpTeam(empTeam).subscribe(data => {
-      console.log(data);
-      if (this.role === 'SUPERADMIN') {
+    if (!this.createEmpTeamForm.valid) this.toastr.error('Enter valid details', 'Invalid Details', { timeOut: 1500 })
+    else {
+      this.employeesService.createEmpTeam(empTeam).subscribe(data => {
         this.router.navigate(['/admin/teams'])
-      } else {
-        this.router.navigate(['/employees/teams'])
-      }
+        this.toastr.success('Employee added to team sucessfully', 'Employee Added')
+      },
+        (error) => {
+
+          this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
+        }
+      )
     }
-    )
+
 
   }
 }

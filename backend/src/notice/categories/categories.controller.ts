@@ -13,7 +13,7 @@ export class CategoriesController {
     @Roles(Role.HR, Role.SUPERADMIN)
     @Post()
     create(@Body() body: CategoryRequestDto, @User() user: JWTPayload) {
-        const category: CreateCategoryDto = { ...body, createdBy: user.id }
+        const category: CreateCategoryDto = new CreateCategoryDto({ ...body, createdBy: user.id })
         return this.categoriesService.create(category)
     }
 

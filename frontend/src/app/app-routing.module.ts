@@ -52,7 +52,9 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'teams', component: EmployeesTeamComponent },
-      { path: 'notices', component: EmployeesNoticeComponent }
+      { path: 'notices', component: EmployeesNoticeComponent },
+      { path: 'create-notice', component: CreateNoticeComponent },
+      { path: 'create-category', component: CreateCategoryComponent }
 
     ]
   },

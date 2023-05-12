@@ -7,3 +7,8 @@
   background-color: #802f59;
   color: white;
 }
+.modal-align{
+  position: absolute;
+  top:28%;
+  left:36%;
+}

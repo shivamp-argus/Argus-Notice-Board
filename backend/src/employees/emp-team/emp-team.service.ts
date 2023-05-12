@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEmpTeamDto } from 'src/dtos/employee.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -7,6 +7,18 @@ export class EmpTeamService {
     constructor(private readonly prisma: PrismaService) { }
 
     async createEmpTeam(createEmpTeam: CreateEmpTeamDto[]) {
+
+        createEmpTeam.map(async empTeam => {
+            empTeam = await this.prisma.employee_Team.findFirst({
+                where: {
+                    AND: {
+                        emp_id: empTeam.emp_id,
+                        team_id: empTeam.team_id
+                    }
+                }
+            })
+            if (empTeam) throw new ConflictException('Employee already in Team')
+        })
         await this.prisma.employee_Team.createMany({ data: createEmpTeam })
         return 'Employee added to Team'
     }

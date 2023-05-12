@@ -14,8 +14,10 @@ export class EmpTeamController {
     @Post()
     createEmpTeam(@Body() body: EmpTeamRequestDto[], @User() user: JWTPayload) {
         if (!user) throw new HttpException("You are not authorised", 400)
-        const requestData: CreateEmpTeamDto[] = body.map(data => {
-            return { ...data, addedBy: user.id }
+        const requestData: CreateEmpTeamDto[] = []
+        let arr: []
+        body.map(data => {
+
         })
         return this.empTeamService.createEmpTeam(requestData)
 

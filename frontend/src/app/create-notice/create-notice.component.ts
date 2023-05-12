@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NoticesService } from '../notices/notices.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 export type Categories = {
   category: string
@@ -29,7 +30,8 @@ export class CreateNoticeComponent implements OnInit {
   constructor(
     private readonly noticesService: NoticesService,
     private readonly router: Router,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly toastr: ToastrService
   ) { }
 
   categories: Categories[] = []
@@ -60,15 +62,15 @@ export class CreateNoticeComponent implements OnInit {
         notice_body: this.createNoticeForm.value.notice_body as string,
         category: this.createNoticeForm.value.category as string,
       }
-      this.noticesService.createNotice(this.createNoticeRequest).subscribe(data => {
-        // console.log(data);
-        if (this.role === 'SUPERADMIN') {
-          this.router.navigate(['/admin/superadmin/notices'])
-        } else {
-          this.router.navigate(['/employees/notice'])
-        }
+      if (!this.createNoticeForm.valid) {
+        this.toastr.error('Enter valid data', 'Invalid Form', { timeOut: 1500 })
+      } else {
+        this.noticesService.createNotice(this.createNoticeRequest).subscribe(data => {
+          this.router.navigate(['/admin/notices'])
+          this.toastr.success('Notice created successfully', 'Notice Created', { timeOut: 1500 })
+        })
 
-      })
+      }
 
     } catch (error) {
       console.log(error);

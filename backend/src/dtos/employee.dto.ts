@@ -3,6 +3,7 @@ import { IsEmail, IsNotEmpty, IsString, IsStrongPassword } from "class-validator
 
 import { Role } from "@prisma/client";
 import { Expose } from 'class-transformer';
+import { clearScreenDown } from 'readline';
 
 export class CreateEmployeeDto {
 
@@ -16,12 +17,11 @@ export class CreateEmployeeDto {
 
     @IsNotEmpty()
     @IsString()
-    @IsStrongPassword()
     password: string
 
 
     @IsString()
-    role: Role
+    role?: Role
 
     constructor(user: CreateEmployeeDto) {
         Object.assign(this, user);
@@ -31,6 +31,24 @@ export class CreateEmployeeDto {
 
 export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) { }
 
+export class EmployeeRequestDto {
+    @IsNotEmpty()
+    @IsString()
+    emp_name: string
+
+    @IsNotEmpty()
+    @IsEmail()
+    emp_email: string
+
+    @IsNotEmpty()
+    @IsString()
+    @IsStrongPassword()
+    password: string
+
+    constructor(user: EmployeeRequestDto) {
+        Object.assign(this, user);
+    }
+}
 export class EmployeeResponseDto {
     @Expose()
     id: string
