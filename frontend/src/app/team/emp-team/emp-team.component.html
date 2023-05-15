@@ -8,6 +8,7 @@
         aria-label="Default select example"
         formControlName="team"
       >
+        <option value="">Select Team</option>
         <option value="{{ team.id }}" *ngFor="let team of teams">
           {{ team.team_name }}
         </option>
@@ -21,6 +22,7 @@
         aria-label="Default select example"
         formControlName="employee"
       >
+        <option value="">Select Employee</option>
         <option value="{{ employee.id }}" *ngFor="let employee of employees">
           {{ employee.emp_name }}
         </option>

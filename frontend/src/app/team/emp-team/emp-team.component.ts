@@ -60,11 +60,11 @@ export class EmpTeamComponent implements OnInit {
     else {
       this.employeesService.createEmpTeam(empTeam).subscribe(data => {
         this.router.navigate(['/admin/teams'])
-        this.toastr.success('Employee added to team sucessfully', 'Employee Added')
+        this.toastr.success('Employee added to team sucessfully', 'Employee Added', { timeOut: 1500 })
       },
         (error) => {
-
-          this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
+          const errorMessage = JSON.parse(error.error)
+          this.toastr.error(errorMessage.message, errorMessage.error, { timeOut: 1500 })
         }
       )
     }

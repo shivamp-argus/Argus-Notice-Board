@@ -6,6 +6,7 @@ import { EmployeesService } from 'src/app/employees-list/employees.service';
 import { NoticesService } from 'src/app/notices/notices.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 export type NoticeTeamRequest = {
   team_id: string
@@ -23,7 +24,8 @@ export class EmpNoticeComponent implements OnInit {
     private readonly employeesService: EmployeesService,
     private readonly noticesService: NoticesService,
     private readonly router: Router,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly toastr: ToastrService
   ) { }
   teams: Team[] = []
   notices: Notices[] = []
@@ -46,13 +48,14 @@ export class EmpNoticeComponent implements OnInit {
       notice_id: this.createNoticeTeamForm.value.notice as string,
       team_id: this.createNoticeTeamForm.value.team as string
     }
-    this.noticesService.createNoticeTeam(noticeTeam).subscribe(data => {
-      console.log(data);
-      if (this.role === 'SUPERADMIN') {
+    if (!this.createNoticeTeamForm.valid) this.toastr.error('Enter Valid details', 'Invalid Details', { timeOut: 1500 })
+    else {
+      this.noticesService.createNoticeTeam(noticeTeam).subscribe(data => {
         this.router.navigate(['/admin/teams'])
-      } else {
-        this.router.navigate(['/employees/teams'])
-      }
-    })
+        this.toastr.success(data, 'Notice Added', { timeOut: 1500 })
+      }, error => {
+        this.toastr.error(JSON.parse(error.error).message, JSON.parse(error.error).error, { timeOut: 1500 })
+      })
+    }
   }
 }
