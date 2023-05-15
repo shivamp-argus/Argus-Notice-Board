@@ -85,6 +85,10 @@ export class CreateNoticeTeamDto {
     @IsNotEmpty()
     addedBy: string
 
+    constructor(noticeTeam: CreateNoticeTeamDto) {
+        Object.assign(this, noticeTeam)
+    }
+
 }
 export type NoticeTeamRequestDto = {
     notice_id: string

@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, HttpException, Param, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpException, Param, Post, Query } from '@nestjs/common';
 import { EmpTeamService } from './emp-team.service';
 import { CreateEmpTeamDto, EmpTeamRequestDto } from 'src/dtos/employee.dto';
 import { Roles } from '../auth/decorators/auth.decorator';
 import { Role } from '@prisma/client';
 import User from '../decorators/employees.decorator';
 import { JWTPayload } from 'src/dtos/auth.dto';
+import { validate } from 'class-validator';
 
 @Controller('emp-team')
 export class EmpTeamController {
@@ -12,15 +13,9 @@ export class EmpTeamController {
 
     @Roles(Role.HR, Role.SUPERADMIN)
     @Post()
-    createEmpTeam(@Body() body: EmpTeamRequestDto[], @User() user: JWTPayload) {
+    async createEmpTeam(@Body() body: EmpTeamRequestDto[], @User() user: JWTPayload) {
         if (!user) throw new HttpException("You are not authorised", 400)
-        const requestData: CreateEmpTeamDto[] = []
-        let arr: []
-        body.map(data => {
-
-        })
-        return this.empTeamService.createEmpTeam(requestData)
-
+        return this.empTeamService.createEmpTeam(body, user.id)
     }
 
     @Roles(Role.HR, Role.SUPERADMIN)

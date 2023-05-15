@@ -1,26 +1,40 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
 import { CATCH_WATERMARK } from '@nestjs/common/constants';
-import { CreateNoticeTeamDto } from 'src/dtos/notice.dto';
+import { validate } from 'class-validator';
+import { CreateNoticeTeamDto, NoticeTeamRequestDto } from 'src/dtos/notice.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class NoticeTeamService {
     constructor(private readonly prisma: PrismaService) { }
 
-    async createNoticeTeam(createNoticeTeam: CreateNoticeTeamDto[]) {
-        try {
-            console.log('noticeTeams');
-            const noticeTeams = await this.prisma.notice_Team.createMany({ data: createNoticeTeam })
+    async createNoticeTeam(createNoticeTeam: NoticeTeamRequestDto[], userId: string) {
 
-            if (!noticeTeams) {
-                throw new ConflictException("Already a member")
-            }
-            return 'Notice added to Team'
-        } catch (error) {
-            error.message = "Unique constraint failed"
-            return error.message
-        }
+        const requestData: CreateNoticeTeamDto[] = []
+        createNoticeTeam.map(data => {
+            requestData.push(new CreateNoticeTeamDto({ ...data, addedBy: userId }))
+        })
 
+        await Promise.all(requestData.map(async noticeTeam => {
+            const error = await validate(noticeTeam)
+            if (error.length > 0) throw new BadRequestException('Enter required data')
+        }))
+
+        await Promise.all(createNoticeTeam.map(async noticeTeam => {
+            noticeTeam = await this.prisma.notice_Team.findFirst({
+                where: {
+                    AND: {
+                        notice_id: noticeTeam.notice_id,
+                        team_id: noticeTeam.team_id
+                    }
+                }
+            })
+            if (noticeTeam) throw new ConflictException('Notice already in Team')
+        }))
+
+        await this.prisma.notice_Team.createMany({ data: requestData })
+
+        return 'Notice added to team'
 
     }
 

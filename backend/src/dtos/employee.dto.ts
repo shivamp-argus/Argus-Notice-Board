@@ -73,12 +73,21 @@ export class EmployeeResponseDto {
 
 export class CreateEmpTeamDto {
 
+    @IsNotEmpty()
+    @IsString()
     emp_id: string
 
     @IsString()
+    @IsNotEmpty()
     team_id: string
 
+    @IsString()
+    @IsNotEmpty()
     addedBy: string
+
+    constructor(empteam: CreateEmpTeamDto) {
+        Object.assign(this, empteam)
+    }
 
 }
 export type EmpTeamRequestDto = {

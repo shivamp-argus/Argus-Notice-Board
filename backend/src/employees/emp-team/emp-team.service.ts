@@ -1,14 +1,25 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateEmpTeamDto } from 'src/dtos/employee.dto';
+import { validate } from 'class-validator';
+import { CreateEmpTeamDto, EmpTeamRequestDto } from 'src/dtos/employee.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class EmpTeamService {
     constructor(private readonly prisma: PrismaService) { }
 
-    async createEmpTeam(createEmpTeam: CreateEmpTeamDto[]) {
+    async createEmpTeam(createEmpTeam: EmpTeamRequestDto[], userId: string) {
+        const requestData: CreateEmpTeamDto[] = []
 
-        createEmpTeam.map(async empTeam => {
+        createEmpTeam.map(data => {
+            requestData.push(new CreateEmpTeamDto({ ...data, addedBy: userId }))
+        })
+
+        await Promise.all(requestData.map(async data => {
+            const error = await validate(data)
+            if (error.length > 0) throw new BadRequestException('Enter required fields')
+        }))
+
+        await Promise.all(createEmpTeam.map(async empTeam => {
             empTeam = await this.prisma.employee_Team.findFirst({
                 where: {
                     AND: {
@@ -18,8 +29,10 @@ export class EmpTeamService {
                 }
             })
             if (empTeam) throw new ConflictException('Employee already in Team')
-        })
-        await this.prisma.employee_Team.createMany({ data: createEmpTeam })
+        }))
+
+        await this.prisma.employee_Team.createMany({ data: requestData })
+
         return 'Employee added to Team'
     }
 
