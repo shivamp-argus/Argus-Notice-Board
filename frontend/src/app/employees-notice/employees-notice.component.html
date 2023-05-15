@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 mb-5">
   <p class="display-4 fw-bold">Notices List</p>
   <div class="card mt-3" *ngFor="let data of empNotice; let i = index">
     <div class="card-body">
@@ -8,10 +8,34 @@
       </h6>
       <p class="card-text mt-2 fw-bold">List of notices</p>
       <ul class="list-group">
-        <li class="list-group-item" *ngFor="let notice of data.Notice_Team">
-          {{ notice.Notice.notice_title }}
-        </li>
+        <a
+          class="list-group-item text-decoration-none text-dark"
+          *ngFor="let notice of data.Notice_Team"
+          routerLink="/employees/notices"
+        >
+          <p class="blockquote">{{ notice.Notice.notice_title }}</p>
+          <div class="d-flex justify-content-between">
+            <span class="">
+              {{ notice.Notice.createdAt.toLocaleDateString() }}
+            </span>
+            <span class="">
+              Created By - {{ notice.Notice.Employee.emp_name }}
+            </span>
+          </div>
+        </a>
       </ul>
     </div>
   </div>
 </div>
+<!-- <div class="main-container">
+
+  <gc-dataview
+    id="grid"
+    class="grid"
+    [data]="data"
+    [cols]="cols"
+    [layout]="layout"
+    [options]="options"
+    [groupingOptions]="groupingOptions"
+  ></gc-dataview>
+</div> -->

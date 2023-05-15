@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NoticesService } from './notices.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 export type Notices = {
   id: string
@@ -27,7 +28,8 @@ export class NoticesComponent implements OnInit {
   constructor(
     private readonly noticesService: NoticesService,
     private readonly route: ActivatedRoute,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly toastr: ToastrService
   ) { }
 
   status: string = ''
@@ -56,8 +58,6 @@ export class NoticesComponent implements OnInit {
     // }
     // console.log(this.expectedRole);
     this.authService.me().subscribe(employee => {
-      // console.log(employee);
-
       this.role = employee.role.toUpperCase()
       if (this.role === 'SUPERADMIN') {
         this.noticesService.getAllNoticesBySuperadmin().subscribe((data) => {
@@ -71,11 +71,6 @@ export class NoticesComponent implements OnInit {
         })
       }
     })
-
-
-
-
-
   }
 
   changeStatus(selectedStatus: string) {
@@ -96,10 +91,10 @@ export class NoticesComponent implements OnInit {
   }
   toggleNoticeStatus(id: string) {
     this.noticesService.toggleNoticeStatus(id).subscribe(data => {
-      // this.employees.filter(employee=>)
-      console.log(data);
       this.getAllNotices()
-
+      this.toastr.success('Notice published successfully', data, { timeOut: 1500 })
+    }, error => {
+      this.toastr.error(error)
     })
   }
 }

@@ -28,10 +28,13 @@ export class NoticeService {
   }
 
   findAll(id: string) {
-    // const published: boolean = status === 'active' ? true : false
+
     return this.prisma.notice.findMany({
       where: {
-        issuer_id: id
+        AND: {
+          issuer_id: id,
+          published: true
+        }
       },
       include: {
         category: {
@@ -95,6 +98,13 @@ export class NoticeService {
   }
 
   async publishNotice(id: string) {
-    return this.prisma.notice.update({ where: { id }, data: { published: true } })
+    await this.prisma.notice.update({
+      where: {
+        id
+      }, data: {
+        published: true
+      }
+    })
+    return 'Notice Published'
   }
 }

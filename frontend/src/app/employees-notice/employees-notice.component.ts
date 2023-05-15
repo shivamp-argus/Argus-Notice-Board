@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NoticesService } from '../notices/notices.service';
+import { map } from 'rxjs';
 
 export type Notice_Team = {
   id: string
   Notice: {
-    notice_title: string
+    notice_title: string,
+    createdAt: Date,
+    Employee: {
+      emp_name: string
+    }
   }
   notice_id: string
   team_id: string
@@ -35,7 +40,19 @@ export class EmployeesNoticeComponent implements OnInit {
   }
 
   getAllNoticeByEmployee() {
-    this.noticesService.getAllNoticesByEmployee().subscribe(data => {
+    this.noticesService.getAllNoticesByEmployee().pipe(map(reqData => {
+      reqData.map(data => {
+        data.Notice_Team.map(d => {
+          d.Notice.createdAt = new Date(d.Notice.createdAt)
+
+          return d
+        })
+        return data
+      })
+      return reqData
+    })).subscribe(data => {
+
+
       this.empNotice = data
 
     }

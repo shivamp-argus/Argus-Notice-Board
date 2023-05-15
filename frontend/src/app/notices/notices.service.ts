@@ -24,7 +24,8 @@ export class NoticesService {
   }
   toggleNoticeStatus(id: string) {
     return this.http.patch(`http://localhost:3000/notice/publish/${id}`, null, {
-      headers: this.httpHeaders
+      headers: this.httpHeaders,
+      responseType: 'text'
     })
   }
   getAllNoticesByHR() {

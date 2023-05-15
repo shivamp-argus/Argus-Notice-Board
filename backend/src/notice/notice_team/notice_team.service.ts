@@ -53,12 +53,26 @@ export class NoticeTeamService {
                     include: {
                         Notice: {
                             select: {
-                                notice_title: true
+                                notice_title: true,
+                                createdAt: true,
+                                Employee: {
+                                    select: {
+                                        emp_name: true
+                                    }
+                                }
                             }
+                        }
+                    },
+                    orderBy: {
+                        Notice: {
+                            createdAt: 'desc'
                         }
                     }
                 }
-            }
+            },
+
+
+
 
         })
     }

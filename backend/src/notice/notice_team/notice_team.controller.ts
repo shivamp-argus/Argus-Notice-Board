@@ -13,9 +13,6 @@ export class NoticeTeamController {
     @Roles(Role.HR, Role.SUPERADMIN)
     @Post()
     createNoticeTeam(@Body() createNoticeTeam: NoticeTeamRequestDto[], @User() user: JWTPayload) {
-        // const requestData: CreateNoticeTeamDto[] = createNoticeTeam.map(data => {
-        //     return { ...data, addedBy: user.id }
-        // })
         return this.noticeTeamService.createNoticeTeam(createNoticeTeam, user.id)
     }
 
