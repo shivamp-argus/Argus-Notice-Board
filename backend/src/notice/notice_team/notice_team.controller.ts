@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, Param, Post, ValidationPipe } from '@nestjs/common';
 import { CreateNoticeTeamDto, NoticeTeamRequestDto } from 'src/dtos/notice.dto';
 import { NoticeTeamService } from './notice_team.service';
 import { Roles } from 'src/employees/auth/decorators/auth.decorator';

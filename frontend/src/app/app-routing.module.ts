@@ -16,6 +16,7 @@ import { TeamsListComponent } from './team/teams-list/teams-list.component';
 import { CreateTeamComponent } from './team/create-team/create-team.component';
 import { EmployeesTeamComponent } from './employees-team/employees-team.component';
 import { EmployeesNoticeComponent } from './employees-notice/employees-notice.component';
+import { ViewNoticeComponent } from './view-notice/view-notice.component';
 
 
 const routes: Routes = [
@@ -52,7 +53,13 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'teams', component: EmployeesTeamComponent },
-      { path: 'notices', component: EmployeesNoticeComponent },
+      {
+        path: 'notices',
+        children: [
+          { path: '', component: EmployeesNoticeComponent, },
+          { path: ':notice-title', component: ViewNoticeComponent }
+        ]
+      },
       { path: 'create-notice', component: CreateNoticeComponent },
       { path: 'create-category', component: CreateCategoryComponent }
 

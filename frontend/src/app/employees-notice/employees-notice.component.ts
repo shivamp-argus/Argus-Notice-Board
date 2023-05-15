@@ -44,17 +44,13 @@ export class EmployeesNoticeComponent implements OnInit {
       reqData.map(data => {
         data.Notice_Team.map(d => {
           d.Notice.createdAt = new Date(d.Notice.createdAt)
-
           return d
         })
         return data
       })
       return reqData
     })).subscribe(data => {
-
-
       this.empNotice = data
-
     }
     )
   }

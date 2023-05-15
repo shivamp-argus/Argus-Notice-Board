@@ -49,4 +49,8 @@ export class NoticesService {
   getAllNoticesByEmployee() {
     return this.http.get<EmpNotice[]>('http://localhost:3000/notice-team/my-notice', { headers: this.httpHeaders })
   }
+
+  viewNoticeByEmployee(title: string) {
+    return this.http.get<Notices>(`http://localhost:3000/notice/employee/view/${title}`, { headers: this.httpHeaders })
+  }
 }

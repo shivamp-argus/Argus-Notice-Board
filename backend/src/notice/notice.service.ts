@@ -107,4 +107,61 @@ export class NoticeService {
     })
     return 'Notice Published'
   }
+
+  async viewNoticeByEmployee(title: string, id: string) {
+    const empExist = await this.prisma.notice_Team.findFirst({
+      where: {
+        AND: {
+          Notice: {
+            notice_title: title
+          },
+          Team: {
+            Employee_Team: {
+              some: {
+                emp_id: id
+              }
+            }
+          }
+        }
+
+      },
+      include: {
+        Team: {
+          select: {
+            team_name: true,
+            Employee_Team: {
+              select: {
+                Employee: {
+                  select: {
+                    emp_name: true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+    if (!empExist) throw new UnauthorizedException('You are not allowed to view this notice')
+
+    const notice = await this.prisma.notice.findFirst({
+      where: {
+        notice_title: title
+      },
+      include: {
+        Employee: {
+          select: {
+            emp_name: true
+          }
+        },
+        category: {
+          select: {
+            category: true
+          }
+        }
+      }
+    })
+    if (!notice) throw new NotFoundException('Notice not found')
+    return notice
+  }
 }

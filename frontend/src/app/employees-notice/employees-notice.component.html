@@ -11,7 +11,7 @@
         <a
           class="list-group-item text-decoration-none text-dark"
           *ngFor="let notice of data.Notice_Team"
-          routerLink="/employees/notices"
+          routerLink="/employees/notices/{{ notice.Notice.notice_title }}"
         >
           <p class="blockquote">{{ notice.Notice.notice_title }}</p>
           <div class="d-flex justify-content-between">

@@ -27,6 +27,7 @@ import { EmployeesTeamComponent } from './employees-team/employees-team.componen
 import { ToastrModule } from 'ngx-toastr';
 import { NoopAnimationPlayer } from '@angular/animations';
 import { ErrorHandlerInterceptor } from './error/error-handler.interceptor';
+import { ViewNoticeComponent } from './view-notice/view-notice.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { ErrorHandlerInterceptor } from './error/error-handler.interceptor';
     CreateTeamComponent,
     EmployeesNoticeComponent,
     EmployeesTeamComponent,
+    ViewNoticeComponent,
 
 
   ],
