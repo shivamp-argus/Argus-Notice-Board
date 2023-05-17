@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NoticesService } from '../notices/notices.service';
 import { Notices } from '../notices/notices.component';
 import { ToastrService } from 'ngx-toastr';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-view-notice',
@@ -26,6 +27,7 @@ export class ViewNoticeComponent implements OnInit {
     issuer_id: '',
     category_id: '',
     published: true,
+    createdAt: new Date(),
     Employee: {
       emp_name: ''
     },
@@ -41,7 +43,10 @@ export class ViewNoticeComponent implements OnInit {
 
   }
   viewNoticeByEmployee(title: string) {
-    this.noticeService.viewNoticeByEmployee(title).subscribe(data => {
+    this.noticeService.viewNoticeByEmployee(title).pipe(map(data => {
+      data.createdAt = new Date(data.createdAt)
+      return data
+    })).subscribe(data => {
       this.notice = data
     },
       error => {

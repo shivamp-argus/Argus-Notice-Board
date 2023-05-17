@@ -70,6 +70,9 @@ export class NoticeResponseDto {
 
     @Expose()
     category?: Category
+
+    @Expose()
+    createdAt: Date
 }
 
 export class CreateNoticeTeamDto {

@@ -1,25 +1,35 @@
 <div class="container mt-4 mb-5">
-  <p class="display-4 fw-bold">Notices List</p>
+  <p class="display-3 fw-bold">Notices List</p>
   <div class="card mt-3" *ngFor="let data of empNotice; let i = index">
     <div class="card-body">
-      <h5 class="card-title">{{ i + 1 }}. Team Name - {{ data.team_name }}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">
-        Created By - {{ data.Employee.emp_name }}
-      </h6>
-      <p class="card-text mt-2 fw-bold">List of notices</p>
+      <p class="card-title d-flex justify-content-between">
+        <span class="display-6">{{ i + 1 }}. {{ data.team_name }}</span>
+        <span class="text-muted align-self-center">
+          Created By - {{ data.Employee.emp_name }}</span
+        >
+      </p>
+      <h4 class="card-subtitle mt-2 ps-2 pe-2" style="min-height: 30px">
+        <span class="float-start fw-bold">List of notices</span>
+      </h4>
+      <!-- <p class="card-text mt-2 fw-bold">List of notices</p> -->
       <ul class="list-group">
         <a
-          class="list-group-item text-decoration-none text-dark"
+          class="list-group-item mb-3 border text-decoration-none text-dark"
           *ngFor="let notice of data.Notice_Team"
           routerLink="/employees/notices/{{ notice.Notice.notice_title }}"
         >
-          <p class="blockquote">{{ notice.Notice.notice_title }}</p>
+          <p class="blockquote border-bottom">
+            {{ notice.Notice.notice_title }}
+          </p>
+          <p class="text-truncate" style="max-width: 100%">
+            {{ notice.Notice.notice_body }}
+          </p>
           <div class="d-flex justify-content-between">
             <span class="">
-              {{ notice.Notice.createdAt.toLocaleDateString() }}
+              Issued At: {{ notice.Notice.createdAt.toLocaleDateString() }}
             </span>
             <span class="">
-              Created By - {{ notice.Notice.Employee.emp_name }}
+              Issued By: {{ notice.Notice.Employee.emp_name }}
             </span>
           </div>
         </a>

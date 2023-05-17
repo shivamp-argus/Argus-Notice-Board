@@ -4,16 +4,6 @@
   </h3>
 
   <div class="card mb-5 shadow">
-    <!-- <label>
-        <input type="checkbox" />
-        <span class="menu"> <span class="hamburger"></span> </span>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </label> -->
-    <!-- <div class="card-header">{{ notice.category.category }}</div> -->
     <div class="card-body">
       <div class="fw-bold">
         <span>Notice:</span>
@@ -99,6 +89,12 @@
       </div>
     </div>
     <div class="card-footer">
+      <span class="float-start">
+        Issued At: &nbsp; &nbsp;{{ notice.createdAt.getHours() }}:{{
+          notice.createdAt.getMinutes()
+        }}&nbsp;
+        {{ notice.createdAt.toLocaleDateString() }}
+      </span>
       <span class="float-end"> Issued By: {{ notice.Employee.emp_name }} </span>
     </div>
   </div>

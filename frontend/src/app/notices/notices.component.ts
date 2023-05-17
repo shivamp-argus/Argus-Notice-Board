@@ -11,6 +11,7 @@ export type Notices = {
   issuer_id: string
   category_id: string
   published: boolean
+  createdAt: Date
   Employee: {
     emp_name: string
   }

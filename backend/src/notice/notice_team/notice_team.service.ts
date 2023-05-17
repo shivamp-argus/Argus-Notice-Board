@@ -53,6 +53,7 @@ export class NoticeTeamService {
                     include: {
                         Notice: {
                             select: {
+                                notice_body: true,
                                 notice_title: true,
                                 createdAt: true,
                                 Employee: {

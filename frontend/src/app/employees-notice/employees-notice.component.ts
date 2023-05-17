@@ -6,6 +6,7 @@ export type Notice_Team = {
   id: string
   Notice: {
     notice_title: string,
+    notice_body: string,
     createdAt: Date,
     Employee: {
       emp_name: string
@@ -36,6 +37,8 @@ export class EmployeesNoticeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllNoticeByEmployee()
+
+
 
   }
 
