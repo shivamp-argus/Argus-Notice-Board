@@ -2,28 +2,101 @@
   <h3 class="fs-1 shadow p-3 mb-5 bg-body rounded">
     {{ notice.notice_title }}
   </h3>
-  <div class="card border-0">
+
+  <div class="card mb-5 shadow">
+    <!-- <label>
+        <input type="checkbox" />
+        <span class="menu"> <span class="hamburger"></span> </span>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </label> -->
     <!-- <div class="card-header">{{ notice.category.category }}</div> -->
-    <div class="card-body d-flex justify-content-between">
-      <span
-        >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem facilis
-        fuga vel quas nihil eveniet, iste suscipit consectetur expedita
-        perferendis atque? Praesentium, quam. Fugiat nemo rem odit architecto
-        molestiae necessitatibus.Lorem ipsum dolor, sit amet consectetur
-        adipisicing elit. Autem facilis fuga vel quas nihil eveniet, iste
-        suscipit consectetur expedita perferendis atque? Praesentium, quam.
-        Fugiat nemo rem odit architecto molestiae necessitatibus.Lorem ipsum
-        dolor, sit amet consectetur adipisicing elit. Autem facilis fuga vel
-        quas nihil eveniet, iste suscipit consectetur expedita perferendis
-        atque? Praesentium, quam. Fugiat nemo rem odit architecto molestiae
-        necessitatibus.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-        Autem facilis fuga vel quas nihil eveniet, iste suscipit consectetur
-        expedita perferendis atque? Praesentium, quam. Fugiat nemo rem odit
-        architecto molestiae necessitatibus.Lorem ipsum dolor, sit amet
-        consectetur adipisicing elit. Autem facilis fuga vel quas nihil eveniet,
-        iste suscipit consectetur expedita perferendis atque? Praesentium, quam.
-        Fugiat nemo rem odit architecto molestiae necessitatibus.</span
-      >
+    <div class="card-body">
+      <div class="fw-bold">
+        <span>Notice:</span>
+        <span class="float-end">Category: {{ notice.category.category }}</span>
+      </div>
+      <br />
+      <div>
+        <p>{{ notice.notice_body }}</p>
+        <!-- <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit
+          dicta quis eos dolores odio magni veritatis ab commodi illum
+          accusantium quia, doloribus officiis nemo omnis repudiandae
+          consectetur nostrum, facilis quibusdam voluptatem molestiae amet
+          porro. Ipsum a eius illum sapiente vel? Lorem, ipsum dolor sit amet
+          consectetur adipisicing elit. Nisi obcaecati excepturi eveniet id,
+          veniam, ullam expedita eligendi sequi voluptas unde esse totam magni
+          consectetur assumenda illo fuga recusandae porro sunt! Eius
+          necessitatibus natus quaerat architecto cum placeat earum voluptates,
+          rerum laboriosam nobis voluptatem velit minus quibusdam quia officia
+          minima eligendi debitis doloribus, veritatis iste ex optio odit.
+          Impedit, ab aut? Magni architecto voluptates, dolorem ipsa expedita
+          impedit similique facilis dicta atque, veniam, minus iste animi illo
+          laborum. Veritatis aut aliquid deleniti qui architecto dolores
+          repudiandae tenetur magni? Dolorem, aut ipsam. Distinctio esse nisi
+          repudiandae sint veritatis et! Ea culpa nihil dolorem, laudantium
+          nisi, ipsum laborum facere voluptatum sapiente ducimus dicta
+          reprehenderit deleniti eos cupiditate. Architecto quaerat omnis ex
+          sint facilis! Deleniti est harum et deserunt nihil quo magni itaque
+          quae quidem. Fuga veniam saepe, natus animi velit, beatae rerum sequi
+          fugiat doloremque excepturi dignissimos alias, quod atque voluptatem
+          autem molestiae. Obcaecati vel iste et, similique hic a reiciendis
+          enim, aut est natus magni voluptatibus totam esse ullam repudiandae.
+          Iste suscipit placeat cum dolor distinctio ratione natus eos eaque
+          quaerat? Necessitatibus! Quod quidem unde iure! Dolor suscipit,
+          facilis ducimus, facere ex quis at in dolorum praesentium dicta
+          molestias quas omnis! Eius quam temporibus maiores eum dicta sint?
+          Saepe adipisci architecto optio. Quidem assumenda atque distinctio
+          doloribus? Eveniet sit repellendus aut eaque aspernatur libero vitae
+          id fugiat eos sint dolore voluptatibus laudantium modi blanditiis iste
+          dignissimos provident architecto, labore quod laboriosam. Voluptates.
+          Iste amet nam ratione vel quod consequatur omnis ad voluptates
+          consequuntur neque laudantium, voluptatibus, doloribus impedit fugit
+          a, libero porro non ab soluta unde? Eos temporibus vel minus
+          blanditiis non. Fugit ducimus nobis quia. Dicta numquam qui a,
+          corporis in labore fugit aliquid reprehenderit sed quaerat nobis
+          impedit nostrum minima amet deserunt, iure maiores officiis
+          praesentium obcaecati unde earum quia? Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Dolorem quaerat, dolorum, adipisci rem
+          dolores natus ea, dolore aperiam velit vero veritatis dolor officia ad
+          obcaecati? Libero voluptatibus asperiores quaerat? Ut. Nobis,
+          praesentium, nemo sit soluta dolore facilis mollitia ullam distinctio
+          voluptatibus, vero ducimus harum repellat inventore animi eius fugiat
+          quo illo voluptates ipsam? Ex, vitae perferendis corrupti dolor animi
+          eius? Numquam ad quidem autem natus molestiae inventore itaque dicta,
+          aliquam voluptas esse, necessitatibus aperiam sit voluptatibus in
+          illum accusantium suscipit laudantium eligendi veritatis vel rem.
+          Earum, laborum eius? Fugit, soluta! Dignissimos voluptatum est
+          repellat porro labore aliquam perferendis iure possimus ipsam
+          voluptates eos maxime in pariatur officiis quaerat, repudiandae
+          similique ex sequi aspernatur nulla nobis adipisci voluptatem sed?
+          Corporis, tempore! Atque, sed aspernatur reiciendis facere minus
+          praesentium quam consequuntur reprehenderit voluptas harum cupiditate
+          necessitatibus mollitia. Laboriosam nostrum consequatur magni,
+          praesentium nobis repudiandae asperiores ut illo. Ut quaerat laborum
+          dolorum non? Deserunt, temporibus? Porro fugit, distinctio nesciunt
+          quae esse vero recusandae pariatur, veniam aliquid nisi ad eligendi
+          sed, impedit qui iusto ratione sapiente reiciendis. Sit dolor tempore
+          laborum sunt earum ut. Necessitatibus quos veritatis iste nihil,
+          numquam repellat dolorum laudantium ducimus cum nesciunt porro ratione
+          mollitia, iure nostrum, eum dolores commodi facilis! Distinctio, atque
+          nesciunt reiciendis in dolores quisquam vel quos. Distinctio saepe
+          quos minus fugit accusantium eum cupiditate at id, explicabo eveniet
+          ad, sint provident beatae maiores corporis quas vero harum ea. Ea odio
+          doloremque ad placeat, voluptatum magni nulla. Aliquam porro
+          voluptates libero commodi numquam qui eaque consequatur et deserunt
+          nemo doloremque blanditiis nesciunt nam enim inventore modi ea
+          quisquam, ipsam, eligendi distinctio impedit quidem? Ipsum impedit
+          minima ducimus? Error maiores ea possimus nisi impedit eveniet rerum
+          corrupti. Ex magnam nemo cupiditate odit commodi, natus in minus eius,
+          nisi, suscipit earum molestiae est perspiciatis id blanditiis!
+          Debitis, cumque beatae?
+        </p> -->
+      </div>
     </div>
     <div class="card-footer">
       <span class="float-end"> Issued By: {{ notice.Employee.emp_name }} </span>
