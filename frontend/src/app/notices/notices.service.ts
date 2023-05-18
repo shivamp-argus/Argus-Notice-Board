@@ -5,6 +5,8 @@ import { CategoriesResponse, CreateNoticeRequest } from '../create-notice/create
 import { createCategoryRequest } from '../create-category/create-category.component';
 import { NoticeTeamRequest } from '../team/emp-notice/emp-notice.component';
 import { EmpNotice } from '../employees-notice/employees-notice.component';
+import { Role, getRole } from '../app.component';
+import { ROUTER_CONFIGURATION } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,7 @@ export class NoticesService {
     'Authorization': `Bearer ${this.token}`,
 
   })
+  role: Role = Role.EMPLOYEE
 
   getAllNoticesBySuperadmin() {
     return this.http.get<Notices[]>('http://localhost:3000/notice/superadmin', { headers: this.httpHeaders })
@@ -47,6 +50,10 @@ export class NoticesService {
   }
 
   getAllNoticesByEmployee() {
+    if (this.role.toString() === 'SUPERADMIN') {
+
+    } else {
+    }
     return this.http.get<EmpNotice[]>('http://localhost:3000/notice-team/my-notice', { headers: this.httpHeaders })
   }
 

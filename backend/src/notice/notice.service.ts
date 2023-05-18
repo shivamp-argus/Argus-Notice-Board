@@ -31,10 +31,7 @@ export class NoticeService {
 
     return this.prisma.notice.findMany({
       where: {
-        AND: {
-          issuer_id: id,
-          published: true
-        }
+        issuer_id: id
       },
       include: {
         category: {

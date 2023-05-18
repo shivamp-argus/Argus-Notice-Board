@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Role, getRole } from '../app.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   constructor(
     private readonly router: Router,
+    private readonly route: ActivatedRoute,
     private readonly toastr: ToastrService
   ) { }
   role: Role = Role.EMPLOYEE
@@ -19,7 +20,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.role = getRole()
   }
-
+  isActive(routePath: string) {
+    return this.route.snapshot.routeConfig?.path === routePath
+  }
   logout() {
     sessionStorage.clear()
     this.router.navigate(['auth', 'login'])

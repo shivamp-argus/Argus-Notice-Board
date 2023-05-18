@@ -29,8 +29,6 @@ export class NoticesComponent implements OnInit {
 
   constructor(
     private readonly noticesService: NoticesService,
-    private readonly route: ActivatedRoute,
-    private readonly authService: AuthService,
     private readonly toastr: ToastrService
   ) { }
 
@@ -45,7 +43,6 @@ export class NoticesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllNotices()
-
   }
 
   getAllNotices() {

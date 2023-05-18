@@ -25,7 +25,6 @@ export class EmpNoticeComponent implements OnInit {
     private readonly employeesService: EmployeesService,
     private readonly noticesService: NoticesService,
     private readonly router: Router,
-    private readonly authService: AuthService,
     private readonly toastr: ToastrService
   ) { }
   teams: Team[] = []
@@ -39,8 +38,12 @@ export class EmpNoticeComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeesService.getAllTeams().subscribe(teams => this.teams = teams)
-    this.noticesService.getAllNoticesByHR().subscribe(notices => this.notices = notices)
     this.role = getRole()
+    if (this.role.toString() === 'SUPERADMIN') {
+      this.noticesService.getAllNoticesBySuperadmin().subscribe(notices => this.notices = notices.filter(notice => notice.published === true))
+    } else {
+      this.noticesService.getAllNoticesByHR().subscribe(notices => this.notices = notices)
+    }
   }
 
   createNoticeTeam() {
@@ -52,7 +55,7 @@ export class EmpNoticeComponent implements OnInit {
     if (!this.createNoticeTeamForm.valid) this.toastr.error('Enter Valid details', 'Invalid Details', { timeOut: 1500 })
     else {
       this.noticesService.createNoticeTeam(noticeTeam).subscribe(data => {
-        this.router.navigate(['/admin/teams'])
+        this.router.navigate(['admin', 'teams'])
         this.toastr.success(data, 'Notice Added', { timeOut: 1500 })
       }, error => {
         this.toastr.error(JSON.parse(error.error).message, JSON.parse(error.error).error, { timeOut: 1500 })

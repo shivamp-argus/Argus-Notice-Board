@@ -21,11 +21,7 @@
           <p class="blockquote border-bottom">
             {{ notice.Notice.notice_title }}
           </p>
-          <p
-            class="text-truncate"
-            [innerHTML]="notice.Notice.notice_body"
-            style="max-width: 100%"
-          ></p>
+          <p class="text-truncate" [innerHTML]="notice.Notice.notice_body"></p>
           <div class="d-flex justify-content-between">
             <span class="">
               Issued At: {{ notice.Notice.createdAt.toLocaleDateString() }}
@@ -39,15 +35,3 @@
     </div>
   </div>
 </div>
-<!-- <div class="main-container">
-
-  <gc-dataview
-    id="grid"
-    class="grid"
-    [data]="data"
-    [cols]="cols"
-    [layout]="layout"
-    [options]="options"
-    [groupingOptions]="groupingOptions"
-  ></gc-dataview>
-</div> -->

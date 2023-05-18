@@ -82,7 +82,7 @@ export class CreateNoticeComponent implements OnInit {
           this.router.navigate(['/admin/notices'])
           this.toastr.success('Notice created successfully', 'Notice Created', { timeOut: 1500 })
         }, error => {
-          this.toastr.error(JSON.parse(error.error).message, JSON.parse(error.error.error), { timeOut: 1500 })
+          this.toastr.error(JSON.parse(error.error).message, JSON.parse(error.error).error, { timeOut: 1500 })
         })
       }
     } catch (error: any) {
