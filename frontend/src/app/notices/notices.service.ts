@@ -12,7 +12,7 @@ import { EmpNotice } from '../employees-notice/employees-notice.component';
 export class NoticesService {
 
   constructor(private readonly http: HttpClient) { }
-  token = localStorage.getItem('token')
+  token = sessionStorage.getItem('token')
   httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${this.token}`,

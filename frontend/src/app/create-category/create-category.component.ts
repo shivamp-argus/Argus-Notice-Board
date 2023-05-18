@@ -56,7 +56,7 @@ export class CreateCategoryComponent implements OnInit {
         this.toastr.error('Please enter valid category', 'Category Required', { timeOut: 1500 })
       } else {
         this.noticesService.createCategory(this.createCategoryRequest).subscribe(data => {
-          this.router.navigate(['/admin/notices'])
+          this.router.navigate(['admin', 'notices'])
           this.toastr.success('Category created successfully', 'Category created', { timeOut: 1500 })
         },
           (error) => {

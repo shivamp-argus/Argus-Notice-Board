@@ -14,14 +14,14 @@ export class EmployeesService {
   constructor(private readonly http: HttpClient) {
     // console.log('Emp Service Init');
   }
-  token = localStorage.getItem('token')
+  token = sessionStorage.getItem('token')
   httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${this.token}`,
   })
 
   getToken() {
-    this.token = localStorage.getItem('token')
+    this.token = sessionStorage.getItem('token')
     this.httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token}`,

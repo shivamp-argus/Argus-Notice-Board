@@ -75,7 +75,7 @@ export class AuthComponent implements OnInit {
       else {
         this.authService.login(employee).subscribe(data => {
           this.setUser(data)
-          localStorage.setItem('token', this.user.token)
+          sessionStorage.setItem('token', this.user.token)
 
           if (data.employee.role.toUpperCase() === 'EMPLOYEE') {
             this.router.navigate(['/employees'])

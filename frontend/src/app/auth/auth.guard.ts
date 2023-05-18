@@ -25,26 +25,8 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    // this.authService.me().subscribe(data => {
-    //   const token = localStorage.getItem('token')
-    //   console.log(token);
-    //   // console.log(data );
 
-    //   this.role = data.role
-    //   this.expectedRole = route.data['expectedRole']
-
-    //   if (!this.expectedRole.includes(this.role.toUpperCase())) {
-    //     this.router.navigate([''])
-    //     return false
-    //   }
-    //   return true
-    // }, error => {
-    //   this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
-    //   this.router.navigate([''])
-    //   return false
-    // })
-    // return true;
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
     if (!token) {
       this.router.navigate([''])
       return false

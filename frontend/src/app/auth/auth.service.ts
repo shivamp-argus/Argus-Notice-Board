@@ -48,7 +48,7 @@ export class AuthService {
     return this.http.post<SignupResponse>('http://localhost:3000/auth/signup', data)
   }
   me() {
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
     return this.http.get<SignupResponse>('http://localhost:3000/employees/me', {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

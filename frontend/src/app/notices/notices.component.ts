@@ -39,7 +39,7 @@ export class NoticesComponent implements OnInit {
   notices: Notices[] = []
   filteredNotices: Notices[] = []
   selectedNoticeId: string = ''
-  role: string = ''
+  role = ''
   expectedRole: string[] = []
 
 

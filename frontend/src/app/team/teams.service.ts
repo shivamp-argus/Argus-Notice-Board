@@ -9,7 +9,7 @@ import { Team } from './emp-team/emp-team.component';
 export class TeamsService {
 
   constructor(private readonly http: HttpClient) { }
-  token = localStorage.getItem('token')
+  token = sessionStorage.getItem('token')
   httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${this.token}`
