@@ -107,10 +107,12 @@
           <tr>
             <th>Sr. No.</th>
             <th>Notice Id</th>
-            <th *ngIf="role === 'SUPERADMIN'">Issuer</th>
+            <th *ngIf="role.toString() === 'SUPERADMIN'">Issuer</th>
             <th>Category</th>
             <th>Status</th>
-            <th *ngIf="status === 'pending' && role === 'SUPERADMIN'">
+            <th
+              *ngIf="status === 'pending' && role.toString() === 'SUPERADMIN'"
+            >
               Change Status
             </th>
           </tr>
@@ -119,12 +121,12 @@
           <tr *ngFor="let notice of filteredNotices; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ notice.notice_title }}</td>
-            <td *ngIf="role === 'SUPERADMIN'">
+            <td *ngIf="role.toString() === 'SUPERADMIN'">
               {{ notice.Employee.emp_name }}
             </td>
             <td>{{ notice.category.category }}</td>
             <td>{{ notice.published === true ? "Published" : "Pending" }}</td>
-            <td *ngIf="!notice.published && role === 'SUPERADMIN'">
+            <td *ngIf="!notice.published && role.toString() === 'SUPERADMIN'">
               <button
                 class="btn"
                 data-bs-toggle="modal"

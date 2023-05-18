@@ -4,7 +4,7 @@ import { NoticesService } from '../notices/notices.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { getRole } from '../app.component';
+import { Role, getRole } from '../app.component';
 
 export type Categories = {
   category: string
@@ -36,7 +36,7 @@ export class CreateNoticeComponent implements OnInit {
   ) { }
 
   categories: Categories[] = []
-  role: string = ''
+  role: Role = Role.EMPLOYEE
   createNoticeRequest: CreateNoticeRequest = {
     notice_title: '',
     notice_body: '',

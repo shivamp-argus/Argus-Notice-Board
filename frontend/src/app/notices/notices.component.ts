@@ -3,7 +3,7 @@ import { NoticesService } from './notices.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { getRole } from '../app.component';
+import { Role, getRole } from '../app.component';
 
 export type Notices = {
   id: string
@@ -39,7 +39,7 @@ export class NoticesComponent implements OnInit {
   notices: Notices[] = []
   filteredNotices: Notices[] = []
   selectedNoticeId: string = ''
-  role = ''
+  role: Role = Role.EMPLOYEE
   expectedRole: string[] = []
 
 
@@ -50,7 +50,7 @@ export class NoticesComponent implements OnInit {
 
   getAllNotices() {
     this.role = getRole()
-    if (this.role === 'SUPERADMIN') {
+    if (this.role.toString() === "SUPERADMIN") {
       this.noticesService.getAllNoticesBySuperadmin().subscribe((data) => {
         this.notices = data
         this.changeStatus('published')

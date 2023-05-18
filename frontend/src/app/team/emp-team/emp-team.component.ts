@@ -2,7 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { getRole } from 'src/app/app.component';
+import { Role, getRole } from 'src/app/app.component';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Employees } from 'src/app/employees-list/employees-list.component';
 import { EmployeesService } from 'src/app/employees-list/employees.service';
@@ -27,13 +27,12 @@ export class EmpTeamComponent implements OnInit {
   constructor(
     private readonly employeesService: EmployeesService,
     private readonly router: Router,
-    private readonly authService: AuthService,
     private readonly toastr: ToastrService
   ) { }
 
   employees: Employees[] = []
   teams: Team[] = []
-  role: string = ''
+  role: Role = Role.EMPLOYEE
 
   createEmpTeamForm = new FormGroup({
     employee: new FormControl('', Validators.required),

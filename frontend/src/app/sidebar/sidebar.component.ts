@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { getRole } from '../app.component';
+import { Role, getRole } from '../app.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
   ) { }
 
   isValidRole: boolean = false
-  role: string = ''
+  role: Role = Role.EMPLOYEE
   isSuperadmin: boolean = false
 
   ngOnInit(): void {

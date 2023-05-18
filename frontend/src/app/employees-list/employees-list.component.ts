@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { getRole } from '../app.component';
+import { Role, getRole } from '../app.component';
 
 
 export type Employees = {
@@ -32,7 +32,7 @@ export class EmployeesListComponent implements OnInit {
   status: string = 'active'
   toggleStatus: string = 'deactivate'
   selectedEmployeeId: string = ''
-  role: string = ''
+  role: Role = Role.EMPLOYEE
 
 
   ngOnInit(): void {

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { getRole } from '../app.component';
+import { Role, getRole } from '../app.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,18 +11,18 @@ import { getRole } from '../app.component';
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    private readonly authService: AuthService,
+    private readonly router: Router,
     private readonly toastr: ToastrService
   ) { }
-  role: string = ''
+  role: Role = Role.EMPLOYEE
 
   ngOnInit(): void {
-    // this.authService.me().subscribe(
-    //   employee => this.role = employee.role.toUpperCase(),
-    //   error => this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
-
-    // )
     this.role = getRole()
   }
 
+  logout() {
+    sessionStorage.clear()
+    this.router.navigate(['auth', 'login'])
+    this.toastr.success('You are logged out successfully', 'Logout Successfull', { timeOut: 1500 })
+  }
 }

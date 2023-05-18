@@ -3,11 +3,11 @@
   <div class="row mainBar">
     <app-sidebar
       class="col-sm-3 col-md-2 p-0"
-      *ngIf="role !== 'EMPLOYEE'"
+      *ngIf="role.toString() !== 'EMPLOYEE'"
     ></app-sidebar>
     <div
       class="col-sm-3 col-md-10 p-0"
-      [ngClass]="{ 'col-md-12': role === 'EMPLOYEE' }"
+      [ngClass]="{ 'col-md-12': role.toString() === 'EMPLOYEE' }"
     >
       <router-outlet></router-outlet>
     </div>

@@ -7,7 +7,7 @@ import { NoticesService } from 'src/app/notices/notices.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { getRole } from 'src/app/app.component';
+import { Role, getRole } from 'src/app/app.component';
 
 export type NoticeTeamRequest = {
   team_id: string
@@ -30,7 +30,7 @@ export class EmpNoticeComponent implements OnInit {
   ) { }
   teams: Team[] = []
   notices: Notices[] = []
-  role: string = ''
+  role: Role = Role.EMPLOYEE
 
   createNoticeTeamForm = new FormGroup({
     team: new FormControl('', Validators.required),
@@ -40,7 +40,6 @@ export class EmpNoticeComponent implements OnInit {
   ngOnInit(): void {
     this.employeesService.getAllTeams().subscribe(teams => this.teams = teams)
     this.noticesService.getAllNoticesByHR().subscribe(notices => this.notices = notices)
-    // this.authService.me().subscribe(employee => this.role = employee.role)
     this.role = getRole()
   }
 

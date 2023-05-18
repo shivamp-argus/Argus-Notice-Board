@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { Categories } from '../create-notice/create-notice.component';
 import { ToastrService } from 'ngx-toastr';
-import { getRole } from '../app.component';
+import { Role, getRole } from '../app.component';
 
 export type createCategoryRequest = {
   category: string
@@ -29,7 +29,7 @@ export class CreateCategoryComponent implements OnInit {
   createCategoryRequest: createCategoryRequest = {
     category: ''
   }
-  role: string = ''
+  role: Role = Role.EMPLOYEE
 
   createCategoryForm = new FormGroup({
     category: new FormControl('', Validators.required)

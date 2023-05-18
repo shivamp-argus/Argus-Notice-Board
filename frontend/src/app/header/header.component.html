@@ -18,7 +18,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div
-        *ngIf="role === 'EMPLOYEE'; else admin"
+        *ngIf="role.toString() === 'EMPLOYEE'; else admin"
         class="d-lg-flex flex-grow-1 justify-content-between"
       >
         <div class="d-lg-flex">
@@ -37,11 +37,23 @@
             </div>
           </div>
         </div>
-        <div class="navbar-nav pe-5">
-          <div class="nav-item">
-            <a class="nav-link text-dark fs-4" routerLink="/employees/profile"
-              >Profile</a
-            >
+        <div class="d-lg-flex">
+          <div class="navbar-nav pe-5">
+            <div class="nav-item">
+              <a class="nav-link text-dark fs-4" routerLink="/employees/profile"
+                >Profile</a
+              >
+            </div>
+          </div>
+          <div class="navbar-nav">
+            <div class="nav-item">
+              <button
+                class="nav-link btn p-2 text-dark fs-4"
+                (click)="logout()"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -52,11 +64,20 @@
               <a class="nav-link text-dark fs-4" routerLink="/admin">Home</a>
             </div>
           </div>
-          <div class="navbar-nav mb-2 mb-lg-0 me-lg-5">
-            <div class="nav-item float-end">
-              <a class="nav-link text-dark fs-4" routerLink="/admin/profile"
-                >Profile</a
-              >
+          <div class="d-lg-flex">
+            <div class="navbar-nav mb-2 mb-lg-0 me-lg-5">
+              <div class="nav-item">
+                <a class="nav-link text-dark fs-4" routerLink="/admin/profile"
+                  >Profile</a
+                >
+              </div>
+            </div>
+            <div class="navbar-nav">
+              <div class="nav-item">
+                <button class="nav-link btn text-dark fs-4" (click)="logout()">
+                  Logout
+                </button>
+              </div>
             </div>
           </div>
         </div>

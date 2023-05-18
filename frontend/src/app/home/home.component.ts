@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeesService } from '../employees-list/employees.service';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { getRole } from '../app.component';
+import { Role, getRole } from '../app.component';
 
 @Component({
   selector: 'app-home',
@@ -15,14 +15,9 @@ export class HomeComponent implements OnInit {
     private readonly toastr: ToastrService
   ) { }
 
-  role: string = ''
+  role: Role = Role.EMPLOYEE
 
   ngOnInit(): void {
-    // this.authService.me().subscribe(employee => {
-    //   this.role = employee.role.toUpperCase()
-    // }, error => {
-    //   this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
-    // })
     this.role = getRole()
   }
 }
