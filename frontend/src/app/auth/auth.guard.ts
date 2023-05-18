@@ -3,12 +3,17 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { AppService } from '../app.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private readonly authService: AuthService, private readonly router: Router) { }
+  constructor(
+    private readonly authService: AuthService,
+    private readonly router: Router,
+    private readonly toastr: ToastrService
+  ) { }
   // expectedRoles = {
   //   'employees': ['HR', 'Emp']
 
@@ -20,19 +25,41 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    this.authService.me().subscribe(data => {
-      this.role = data.role
-      this.expectedRole = route.data['expectedRole']
+    // this.authService.me().subscribe(data => {
+    //   const token = localStorage.getItem('token')
+    //   console.log(token);
+    //   // console.log(data );
 
-      if (!this.expectedRole.includes(this.role.toUpperCase())) {
-        this.router.navigate([''])
-        return false
-      }
-      return true
-    })
+    //   this.role = data.role
+    //   this.expectedRole = route.data['expectedRole']
 
+    //   if (!this.expectedRole.includes(this.role.toUpperCase())) {
+    //     this.router.navigate([''])
+    //     return false
+    //   }
+    //   return true
+    // }, error => {
+    //   this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
+    //   this.router.navigate([''])
+    //   return false
+    // })
+    // return true;
+    const token = localStorage.getItem('token')
+    if (!token) {
+      this.router.navigate([''])
+      return false
+    }
 
-    return true;
+    const payload = JSON.parse(atob(token.split('.')[1]))
+    this.role = payload.role
+    this.expectedRole = route.data['expectedRole']
+
+    if (!this.expectedRole.includes(this.role.toUpperCase())) {
+      this.router.navigate([''])
+      return false
+    }
+    return true
+
   }
 
 }

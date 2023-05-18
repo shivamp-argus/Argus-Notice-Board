@@ -27,10 +27,9 @@ export class AuthService {
     const hashedPassword: string = await bcrypt.hash(password, 10)
 
     user = await this.prisma.employee.create({ data: { ...rest, emp_email, password: hashedPassword, role: Role.SUPERADMIN, isActive: true } })
-    return new AuthResponseDto({
-      employee: new EmployeeResponseDto(user),
-      token: this.generateAuthToken({ id: user.id })
-    })
+    return new EmployeeResponseDto(user)
+
+
 
   }
 
@@ -70,7 +69,7 @@ export class AuthService {
 
     return new AuthResponseDto({
       employee: new EmployeeResponseDto(employee),
-      token: this.generateAuthToken({ id: employee.id })
+      token: this.generateAuthToken({ id: employee.id, role: employee.role })
     })
 
 

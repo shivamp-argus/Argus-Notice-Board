@@ -4,6 +4,7 @@ import { NoticesService } from '../notices/notices.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { getRole } from '../app.component';
 
 export type Categories = {
   category: string
@@ -49,9 +50,22 @@ export class CreateNoticeComponent implements OnInit {
     category: new FormControl('', Validators.required)
   })
 
+  modules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ color: [] }, { background: [] }],
+      ['link'],
+      ['clean'],
+    ],
+  }
+
   ngOnInit(): void {
     this.getAllCategory()
-    this.authService.me().subscribe(employee => this.role = employee.role)
+    // this.authService.me().subscribe(employee => this.role = employee.role)
+    this.role = getRole()
 
   }
 
@@ -62,18 +76,19 @@ export class CreateNoticeComponent implements OnInit {
         notice_body: this.createNoticeForm.value.notice_body as string,
         category: this.createNoticeForm.value.category as string,
       }
-      if (!this.createNoticeForm.valid) {
-        this.toastr.error('Enter valid data', 'Invalid Form', { timeOut: 1500 })
-      } else {
+      if (!this.createNoticeForm.valid) this.toastr.error('Enter valid data', 'Invalid Form', { timeOut: 1500 })
+      else {
         this.noticesService.createNotice(this.createNoticeRequest).subscribe(data => {
           this.router.navigate(['/admin/notices'])
           this.toastr.success('Notice created successfully', 'Notice Created', { timeOut: 1500 })
+        }, error => {
+          this.toastr.error(JSON.parse(error.error).message, JSON.parse(error.error.error), { timeOut: 1500 })
         })
-
       }
-
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+
+      this.toastr.error(error?.message, error, { timeOut: 1500 })
 
     }
   }

@@ -2,6 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { getRole } from 'src/app/app.component';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Employees } from 'src/app/employees-list/employees-list.component';
 import { EmployeesService } from 'src/app/employees-list/employees.service';
@@ -46,7 +47,8 @@ export class EmpTeamComponent implements OnInit {
     this.employeesService.getAllTeams().subscribe(teams => {
       this.teams = teams
     })
-    this.authService.me().subscribe(employee => this.role = employee.role)
+    // this.authService.me().subscribe(employee => this.role = employee.role)
+    this.role = getRole()
   }
 
 

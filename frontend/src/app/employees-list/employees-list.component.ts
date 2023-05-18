@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { getRole } from '../app.component';
 
 
 export type Employees = {
@@ -23,7 +24,10 @@ export class EmployeesListComponent implements OnInit {
     private readonly employeesService: EmployeesService,
     private readonly authService: AuthService,
     private readonly toastr: ToastrService
-  ) { }
+  ) {
+    // console.log('hiii component init');
+
+  }
   employees: Employees[] = []
   status: string = 'active'
   toggleStatus: string = 'deactivate'
@@ -32,13 +36,23 @@ export class EmployeesListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.authService.me().subscribe(employee => this.role = employee.role)
+    // this.authService.me().subscribe(
+    //   employee => this.role = employee.role,
+    //   error => {
+    //     this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
+    //   }
+    // )
+    this.role = getRole()
     this.getAllEmployees()
   }
 
   getAllEmployees() {
     this.employeesService.getAllEmployees(this.status).subscribe(data => {
       this.employees = data
+    }, error => {
+      console.log(error);
+
+      this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
     }
     )
   }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { QuillModule } from 'ngx-quill'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,7 +25,7 @@ import { CreateTeamComponent } from './team/create-team/create-team.component';
 import { EmployeesNoticeComponent } from './employees-notice/employees-notice.component';
 import { EmployeesTeamComponent } from './employees-team/employees-team.component';
 import { ToastrModule } from 'ngx-toastr';
-import { NoopAnimationPlayer } from '@angular/animations';
+
 import { ErrorHandlerInterceptor } from './error/error-handler.interceptor';
 import { ViewNoticeComponent } from './view-notice/view-notice.component';
 
@@ -60,7 +60,8 @@ import { ViewNoticeComponent } from './view-notice/view-notice.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    QuillModule.forRoot()
 
 
   ],

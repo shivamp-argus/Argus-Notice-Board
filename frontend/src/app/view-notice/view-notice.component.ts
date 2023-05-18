@@ -4,6 +4,7 @@ import { NoticesService } from '../notices/notices.service';
 import { Notices } from '../notices/notices.component';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-view-notice',
@@ -16,7 +17,8 @@ export class ViewNoticeComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly noticeService: NoticesService,
     private readonly toastr: ToastrService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly sanitizer: DomSanitizer
   ) { }
 
   noticeTitle: string = ''
@@ -54,5 +56,8 @@ export class ViewNoticeComponent implements OnInit {
         this.router.navigate(['/employees/notices'])
       }
     )
+  }
+  parseStringToHtml(str: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(str)
   }
 }

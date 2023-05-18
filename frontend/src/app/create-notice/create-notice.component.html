@@ -32,13 +32,21 @@
 
     <div class="mb-3">
       <label for="body" class="form-label">Notice Body</label>
-      <textarea
+      <!-- <textarea
         class="form-control"
         id="body"
         rows="8"
         placeholder="Start writing your notice from here..."
         formControlName="notice_body"
-      ></textarea>
+      ></textarea> -->
+      <quill-editor
+        class="content-editor form-control"
+        placeholder="Start writing your notice from here..."
+        formControlName="notice_body"
+        [styles]="{ 'min-height': '200px' }"
+        [modules]="modules"
+      >
+      </quill-editor>
     </div>
     <button type="submit" class="btn statusBtn cursor-pointer">
       Create Notice

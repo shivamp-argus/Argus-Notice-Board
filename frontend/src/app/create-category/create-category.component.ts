@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { Categories } from '../create-notice/create-notice.component';
 import { ToastrService } from 'ngx-toastr';
+import { getRole } from '../app.component';
 
 export type createCategoryRequest = {
   category: string
@@ -35,7 +36,8 @@ export class CreateCategoryComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    this.authService.me().subscribe(employee => this.role = employee.role)
+    // this.authService.me().subscribe(employee => this.role = employee.role)
+    this.role = getRole()
     this.noticesService.getAllCategories().subscribe(data => {
       data.map(category => {
         this.categories.push({ category: category.category, createdBy: category.Employee.emp_name })

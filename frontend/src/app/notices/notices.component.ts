@@ -3,6 +3,7 @@ import { NoticesService } from './notices.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { getRole } from '../app.component';
 
 export type Notices = {
   id: string
@@ -48,32 +49,23 @@ export class NoticesComponent implements OnInit {
   }
 
   getAllNotices() {
-    // if (this.expectedRole.length === 0) {
-    //   this.route.data.subscribe((data: {expectedRole:string[]}) => {
-    //     console.log('expectedRole', data['expectedRole']);
-    //     this.role = data['expectedRole']
-    //     console.log('role', typeof this.role);
-
-    //     // data['expectedRole'].map((el: string) => this.expectedRole.push(el))
-    //   })
-    // }
-    // console.log(this.expectedRole);
-    this.authService.me().subscribe(employee => {
-      this.role = employee.role.toUpperCase()
-      if (this.role === 'SUPERADMIN') {
-        this.noticesService.getAllNoticesBySuperadmin().subscribe((data) => {
-          this.notices = data
-          this.changeStatus('published')
-        })
-      } else {
-        this.noticesService.getAllNoticesByHR().subscribe(data => {
-          this.notices = data
-          this.changeStatus('published')
-        })
-      }
-    })
+    this.role = getRole()
+    if (this.role === 'SUPERADMIN') {
+      this.noticesService.getAllNoticesBySuperadmin().subscribe((data) => {
+        this.notices = data
+        this.changeStatus('published')
+      }, error => {
+        this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
+      })
+    } else {
+      this.noticesService.getAllNoticesByHR().subscribe(data => {
+        this.notices = data
+        this.changeStatus('published')
+      }, error => {
+        this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
+      })
+    }
   }
-
   changeStatus(selectedStatus: string) {
     this.status = selectedStatus
     this.toggleStatus = selectedStatus === 'published' ? true : false

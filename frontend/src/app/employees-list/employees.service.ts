@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Employees } from './employees-list.component';
 import { EmpTeamRequest, Team } from '../team/emp-team/emp-team.component';
 import { AllTeamResponse } from '../team/teams-list/teams-list.component';
@@ -9,16 +9,29 @@ import { AllTeamResponse } from '../team/teams-list/teams-list.component';
   providedIn: 'root'
 })
 export class EmployeesService {
+  // token: string;
 
-  constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient) {
+    // console.log('Emp Service Init');
+  }
   token = localStorage.getItem('token')
   httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${this.token}`,
-
   })
 
+  getToken() {
+    this.token = localStorage.getItem('token')
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`,
+    })
+  }
+
+
   getAllEmployees(status: string) {
+    // this.getToken()
+    // console.log(this.token);
     return this.http.get<Employees[]>(`http://localhost:3000/employees/${status}`, {
       headers: this.httpHeaders
     })

@@ -11,7 +11,7 @@
       </div>
       <br />
       <div>
-        <p>{{ notice.notice_body }}</p>
+        <p [innerHTML]="parseStringToHtml(notice.notice_body)"></p>
         <!-- <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit
           dicta quis eos dolores odio magni veritatis ab commodi illum
@@ -90,7 +90,7 @@
     </div>
     <div class="card-footer">
       <span class="float-start">
-        Issued At: &nbsp; &nbsp;{{ notice.createdAt.getHours() }}:{{
+        Issued At: &nbsp; {{ notice.createdAt.getHours() }}:{{
           notice.createdAt.getMinutes()
         }}&nbsp;
         {{ notice.createdAt.toLocaleDateString() }}

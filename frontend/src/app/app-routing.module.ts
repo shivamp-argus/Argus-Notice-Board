@@ -28,8 +28,8 @@ const routes: Routes = [
     },
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'employees', component: EmployeesListComponent },
-      { path: 'notices', component: NoticesComponent },
+      { path: 'employees', component: EmployeesListComponent, canActivate: [AuthGuard], data: { expectedRole: ['HR', 'SUPERADMIN'] } },
+      { path: 'notices', component: NoticesComponent, canActivate: [AuthGuard], data: { expectedRole: ['HR', 'SUPERADMIN'] } },
       {
         path: 'teams', component: TeamComponent,
         children: [
@@ -59,9 +59,8 @@ const routes: Routes = [
           { path: '', component: EmployeesNoticeComponent, },
           { path: ':notice-title', component: ViewNoticeComponent }
         ]
-      },
-      { path: 'create-notice', component: CreateNoticeComponent },
-      { path: 'create-category', component: CreateCategoryComponent }
+      }
+
 
     ]
   },

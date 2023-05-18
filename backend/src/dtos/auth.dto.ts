@@ -28,6 +28,7 @@ export class AuthResponseDto {
 
 export type JWTPayload = {
     id: string
+    role: Role
 }
 
 export type LoginRequestDto = {
