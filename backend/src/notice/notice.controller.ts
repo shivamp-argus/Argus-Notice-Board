@@ -65,7 +65,7 @@ export class NoticeController {
     return this.noticeService.publishNotice(id)
   }
 
-  @Roles(Role.Employee, Role.HR, Role.SUPERADMIN)
+  @Roles(Role.EMPLOYEE, Role.HR, Role.SUPERADMIN)
   @Get('employee/view/:title')
   viewNoticeByEmployee(@Param('title') title: string, @User() user: JWTPayload) {
     if (!user) throw new HttpException('You are not authorized', 400)

@@ -14,7 +14,7 @@ export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) { }
 
 
-  @Roles(Role.SUPERADMIN, Role.HR, Role.Employee)
+  @Roles(Role.SUPERADMIN, Role.HR, Role.EMPLOYEE)
   @Get('/me')
   findOne(@User() user: JWTPayload) {
     if (!user) throw new UnauthorizedException('Not Authorized')
@@ -30,7 +30,7 @@ export class EmployeesController {
   }
 
 
-  @Roles(Role.Employee, Role.HR, Role.SUPERADMIN)
+  @Roles(Role.EMPLOYEE, Role.HR, Role.SUPERADMIN)
   @Patch('update')
   update(@Body() updateEmployeeDto: UpdateEmployeeDto, @User() user: JWTPayload) {
     if (!user) throw new UnauthorizedException('You are not authorised')

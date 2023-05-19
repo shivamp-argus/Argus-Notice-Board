@@ -23,7 +23,7 @@ export class EmpTeamController {
     getAllEmpTeam() {
         return this.empTeamService.getAllEmpTeam()
     }
-    @Roles(Role.Employee)
+    @Roles(Role.EMPLOYEE)
     @Get('my-teams')
     getAllByCurrentUser(@User() user: JWTPayload) {
         if (!user) throw new HttpException('You are not authorised', 400)

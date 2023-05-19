@@ -102,7 +102,7 @@
   <div class="card mt-3">
     <div class="card-body">
       <p class="fw-bolder">Notices List</p>
-      <table class="table table-bordered table-striped table-hover">
+      <!-- <table class="table table-bordered table-striped table-hover">
         <thead>
           <tr>
             <th>Sr. No.</th>
@@ -138,7 +138,64 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
+      <div class="card mt-4">
+        <p-table
+          [value]="filteredNotices"
+          [tableStyle]="{ 'min-width': '60rem' }"
+          [paginator]="true"
+          [rows]="10"
+          [showCurrentPageReport]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [rowsPerPageOptions]="[10, 25, 50]"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Sr. No.</th>
+              <th pSortableColumn="notice_title">
+                Title <p-sortIcon field="notice_title"></p-sortIcon>
+              </th>
+              <th
+                pSortableColumn="Employee.emp_name"
+                *ngIf="role.toString() === 'SUPERADMIN'"
+              >
+                Issuer<p-sortIcon field="Employee.emp_name"></p-sortIcon>
+              </th>
+              <th pSortableColumn="category.category">
+                Category <p-sortIcon field="category.category"></p-sortIcon>
+              </th>
+              <th>Status</th>
+              <th
+                *ngIf="status === 'pending' && role.toString() === 'SUPERADMIN'"
+              >
+                Change Status
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-notice let-i="rowIndex">
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td>{{ notice.notice_title }}</td>
+              <td *ngIf="role.toString() === 'SUPERADMIN'">
+                {{ notice.Employee.emp_name }}
+              </td>
+              <td>{{ notice.category.category }}</td>
+              <td>{{ notice.published === true ? "Published" : "Pending" }}</td>
+              <td *ngIf="!notice.published && role.toString() === 'SUPERADMIN'">
+                <button
+                  class="btn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  (click)="selectedNotice(notice.id)"
+                >
+                  <i class="bi bi-pencil-square"></i>
+                  <span> Change Status</span>
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
   </div>
 </div>

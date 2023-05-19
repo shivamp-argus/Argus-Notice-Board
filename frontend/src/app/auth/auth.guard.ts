@@ -29,6 +29,7 @@ export class AuthGuard implements CanActivate {
     const token = sessionStorage.getItem('token')
     if (!token) {
       this.router.navigate([''])
+      this.toastr.error('You are not authorised', 'Unauthorised Error', { timeOut: 1500 })
       return false
     }
 
@@ -38,6 +39,7 @@ export class AuthGuard implements CanActivate {
 
     if (!this.expectedRole.includes(this.role.toUpperCase())) {
       this.router.navigate([''])
+      this.toastr.error('You are not authorised', 'Unauthorised Error', { timeOut: 1500 })
       return false
     }
     return true

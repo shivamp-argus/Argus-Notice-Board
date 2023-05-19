@@ -25,7 +25,7 @@ import { CreateTeamComponent } from './team/create-team/create-team.component';
 import { EmployeesNoticeComponent } from './employees-notice/employees-notice.component';
 import { EmployeesTeamComponent } from './employees-team/employees-team.component';
 import { ToastrModule } from 'ngx-toastr';
-
+import { TableModule } from 'primeng/table'
 import { ErrorHandlerInterceptor } from './error/error-handler.interceptor';
 import { ViewNoticeComponent } from './view-notice/view-notice.component';
 
@@ -60,6 +60,7 @@ import { ViewNoticeComponent } from './view-notice/view-notice.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    TableModule,
     ToastrModule.forRoot(),
     QuillModule.forRoot()
 

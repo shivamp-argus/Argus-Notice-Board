@@ -40,9 +40,17 @@ export class EmpNoticeComponent implements OnInit {
     this.employeesService.getAllTeams().subscribe(teams => this.teams = teams)
     this.role = getRole()
     if (this.role.toString() === 'SUPERADMIN') {
-      this.noticesService.getAllNoticesBySuperadmin().subscribe(notices => this.notices = notices.filter(notice => notice.published === true))
+      this.noticesService.getAllNoticesBySuperadmin()
+        .subscribe(
+          notices => this.notices = notices.filter(notice => notice.published === true),
+          error => this.toastr.error('Notices cannot be fetched', 'Server Error', { timeOut: 1500 })
+        )
     } else {
-      this.noticesService.getAllNoticesByHR().subscribe(notices => this.notices = notices)
+      this.noticesService.getAllNoticesByHR()
+        .subscribe(
+          notices => this.notices = notices,
+          error => this.toastr.error('Notices cannot be fetched', 'Server Error', { timeOut: 1500 })
+        )
     }
   }
 

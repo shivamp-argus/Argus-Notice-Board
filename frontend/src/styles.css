@@ -5,6 +5,8 @@
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;600;700&display=swap');
   @import '~quill/dist/quill.core.css';
   @import '~quill/dist/quill.snow.css';
+  @import "primeng/resources/themes/lara-light-blue/theme.css";
+  @import "primeng/resources/primeng.css";
 body{
   font-family: 'Times New Roman', Times, serif;
   /* font-family: 'Poppins', sans-serif; */
