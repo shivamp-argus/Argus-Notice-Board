@@ -17,25 +17,42 @@
       Create Team
     </button>
   </form>
-  <div class="card mt-3">
+  <div class="card mt-3 mb-5">
     <div class="card-body">
       <p class="fw-bolder fs-4">Teams List</p>
-      <table class="table table-bordered table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Sr. No.</th>
-            <th>Team Name</th>
-            <th>Created By</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let team of teams; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ team.team_name }}</td>
-            <td>{{ team.Employee.emp_name }}</td>
-          </tr>
-        </tbody>
-      </table>
+
+      <div class="card mb-5">
+        <p-table
+          [value]="teams"
+          [tableStyle]="{ 'min-width': '60rem' }"
+          [paginator]="true"
+          [rows]="5"
+          [showCurrentPageReport]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [rowsPerPageOptions]="[5, 10, 25, 50]"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Sr. No.</th>
+              <th pSortableColumn="team_name">
+                Team <p-sortIcon field="team_name"></p-sortIcon>
+              </th>
+              <th pSortableColumn="Employee.emp_name">
+                Issuer<p-sortIcon field="Employee.emp_name"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-team let-i="rowIndex">
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td>{{ team.team_name }}</td>
+              <td>
+                {{ team.Employee.emp_name }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
   </div>
 </div>

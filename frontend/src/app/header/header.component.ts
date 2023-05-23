@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Role, getRole } from '../app.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -13,12 +13,14 @@ export class HeaderComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly route: ActivatedRoute,
-    private readonly toastr: ToastrService
+    private readonly toastr: ToastrService,
+    private readonly authService: AuthService
   ) { }
   role: Role = Role.EMPLOYEE
-
+  name: string = ''
   ngOnInit(): void {
     this.role = getRole()
+    this.authService.me().subscribe(data => this.name = data.user.emp_name)
   }
   isActive(routePath: string) {
     return this.route.snapshot.routeConfig?.path === routePath
