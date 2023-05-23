@@ -4,3 +4,13 @@
   border-radius: 0.25rem;
 
 }
+.dropdown-menu{
+  background-color: #903564;
+}
+.dropdown-item:hover{
+  background-color: #691e45;
+  color: black;
+}
+.dropdown-divider{
+  background-color: #fff;
+}

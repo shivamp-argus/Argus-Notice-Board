@@ -21,7 +21,7 @@
         *ngIf="role.toString() === 'EMPLOYEE'; else admin"
         class="d-lg-flex flex-grow-1 justify-content-between"
       >
-        <div class="d-lg-flex">
+        <div class="d-lg-flex align-items-center">
           <div class="navbar-nav">
             <div class="nav-item">
               <a class="nav-link text-dark fs-4" routerLink="/employees"
@@ -37,15 +37,50 @@
             </div>
           </div>
         </div>
-        <div class="d-lg-flex">
+        <div>
           <div class="navbar-nav pe-5">
-            <div class="nav-item">
-              <a class="nav-link text-dark fs-4" routerLink="/employees/profile"
+            <div class="nav-item dropdown me-5">
+              <!-- <a class="nav-link text-dark fs-4" routerLink="/employees/profile"
                 >Profile</a
+              > -->
+              <!-- <li class="nav-item  list-unstyled"> -->
+              <a
+                class="nav-link text-dark fs-1"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
+                <i class="bi bi-person-circle"></i>
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <li>
+                  <a
+                    class="dropdown-item text-light"
+                    routerLink="/employees/profile"
+                    >Profile</a
+                  >
+                </li>
+                <li class="dropdown-divider"></li>
+                <li>
+                  <a
+                    class="dropdown-item text-light"
+                    (click)="logout()"
+                    style="cursor: pointer"
+                    >Log Out</a
+                  >
+                </li>
+                <!-- <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li> -->
+              </ul>
+              <!-- </li> -->
             </div>
           </div>
-          <div class="navbar-nav">
+          <!-- <div class="navbar-nav">
             <div class="nav-item">
               <button
                 class="nav-link btn p-2 text-dark fs-4"
@@ -54,18 +89,53 @@
                 Logout
               </button>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <ng-template #admin>
-        <div class="d-flex flex-grow-1 justify-content-between">
+        <div
+          class="d-flex flex-grow-1 justify-content-between align-items-center"
+        >
           <div class="navbar-nav mb-2 mb-lg-0 ms-lg-5">
             <div class="nav-item">
               <a class="nav-link text-dark fs-4" routerLink="/admin">Home</a>
             </div>
           </div>
           <div class="d-lg-flex">
-            <div class="navbar-nav mb-2 mb-lg-0 me-lg-5">
+            <div class="nav-item dropdown me-5">
+              <a
+                class="nav-link text-dark fs-4"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-person-circle fs-1"></i>
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <li>
+                  <a
+                    class="dropdown-item text-light"
+                    routerLink="/admin/profile"
+                    >Profile</a
+                  >
+                </li>
+                <li class="dropdown-divider"></li>
+                <li>
+                  <a
+                    class="dropdown-item text-light"
+                    (click)="logout()"
+                    style="cursor: pointer"
+                    >Log Out</a
+                  >
+                </li>
+              </ul>
+              <!-- </li> -->
+            </div>
+            <!-- <div class="navbar-nav mb-2 mb-lg-0 me-lg-5">
               <div class="nav-item">
                 <a class="nav-link text-dark fs-4" routerLink="/admin/profile"
                   >Profile</a
@@ -78,7 +148,7 @@
                   Logout
                 </button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </ng-template>
