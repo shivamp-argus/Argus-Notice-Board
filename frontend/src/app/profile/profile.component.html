@@ -1,7 +1,9 @@
 <div class="card m-5 border-0">
   <h1 class="shadow p-3 mb-5 bg-body rounded">Employee Profile</h1>
   <div class="d-lg-flex justify-content-between">
-    <div class="col-md-6 card shadow p-3 mb-5 bg-body rounded personalDetails">
+    <div
+      class="col-md-6 card border-0 shadow-lg p-5 mb-5 bg-body rounded personalDetails"
+    >
       <div class="d-lg-flex justify-content-between mb-4">
         <p class="fs-4 fw-bold align-self-center m-0">Personal Details</p>
         <i
@@ -57,17 +59,47 @@
           />
         </div>
 
-        <button type="submit" class="btn statusBtn mt-4" *ngIf="allowEdit">
+        <button type="submit" class="btn statusBtn" *ngIf="allowEdit">
           Submit
         </button>
       </form>
     </div>
     <div class="col-md-5 card border-0">
-      <div class="col-md-5 card shadow p-3 mb-5 bg-body rounded widthCard">
-        Team List
+      <div
+        class="col-md-5 card border-0 shadow-lg p-5 mb-5 bg-body rounded widthCard"
+      >
+        <p class="fs-4 fw-bold">Teams List</p>
+        <p *ngIf="teams.length <= 0; else teamsList">
+          You are currently not part of any team
+        </p>
+        <ng-template #teamsList>
+          <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let team of teams; let i = index"
+            >
+              {{ i + 1 }}. {{ team }}
+            </li>
+          </ul>
+        </ng-template>
       </div>
-      <div class="col-md-5 card shadow p-3 mb-5 bg-body rounded widthCard">
-        Notice List
+      <div
+        class="col-md-5 card border-0 shadow-lg p-5 mb-5 bg-body rounded widthCard"
+      >
+        <p class="fs-4 fw-bold">Notices List</p>
+        <p *ngIf="notices.length <= 0; else noticesList">
+          No notices published
+        </p>
+        <ng-template #noticesList>
+          <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let notice of notices; let i = index"
+            >
+              {{ i + 1 }}. {{ notice }}
+            </li>
+          </ul>
+        </ng-template>
       </div>
     </div>
   </div>

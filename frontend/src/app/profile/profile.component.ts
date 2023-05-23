@@ -25,18 +25,23 @@ export class ProfileComponent implements OnInit {
     role: new FormControl(Role.EMPLOYEE, Validators.required),
     status: new FormControl('', Validators.required)
   })
+  teams: string[] = []
+  notices: string[] = []
 
   ngOnInit(): void {
     this.authService.me().subscribe(data => {
       this.personalDetailsForm.setValue({
-        emp_name: data.emp_name,
-        emp_email: data.emp_email,
-        role: data.role,
-        status: data.isActive === true ? 'Active' : 'Inactive'
+        emp_name: data.user.emp_name,
+        emp_email: data.user.emp_email,
+        role: data.user.role,
+        status: data.user.isActive === true ? 'Active' : 'Inactive'
       })
       if (!this.allowEdit) {
         this.personalDetailsForm.disable()
       }
+      data.user.Employee_Team.map(team => this.teams.push(team.Team.team_name))
+      data.notices.map(notice => this.notices.push(notice.notice_title))
+
 
     }, error => {
       this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
