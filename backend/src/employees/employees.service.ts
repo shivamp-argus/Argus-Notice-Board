@@ -1,9 +1,10 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 const bcrypt = require('bcrypt')
-import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos/employee.dto';
+import { CreateEmployeeDto, ProfileDto, UpdateEmployeeDto } from '../dtos/employee.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JWTPayload } from 'src/dtos/auth.dto';
 import { UnauthorizedException } from '@nestjs/common';
+import { log } from 'console';
 
 
 @Injectable()
@@ -25,15 +26,78 @@ export class EmployeesService {
   }
 
   async findOne(id: string) {
-    const user = await this.prisma.employee.findFirst({ where: { id }, include: { Employee_Team: true } });
-    if (!user) {
-      throw new NotFoundException("User not found")
-    }
-    return user
+    const user = await this.prisma.employee.findFirst(
+      {
+        where:
+        {
+          id
+        },
+        include:
+        {
+          Employee_Team: {
+            select: {
+              Team: {
+                select: {
+                  team_name: true,
+
+                }
+              },
+
+            }
+          }
+        }
+      });
+
+    if (!user) throw new NotFoundException("User not found")
+
+    const noticesList = await this.prisma.notice_Team.findMany({
+      where: {
+        Team: {
+          Employee_Team: {
+            some: {
+              emp_id: id
+            }
+          }
+        }
+      },
+      include: {
+        Notice: {
+          select: {
+            notice_title: true
+          }
+        }
+      },
+      distinct: ['notice_id']
+
+    })
+    if (!noticesList) throw new NotFoundException("Notices not found")
+
+    const teams = []
+    const notices = []
+
+    user.Employee_Team.map(team => teams.push(team))
+    noticesList.map(notice => notices.push({ notice_title: notice.Notice.notice_title }))
+
+    return new ProfileDto({
+      user: {
+        id: user.id,
+        emp_name: user.emp_name,
+        emp_email: user.emp_email,
+        isActive: user.isActive,
+        role: user.role,
+        Employee_Team: teams
+
+      },
+      notices: notices
+    })
+
+
   }
 
   async update(user: JWTPayload, updateEmployeeDto: UpdateEmployeeDto) {
-    const fetchedUser = await this.findOne(user.id)
+    const fetchedUser = await this.prisma.employee.findUnique({
+      where: { id: user.id }
+    })
     if (fetchedUser.id !== user.id) throw new UnauthorizedException('You are not authorised')
     return this.prisma.employee.update({ where: { id: user.id }, data: updateEmployeeDto });
   }

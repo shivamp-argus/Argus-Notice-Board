@@ -92,6 +92,35 @@ export class CreateEmpTeamDto {
     }
 
 }
+
+export class ProfileDto {
+    @Expose()
+    user: {
+        id: string
+        emp_name: string
+        emp_email: string
+        isActive: boolean
+        role: Role
+        Employee_Team: {
+            Team: {
+                team_name: string,
+            }
+        }[]
+    }
+
+    @Expose()
+    notices: {
+        notice_title: string
+    }[]
+
+
+    constructor(profile: ProfileDto) {
+        Object.assign(this, profile)
+    }
+
+
+}
+
 export type EmpTeamRequestDto = {
     emp_id: string
     team_id: string
