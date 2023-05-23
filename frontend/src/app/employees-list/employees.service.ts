@@ -1,37 +1,30 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Employees } from './employees-list.component';
 import { EmpTeamRequest, Team } from '../team/emp-team/emp-team.component';
 import { AllTeamResponse } from '../team/teams-list/teams-list.component';
+import { Role } from '../app.component';
 
+export interface UpdateEmployee {
+  emp_name: string
+  emp_email: string
+  role: Role
+  isActive: boolean
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeesService {
-  // token: string;
 
-  constructor(private readonly http: HttpClient) {
-    // console.log('Emp Service Init');
-  }
+  constructor(private readonly http: HttpClient) { }
   token = sessionStorage.getItem('token')
   httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${this.token}`,
   })
 
-  getToken() {
-    this.token = sessionStorage.getItem('token')
-    this.httpHeaders = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.token}`,
-    })
-  }
-
-
   getAllEmployees(status: string) {
-    // this.getToken()
-    // console.log(this.token);
     return this.http.get<Employees[]>(`http://localhost:3000/employees/${status}`, {
       headers: this.httpHeaders
     })
@@ -52,5 +45,8 @@ export class EmployeesService {
 
   getTeamAllData() {
     return this.http.get<AllTeamResponse[]>('http://localhost:3000/team', { headers: this.httpHeaders })
+  }
+  updateProfile(updateEmployee: UpdateEmployee) {
+    return this.http.patch<Employees>('http://localhost:3000/employees/update', updateEmployee, { headers: this.httpHeaders })
   }
 }

@@ -19,11 +19,6 @@ export class SidebarComponent implements OnInit {
   isSuperadmin: boolean = false
 
   ngOnInit(): void {
-    // this.authService.me().subscribe(employee => {
-    //   this.role = employee.role.toUpperCase()
-    // }, error => {
-    //   this.toastr.error(error.error.message, error.error.error, { timeOut: 1500 })
-    // })
     this.role = getRole()
   }
 }

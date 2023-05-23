@@ -46,7 +46,6 @@ export class EmpTeamComponent implements OnInit {
     this.employeesService.getAllTeams().subscribe(teams => {
       this.teams = teams
     })
-    // this.authService.me().subscribe(employee => this.role = employee.role)
     this.role = getRole()
   }
 

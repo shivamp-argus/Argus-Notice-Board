@@ -29,7 +29,9 @@ export class CreateEmployeeDto {
 
 }
 
-export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) { }
+export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) {
+    isActive?: boolean
+}
 
 export class EmployeeRequestDto {
     @IsNotEmpty()

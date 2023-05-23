@@ -64,7 +64,6 @@ export class CreateNoticeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCategory()
-    // this.authService.me().subscribe(employee => this.role = employee.role)
     this.role = getRole()
 
   }

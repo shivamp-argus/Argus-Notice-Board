@@ -11,7 +11,7 @@ export type Employees = {
   id: string,
   emp_email: string,
   emp_name: string,
-  role: string,
+  role: Role,
   isActive: boolean
 }
 @Component({

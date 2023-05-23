@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { Role } from '../app.component';
 
 
 export interface LoginResponse {
@@ -29,7 +30,7 @@ export interface SignupResponse {
   emp_name: string,
   emp_email: string,
   isActive: boolean,
-  role: string
+  role: Role
 }
 
 @Injectable({

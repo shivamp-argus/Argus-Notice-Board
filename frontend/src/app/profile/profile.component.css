@@ -2,3 +2,13 @@
   width: revert;
   min-height: 200px;
 }
+.form-control{
+  width: 80%;
+}
+.statusBtn{
+  background-color: #802f59;
+  color: white;
+}
+.personalDetails{
+  height: 400px;
+}

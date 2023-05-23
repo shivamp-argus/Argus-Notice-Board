@@ -36,11 +36,7 @@ export class EmployeesController {
     if (!user) throw new UnauthorizedException('You are not authorised')
     return this.employeesService.update(user, updateEmployeeDto);
   }
-  // @Roles(Role.HR)
-  // @Patch('/activate/:id')
-  // remove(@Param('id') id: string) {
-  //   return this.employeesService.remove(id);
-  // }
+
 
   @Roles(Role.HR, Role.SUPERADMIN)
   @Patch('/:action/:id')
