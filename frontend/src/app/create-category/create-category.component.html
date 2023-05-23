@@ -17,9 +17,10 @@
       Create Category
     </button>
   </form>
+
   <div class="card mt-3 mb-5">
     <div class="card-body">
-      <p class="fw-bolder">Categories List</p>
+      <p class="fw-bolder fs-4">Categories List</p>
 
       <div class="card mt-4 mb-5">
         <p-table
@@ -27,9 +28,10 @@
           [tableStyle]="{ 'min-width': '60rem' }"
           [paginator]="true"
           [rows]="5"
-          [rowsPerPageOptions]="[5, 10, 25, 50]"
           [showCurrentPageReport]="true"
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [rowsPerPageOptions]="[5, 10, 25, 50]"
+          #myTable
         >
           <ng-template pTemplate="header">
             <tr>
@@ -37,8 +39,8 @@
               <th pSortableColumn="category">
                 Category <p-sortIcon field="category"></p-sortIcon>
               </th>
-              <th pSortableColumn="createdBy">
-                Created By <p-sortIcon field="createdBy"></p-sortIcon>
+              <th pSortableColumn="Employee.emp_name">
+                Created By<p-sortIcon field="Employee.emp_name"></p-sortIcon>
               </th>
             </tr>
           </ng-template>
@@ -47,7 +49,7 @@
               <td>{{ i + 1 }}</td>
               <td>{{ category.category }}</td>
               <td>
-                {{ category.createdBy }}
+                {{ category.Employee.emp_name }}
               </td>
             </tr>
           </ng-template>

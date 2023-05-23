@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NoticesService } from '../notices/notices.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { Categories } from '../create-notice/create-notice.component';
+import { Categories, CategoriesResponse } from '../create-notice/create-notice.component';
 import { ToastrService } from 'ngx-toastr';
 import { Role, getRole } from '../app.component';
 
@@ -24,8 +24,9 @@ export class CreateCategoryComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly toastr: ToastrService
   ) { }
+
   error: string = ''
-  categories: Categories[] = []
+  categories: CategoriesResponse[] = []
   createCategoryRequest: createCategoryRequest = {
     category: ''
   }
@@ -36,12 +37,9 @@ export class CreateCategoryComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    // this.authService.me().subscribe(employee => this.role = employee.role)
     this.role = getRole()
     this.noticesService.getAllCategories().subscribe(data => {
-      data.map(category => {
-        this.categories.push({ category: category.category, createdBy: category.Employee.emp_name })
-      })
+      this.categories = data
 
     }
     )
