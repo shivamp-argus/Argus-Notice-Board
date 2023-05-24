@@ -27,9 +27,15 @@ const routes: Routes = [
       expectedRole: ['SUPERADMIN', 'HR']
     },
     children: [
-      { path: '', component: DashboardComponent },
+      // { path: '', component: DashboardComponent },
       { path: 'employees', component: EmployeesListComponent, canActivate: [AuthGuard], data: { expectedRole: ['HR', 'SUPERADMIN'] } },
-      { path: 'notices', component: NoticesComponent, canActivate: [AuthGuard], data: { expectedRole: ['HR', 'SUPERADMIN'] } },
+      {
+        path: 'notices',
+        children: [
+          { path: '', component: NoticesComponent, canActivate: [AuthGuard], data: { expectedRole: ['HR', 'SUPERADMIN'] } },
+          { path: ':notice-title', component: ViewNoticeComponent, data: { expectedRole: ['HR', 'SUPERADMIN'] } }
+        ]
+      },
       {
         path: 'teams', component: TeamComponent,
         children: [
@@ -50,7 +56,7 @@ const routes: Routes = [
       expectedRole: ['EMPLOYEE'],
     },
     children: [
-      { path: '', component: DashboardComponent },
+      // { path: '', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'teams', component: EmployeesTeamComponent },
       {

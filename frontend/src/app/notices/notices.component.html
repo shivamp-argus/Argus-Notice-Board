@@ -121,7 +121,10 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-notice let-i="rowIndex">
-            <tr>
+            <tr
+              routerLink="/admin/notices/{{ notice.notice_title }}"
+              style="cursor: pointer"
+            >
               <td>{{ i + 1 }}</td>
               <td>{{ notice.notice_title }}</td>
               <td *ngIf="role.toString() === 'SUPERADMIN'">

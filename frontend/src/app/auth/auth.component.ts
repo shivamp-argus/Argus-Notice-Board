@@ -82,7 +82,7 @@ export class AuthComponent implements OnInit {
             this.toast.success('Logged in successfully', 'Login Successfull', { timeOut: 1500 })
           }
           else {
-            this.router.navigate(['/admin'])
+            this.router.navigate(['/admin/employees'])
             this.toast.success('Logged in successfully', 'Login Successfull', { timeOut: 1500 })
           }
 

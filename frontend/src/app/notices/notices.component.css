@@ -13,3 +13,7 @@
   top:28%;
   left:36%;
 }
+.dropdown-item:active{
+  background-color: #802f59;
+  color: white;
+}

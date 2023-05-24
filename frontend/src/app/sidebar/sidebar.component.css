@@ -17,8 +17,9 @@ padding: 20px;
   font-size: 1.25rem;
   color: rgb(78, 75, 75);
 }
-.listItem:hover .listLink{
-  color: #802f59;
+.listItem:active .listLink{
+  color: white;
+
 }
 .listItem:hover {
   border-bottom: 1px solid rgb(197, 190, 190);
@@ -43,4 +44,8 @@ padding: 20px;
     height: auto;
   }
 }
-
+.listItem:active{
+  background-color: #802f59;
+  color: white;
+  border-radius: 5px;
+}
