@@ -17,11 +17,9 @@ export class EmployeesService {
     const isActive = status === 'active' ? true : false
     const users = await this.prisma.employee.findMany({ where: { isActive } });
     if (users.length <= 0) {
-      return "No users found"
+      return users
     }
     const newUsers = users.filter(user => user.role !== 'SUPERADMIN')
-    // console.log(newUsers);
-
     return newUsers
   }
 
