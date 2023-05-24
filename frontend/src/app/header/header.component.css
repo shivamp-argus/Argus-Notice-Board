@@ -9,7 +9,6 @@
 }
 .dropdown-item:hover{
   background-color: #691e45;
-  color: black;
 }
 .dropdown-divider{
   background-color: #fff;
@@ -23,4 +22,12 @@
 }
 .bi-person-circle{
   color: #802f59;
+}
+.text-align:active{
+  background-color: #802f59;
+  border-radius: 5px;
+}
+
+.text-align:active .nav-item .nav-link{
+  color: white;
 }
