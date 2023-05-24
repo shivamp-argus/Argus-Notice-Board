@@ -1,81 +1,105 @@
-<div class="containerOne">
-  <div class="screen">
-    <div class="screen__content">
-      <form
-        class="login"
-        [formGroup]="mode === 'login' ? loginForm : signupForm"
-        (ngSubmit)="mode === 'login' ? login() : signup()"
-        [ngClass]="{ signup: mode === 'signup' }"
-      >
-        <div class="login__field" *ngIf="mode === 'signup'">
-          <div class="login__adjust">
-            <i class="bi bi-person-fill login__icon"></i>
-            <input
-              type="text"
-              class="login__input"
-              placeholder=" Username"
-              formControlName="name"
-            />
-            <!-- <p *ngIf="">Enter Valid Username</p> -->
+<div class="row">
+  <div class="containerOne col-md-6">
+    <div class="screen">
+      <div class="screen__content">
+        <form
+          class="login"
+          [formGroup]="mode === 'login' ? loginForm : signupForm"
+          (ngSubmit)="mode === 'login' ? login() : signup()"
+          [ngClass]="{ signup: mode === 'signup' }"
+        >
+          <div class="login__field" *ngIf="mode === 'signup'">
+            <div class="login__adjust">
+              <i class="bi bi-person-fill login__icon"></i>
+              <input
+                type="text"
+                class="login__input"
+                placeholder=" Username"
+                formControlName="name"
+              />
+            </div>
           </div>
-        </div>
-        <div class="login__field">
-          <div class="login__adjust">
-            <i class="bi bi-person-fill login__icon"></i>
-            <input
-              type="text"
-              class="login__input"
-              placeholder=" Email"
-              formControlName="email"
-            />
-            <!-- <p>Enter Valid Email</p> -->
+          <div class="login__field">
+            <div class="login__adjust">
+              <i class="bi bi-person-fill login__icon"></i>
+              <input
+                type="text"
+                class="login__input"
+                placeholder=" Email"
+                formControlName="email"
+              />
+            </div>
           </div>
-        </div>
-        <div class="login__field">
-          <div class="login__adjust">
-            <i class="bi bi-key-fill login__icon"></i>
-            <input
-              type="password"
-              class="login__input"
-              placeholder="Password"
-              formControlName="password"
-            />
-            <!-- <p>Enter Valid Email</p> -->
+          <div class="login__field">
+            <div class="login__adjust">
+              <i class="bi bi-key-fill login__icon"></i>
+              <input
+                type="password"
+                class="login__input"
+                placeholder="Password"
+                formControlName="password"
+              />
+              <!-- <p>Enter Valid Email</p> -->
+            </div>
           </div>
-        </div>
-        <div class="login__field" *ngIf="mode === 'signup'">
-          <div class="login__adjust">
-            <i class="bi bi-person-fill login__icon"></i>
-            <select
-              type="text"
-              class="login__input"
-              placeholder=" Roles"
-              formControlName="role"
-            >
-              <option value="" selected>Select Role</option>
-              <option [value]="role" *ngFor="let role of Role">
-                {{ role }}
-              </option>
-            </select>
-            <!-- <p *ngIf="">Enter Valid Username</p> -->
+          <div class="login__field" *ngIf="mode === 'signup'">
+            <div class="login__adjust">
+              <i class="bi bi-person-fill login__icon"></i>
+              <select
+                type="text"
+                class="login__input"
+                placeholder=" Roles"
+                formControlName="role"
+              >
+                <option value="" selected>Select Role</option>
+                <option [value]="role" *ngFor="let role of Role">
+                  {{ role }}
+                </option>
+              </select>
+              <!-- <p *ngIf="">Enter Valid Username</p> -->
+            </div>
           </div>
-        </div>
-        <button class="button login__submit" type="submit">
-          <span class="button__text">{{ switchButtonText() }}</span>
-          <i class="button__icon fas fa-chevron-right"></i>
-        </button>
-      </form>
-      <p class="footerText">
-        Do not have account?
-        <a routerLink="/{{ switchLink() }}">{{ switchLinkText() }}</a>
-      </p>
-    </div>
+          <button class="button login__submit" type="submit">
+            <span class="button__text">{{ switchButtonText() }}</span>
+            <i class="button__icon fas fa-chevron-right"></i>
+          </button>
+        </form>
+        <p class="footerText">
+          Do not have account?
+          <a routerLink="/{{ switchLink() }}">{{ switchLinkText() }}</a>
+        </p>
+      </div>
 
-    <div class="screen__background">
-      <span class="screen__background__shape screen__background__shape4"></span>
-      <span class="screen__background__shape screen__background__shape3"></span>
-      <span class="screen__background__shape screen__background__shape2"></span>
-      <span class="screen__background__shape screen__background__shape1"></span>
+      <div class="screen__background">
+        <span
+          class="screen__background__shape screen__background__shape4"
+        ></span>
+        <span
+          class="screen__background__shape screen__background__shape3"
+        ></span>
+        <span
+          class="screen__background__shape screen__background__shape2"
+        ></span>
+        <span
+          class="screen__background__shape screen__background__shape1"
+        ></span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="col-md-6 dotted d-flex align-items-center justify-content-center border-start ps-5 pe-5"
+  >
+    <div class="card d-flex flex-column align-items-center dotted border-0">
+      <div class="rounded-5 justify-content-center fs-1 text-color">
+        <p class="fw-bold pb-3">Welcome to Argus Notice Board</p>
+        <div class="mt-5 d-flex justify-content-center">
+          <img
+            src="https://www.argusoft.com/images/logo.png"
+            alt="Argusoft"
+            class="logo"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </div>

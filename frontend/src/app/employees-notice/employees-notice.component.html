@@ -1,16 +1,21 @@
 <div class="container mt-4 mb-5">
   <p class="display-3 fw-bold">Notices List</p>
-  <div class="card mt-3" *ngFor="let data of empNotice; let i = index">
+  <div
+    class="card mb-4 bg-opacity-50"
+    *ngFor="let data of empNotice; let i = index"
+  >
     <div class="card-body">
       <p class="card-title d-flex justify-content-between">
-        <span class="display-6">{{ i + 1 }}. {{ data.team_name }}</span>
-        <span class="text-muted align-self-center">
+        <span class="display-6 text-light"
+          >{{ i + 1 }}. {{ data.team_name }}</span
+        >
+        <span class="text-light align-self-center">
           Created By - {{ data.Employee.emp_name }}</span
         >
       </p>
-      <h4 class="card-subtitle mt-2 ps-2 pe-2" style="min-height: 30px">
+      <!-- <h4 class="card-subtitle mt-2 ps-2 pe-2" style="min-height: 30px">
         <span class="float-start fw-bold">List of notices</span>
-      </h4>
+      </h4> -->
       <!-- <p class="card-text mt-2 fw-bold">List of notices</p> -->
       <ul class="list-group">
         <a

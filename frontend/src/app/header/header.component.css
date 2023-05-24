@@ -14,3 +14,13 @@
 .dropdown-divider{
   background-color: #fff;
 }
+.text-align{
+  text-align: left;
+
+}
+.container-fluid{
+  height: 60px;
+}
+.bi-person-circle{
+  color: #802f59;
+}

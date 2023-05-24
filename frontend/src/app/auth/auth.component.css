@@ -173,3 +173,16 @@ body {
 .footerText a{
   color: white;
 }
+
+.text-color{
+  color: #5C5696;
+}
+.dotted{
+  background: url('https://www.argusoft.com/images/full-width-bg-about.jpg');
+}
+.logo{
+  width: 200px;
+  /* position: absolute;
+  top: 250px; */
+
+}

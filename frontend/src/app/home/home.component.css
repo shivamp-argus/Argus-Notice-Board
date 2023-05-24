@@ -1,3 +1,12 @@
 .mainBar{
   min-height: 91.5vh ;
 }
+@media (min-width:992) and  (max-width:1043) {
+  /* .col-lg-10{
+    width: auto;
+  } */
+  .widthAdjust{
+    width: 400px !important;
+
+  }
+}

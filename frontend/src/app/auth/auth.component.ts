@@ -78,7 +78,7 @@ export class AuthComponent implements OnInit {
           sessionStorage.setItem('token', this.user.token)
 
           if (data.employee.role.toUpperCase() === 'EMPLOYEE') {
-            this.router.navigate(['/employees'])
+            this.router.navigate(['/employees/notices'])
             this.toast.success('Logged in successfully', 'Login Successfull', { timeOut: 1500 })
           }
           else {

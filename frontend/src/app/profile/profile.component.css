@@ -11,4 +11,10 @@
 }
 .personalDetails{
   height: 400px;
+
+}
+@media (max-width: 768px) {
+  .personalDetails {
+    height: 600px; /* Adjust the desired height value */
+  }
 }

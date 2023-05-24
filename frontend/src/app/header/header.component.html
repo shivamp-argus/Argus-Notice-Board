@@ -1,11 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
-  <div class="container-fluid">
-    <a class="navbar-brand ps-5" routerLink="/admin"
-      ><img
-        src="https://intranet.argusoft.com/ems/assets/images/logo.png"
-        alt="Argusoft"
-    /></a>
-    <button
+  <div class="container-fluid flex-grow-1">
+    <div class="d-flex">
+      <a
+        class="navbar-brand ps-5"
+        [routerLink]="
+          role.toLocaleString() === 'EMPLOYEE'
+            ? '/employees/notices'
+            : '/admin/employees'
+        "
+        ><img
+          src="https://intranet.argusoft.com/ems/assets/images/logo.png"
+          alt="Argusoft"
+      /></a>
+      <div
+        class="navbar text-align ms-md-5 ms-2"
+        *ngIf="role.toLocaleString() === 'EMPLOYEE'"
+      >
+        <div class="nav-item">
+          <a routerLink="notices" class="nav-link text-dark fs-4"> Notices </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- <button
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
@@ -15,35 +32,21 @@
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div
-        *ngIf="role.toString() === 'EMPLOYEE'; else admin"
-        class="d-lg-flex flex-grow-1 justify-content-between"
-      >
-        <div class="d-lg-flex align-items-center">
-          <div class="navbar-nav">
+    </button> -->
+    <div class="navbar me-5" id="navbarSupportedContent">
+      <div class="d-flex">
+        <div class="d-flex align-items-center justify-content-between">
+          <!-- <div class="navbar-nav">
             <div class="nav-item">
               <a class="nav-link text-dark fs-4" routerLink="/employees"
                 >Home</a
               >
             </div>
-          </div>
-          <div class="navbar-nav">
-            <div class="nav-item">
-              <a routerLink="notices" class="nav-link text-dark fs-4">
-                Notices
-              </a>
-            </div>
-          </div>
+          </div> -->
         </div>
-        <div>
-          <div class="navbar-nav pe-5">
-            <div class="nav-item dropdown me-5">
-              <!-- <a class="nav-link text-dark fs-4" routerLink="/employees/profile"
-                >Profile</a
-              > -->
-              <!-- <li class="nav-item  list-unstyled"> -->
+        <div class="">
+          <div class="navbar-nav">
+            <div class="nav-item dropdown">
               <a
                 class="nav-link text-dark fs-1"
                 id="navbarDropdownMenuLink"
@@ -60,7 +63,11 @@
                 <li>
                   <a
                     class="dropdown-item text-light"
-                    routerLink="/employees/profile"
+                    [routerLink]="
+                      role.toLocaleString() === 'EMPLOYEE'
+                        ? '/employees/profile'
+                        : '/admin/profile'
+                    "
                   >
                     <span class="blockquote">{{ name }}</span>
                     <br />
@@ -76,28 +83,14 @@
                     >Log Out</a
                   >
                 </li>
-                <!-- <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li> -->
               </ul>
-              <!-- </li> -->
             </div>
           </div>
-          <!-- <div class="navbar-nav">
-            <div class="nav-item">
-              <button
-                class="nav-link btn p-2 text-dark fs-4"
-                (click)="logout()"
-              >
-                Logout
-              </button>
-            </div>
-          </div> -->
         </div>
       </div>
-      <ng-template #admin>
+      <!-- <ng-template #admin>
         <div
-          class="d-flex flex-grow-1 justify-content-between align-items-center"
+          class="d-flex flex-grow-1 justify-content-end m-0 align-items-center"
         >
           <div class="navbar-nav mb-2 mb-lg-0 ms-lg-5">
             <div class="nav-item">
@@ -105,7 +98,7 @@
             </div>
           </div>
           <div class="d-lg-flex">
-            <div class="nav-item dropdown me-5">
+            <div class="nav-item dropdown">
               <a
                 class="nav-link text-dark fs-4"
                 id="navbarDropdownMenuLink"
@@ -139,25 +132,10 @@
                   >
                 </li>
               </ul>
-              <!-- </li> -->
             </div>
-            <!-- <div class="navbar-nav mb-2 mb-lg-0 me-lg-5">
-              <div class="nav-item">
-                <a class="nav-link text-dark fs-4" routerLink="/admin/profile"
-                  >Profile</a
-                >
-              </div>
-            </div>
-            <div class="navbar-nav">
-              <div class="nav-item">
-                <button class="nav-link btn text-dark fs-4" (click)="logout()">
-                  Logout
-                </button>
-              </div>
-            </div> -->
           </div>
         </div>
-      </ng-template>
+      </ng-template> -->
     </div>
   </div>
 </nav>

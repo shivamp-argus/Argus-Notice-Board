@@ -98,6 +98,7 @@ export class EmployeesService {
     const fetchedUser = await this.prisma.employee.findUnique({
       where: { id: user.id }
     })
+    if (!fetchedUser) throw new NotFoundException('Employee not found')
     if (fetchedUser.id !== user.id) throw new UnauthorizedException('You are not authorised')
     return this.prisma.employee.update({ where: { id: user.id }, data: updateEmployeeDto });
   }

@@ -5,12 +5,12 @@
 
 .listGroup{
   padding: 10px;
-  padding-left: 30px;
+  /* padding-left: 30px; */
   list-style: none;
 }
 
 .listItem{
-padding: 25px;
+padding: 20px;
 }
 .listLink{
   text-decoration: none;
@@ -22,5 +22,25 @@ padding: 25px;
 }
 .listItem:hover {
   border-bottom: 1px solid rgb(197, 190, 190);
+}
+
+
+
+@media (max-width: 768px) {
+  .displayNone {
+    /* height: 200px; */
+    display: none;
+  }
+  .listGroup{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0px;
+  }
+  .listItem{
+    padding: 0px 15px;
+  }
+  .main-menu{
+    height: auto;
+  }
 }
 
