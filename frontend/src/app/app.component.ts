@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 export enum Role {
   'SUPERADMIN',
@@ -16,6 +17,10 @@ export function getRole(): Role {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'frontend';
+  constructor(private readonly route: ActivatedRoute) { }
+  ngOnInit(): void {
+    console.log(this.route.snapshot.routeConfig);
+  }
 }

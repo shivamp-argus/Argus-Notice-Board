@@ -33,6 +33,7 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
 
+
     this.route.params.subscribe(params => {
       this.mode = params["mode"]
     })
@@ -82,7 +83,7 @@ export class AuthComponent implements OnInit {
             this.toast.success('Logged in successfully', 'Login Successfull', { timeOut: 1500 })
           }
           else {
-            this.router.navigate(['/admin/employees'])
+            this.router.navigate(['admin', 'employees'])
             this.toast.success('Logged in successfully', 'Login Successfull', { timeOut: 1500 })
           }
 

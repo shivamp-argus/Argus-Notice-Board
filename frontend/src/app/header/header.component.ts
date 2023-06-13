@@ -19,6 +19,8 @@ export class HeaderComponent implements OnInit {
   role: Role = Role.EMPLOYEE
   name: string = ''
   ngOnInit(): void {
+    console.log(this.route.snapshot.routeConfig?.path);
+
     this.role = getRole()
     this.authService.me().subscribe(data => this.name = data.user.emp_name)
   }
